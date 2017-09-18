@@ -8,148 +8,22 @@
 \renewcommand\baselinestretch{1.0}
 \pagestyle {plain}
 \pagenumbering{arabic}
-\newcounter{stepnum}
-\title{Assignment 1}
-\author{SFWR ENG 2AA4}
-\date{Files due Jan 26, E-mail partner due Jan 27, Lab report due Feb 2}
+\title{Problem Statement}
+\author{Team 8}
 \begin {document}
 %\renewcommand{\labelenumi}{\alph{enumi}.}
 \maketitle
-The purpose of this software design exercise is to write a Python program that
-creates, uses, and tests a simple Abstract Data Type (ADT) that stores data on a
-circle.  The Circle ADT will allow a program to create instances of the datatype
-{\tt CircleT}.  A circle ADT may be of interest in computer graphics or gaming
-applications.  The program will consist of two modules and a test driver
-program.
-All of your code should be documented using doxygen.  All of your reports should
-be written using LaTeX.
-\section *{Step \refstepcounter{stepnum} \thestepnum}
-Write a first module that creates a circle ADT.  It should consist of a Python code
-file named {\tt CircleADT.py}.  The module should define a class CircleT, which
-contains the following class methods that define the external interface:
-\begin{itemize}
-\item A constructor ({\tt CircleT}) that takes three real numbers $x$, $y$
-  and $r$ as input and assigns them to private instance variables.  The $x$ and
-  $y$ values define the centre of the circle and $r$ defines its radius.
-\item Three getters named {\tt xcoord}, {\tt ycoord} and {\tt radius} that
-  return the $x$ and $y$ coordinates of the centre of the circle and the radius
-  of the circle, respectively.
-\item A method named {\tt area} that returns the area of the circle.
-\item A method named {\tt circumference} that returns the circumference of the circle.
-\item A method named {\tt insideBox} that takes the following inputs: 
-  the $x$ coordinate of the left side of a box
-  ($x_0$), the $y$ coordinate of the top of a box ($y_0$), the width ($w$) of
-  the box and the height ($h$) of the box.  The box, the circle and the
-  associated coordinate system are shown in Figure~\ref{Fig_CircleBoxIntersect}.
-  This method should return true if the circle is inside the box and false if
-  it is not.
-\begin{figure}
-\begin{center}
-%\rotatebox{-90}
-{
- \includegraphics[width=0.6\textwidth]{CircleBoxIntersect.pdf}
-}
-\caption{\label{Fig_CircleBoxIntersect} Determination of whether a circle is
-  inside a box or not}
-\end{center}
-\end{figure}
-\item A method named {\tt intersect} that takes a second instance of {\tt
-    CircleT} $c$ as input and returns true if the circles intersect and false
-  otherwise.
-\item A method named {\tt scale} that takes a float $k$ as an argument 
-  and changes the radius such that it is scaled by $k$.
-\item A method named {\tt translate} that take two floats $dx$ and $dy$ as
-  arguments and translates the centre of the circle by $dx$ in the $x$ direction
-  and by $dy$ in the $y$ direction.
-\end{itemize}
-\section *{Step \refstepcounter{stepnum} \thestepnum}
-Write a second module that uses the first module to calculate various statistics
-for a list of circles.  It should consist of the Python file: {\tt
-  Statistics.py}.  Some of the routines in this module should be implemented
-using the numpy, which is located at {\tt http://www.numpy.org/}.  The new
-module should consist of the following functions:
-\begin{itemize}
-\item A function named {\tt average} that takes a list of instances of {\tt
-    CircleT} and returns the average radius of all of the circles in the list.
-  This function should be implemented using {\tt numpy}.
-\item A function named {\tt stdDev} that takes a list of instances of {\tt
-    CircleT} and returns the standard deviation of the radii of all of the
-  circles in the list.  This function should be implemented using {\tt numpy}.
-\item A function named {\tt rank} that takes a list of instances of {\tt
-    CircleT} and returns a listed ranked by radius.  A ranking list provides for each
-  element in the list the position it would hold if the list were sorted in
-  descending order of radius.  The maximum entry in the list will have a rank of 1.  For
-  instance, the rank of radii [6.0, 5.0, 11.0, 9.0] would be [3, 4, 1, 2].  You are
-  required to implement this function yourself, without using {\tt numpy}.  The
-  efficiency of your implementation is not relevant, only the correctness.  If
-  you need to make assumptions to implement your algorithm, please state your
-  assumptions as doxygen comments in the code.
-\end{itemize}
-\section *{Step \refstepcounter{stepnum} \thestepnum}
-Write a third module that tests the first and second modules together.  It
-should be a Python file named {\tt testCircles.py}.  Write a {\tt
-  Makefile} with a rule {\tt make test} that runs your {\tt testCircles} source
-with the Python interpreter.  Each procedure should have at least
-one test case.  Record your rationale for test case selection and the results of
-using this module to test the procedures in the other two modules.  The
-requirements for testing are deliberately vague; at this time, we are most
-interested in your ideas and intuition for how to build and execute your test
-suite.
-\section *{Step \refstepcounter{stepnum} \thestepnum}
-Add to your makefile a rule for {\tt make doc}.  This rule should compile your
-documentation into an html and LaTeX version.
-\section *{Step \refstepcounter{stepnum} \thestepnum}
-Submit the files {\tt CircleADT.py}, {\tt Statistics.py}, {\tt testCircles.py}
-and {\tt Makefile} using git?.  E-mail the {\tt CircleADT.py} to your assigned
-partner.  (Partner assignments will be posted.)  Your partner will
-likewise e-mail you his or her files.  This step must be completed no later than
-midnight of the deadline noted at the beginning of this assignment.
-\section *{Step \refstepcounter{stepnum} \thestepnum}
-After you have received your partner's files, replace your corresponding files
-with your partner's.  Do not make any modifications to any of the code.  Run
-your test module and record the results.  Your evaluation for this step does not
-depend on the quality of your partner's code, but only on your discussion of the
-testing results.
-\section *{Step \refstepcounter{stepnum} \thestepnum}
-Write a report (using LaTeX) that includes the following:
-\begin{enumerate}
-\item Your name and macid.
-\item Your {\tt CircleADT.py}, {\tt Statistics.py}, {\tt testCircles.py} and {\tt Makefile} files.
-\item Your partner's {\tt CircleADT.py} file.
-\item The results of testing your files.
-\item The results of testing your files combined with your partner's files.
-\item A discussion of the test results and what you learned doing the exercise.
-  List any problems you found with
-\begin{inparaenum} 
-\item your program,
-\item your partner's module, and
-\item the specification of the modules.
-\end{inparaenum}
-\item A discussion of how you handled the value of $\pi$ in your program and why
-  you made this choice.  Is $\pi$ explicitly expanded in your formulae, or do
-  you use a symbolic constant?  If you use a constant, what is its scope?
-\end{enumerate}
-Final submission over git? is due by midnight on the assigned due date.
-\subsubsection*{Notes}
-\begin{enumerate}
-\item Please organize your git repository with the following directories at the
-  top level: {\tt Assig1}, {\tt Assig2}, {\tt Assig3}, {\tt Assig4} and {\tt
-    Assig5}. You are required to create all of these folders for the submission
-  of Assignment 1.  The spelling and capitalization must be exactly as given
-  above. ??
-\item The files for this submission should be placed in the {\tt Assig1}
-  folder. ??
-\item Please put your name and macid at the top of each of your source
-  files.
-\item Your program must work in the ITB labs on moore when compiled using Python
-  2.7.  
-\item If your partner fails to provide you with a copy of his or her files by
-  the deadline, please tell the instructor via e-mail as soon as possible.
-\item If you do not send your files to your partner by the deadline, you will be
-  assessed a \textbf{10\% penalty} to your assignment grade.
-\item Any changes to the assignment specification will be announced in class.
-  It is your responsibility to be aware of these changes.
-\end{enumerate}
+
+\section {Description}
+
+\section {What problem are you tring to solve?}
+
+\section {Why is this an important problem?}
+
+\section {What is the context of the problem you are solving?}
+\subsection {Who are the stakeholders?}
+\subsubsection {What is the environment for the software?}
+
 \end {document}
 
 
