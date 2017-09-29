@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="Untitled Gantt Project" company="" webLink="http://" view-date="2017-09-24" view-index="0" gantt-divider-location="390" resource-divider-location="300" version="2.8.5" locale="en_CA">
+    <description/>
+    <view zooming-state="default:6" id="gantt-chart">
+        <field id="tpd3" name="Name" width="211" order="0"/>
+        <field id="tpd4" name="Begin date" width="87" order="1"/>
+        <field id="tpd5" name="End date" width="86" order="2"/>
+        <option id="color.recent"><![CDATA[#ff9999 #00ff33 #ff3333 #6666ff #ff99ff #66ff66]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Name" width="209" order="0"/>
+        <field id="1" name="Default role" width="85" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="false"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" name="Project Development Plan" color="#8cb6ce" meeting="false" start="2017-09-28" duration="1" complete="0" expand="true"/>
+        <task id="1" name="Requirement Document" color="#8cb6ce" meeting="false" project="true" start="2017-09-28" duration="8" complete="0" expand="true">
+            <task id="68" name="Functional requirements" color="#6666ff" meeting="false" start="2017-09-28" duration="5" complete="0" expand="true">
+                <depend id="73" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="71" name="User cases" color="#00ff33" meeting="false" start="2017-09-28" duration="5" complete="0" expand="true">
+                <depend id="73" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="69" name="Non-functional requirements" color="#ff9999" meeting="false" start="2017-09-28" duration="5" complete="0" expand="true">
+                <depend id="73" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="73" name="SRS Rev0" color="#8cb6ce" meeting="false" start="2017-10-05" duration="3" complete="0" expand="true">
+                <notes><![CDATA[Puting functional requirements, user cases, and non-functional requirement together as a team. Add other parts if need.]]></notes>
+            </task>
+        </task>
+        <task id="6" name="Proof of Concept" color="#8cb6ce" meeting="false" project="true" start="2017-09-29" duration="15" complete="0" expand="true">
+            <depend id="24" type="2" difference="0" hardness="Strong"/>
+            <task id="28" name="Game layout" color="#ff9999" meeting="false" start="2017-09-29" duration="7" complete="0" expand="true">
+                <notes><![CDATA[This task is assigned to Zhi.
+
+This task is basically about generating the map (or path) of the game. Including the path of enermy and where to put the attacking unit.]]></notes>
+            </task>
+            <task id="22" name="Attacking unit" color="#6666ff" meeting="false" start="2017-09-29" duration="7" complete="0" expand="true">
+                <notes><![CDATA[This task is assigned to Toni.
+
+This is about creating enermies and their attributes like enermy moving speed and defensive level.]]></notes>
+            </task>
+            <task id="42" name="Defending unit" color="#66ff66" meeting="false" start="2017-09-29" duration="7" complete="0" expand="true">
+                <notes><![CDATA[This task is assigned to Stanley.
+
+This is about creating the defending unit and their attributes like bullet and elemental power of dragons.
+]]></notes>
+            </task>
+            <task id="47" name="Game Formation" color="#8cb6ce" meeting="false" start="2017-10-06" duration="10" complete="0" expand="true">
+                <notes><![CDATA[This is when every member put their pieces together into a working game demo.]]></notes>
+            </task>
+        </task>
+        <task id="24" name="Test Plan" color="#8cb6ce" meeting="false" start="2017-10-20" duration="10" complete="0" expand="true"/>
+    </tasks>
+    <resources>
+        <resource id="0" name="Stanley" function="Default:0" contacts="" phone=""/>
+        <resource id="1" name="Toni" function="Default:0" contacts="" phone=""/>
+        <resource id="2" name="Zhi" function="Default:0" contacts="" phone=""/>
+    </resources>
+    <allocations>
+        <allocation task-id="42" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="47" resource-id="0" function="Default:0" responsible="true" load="33.3"/>
+        <allocation task-id="71" resource-id="0" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="73" resource-id="0" function="Default:0" responsible="true" load="33.3"/>
+        <allocation task-id="22" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="47" resource-id="1" function="Default:0" responsible="true" load="33.3"/>
+        <allocation task-id="68" resource-id="1" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="73" resource-id="1" function="Default:0" responsible="false" load="33.3"/>
+        <allocation task-id="28" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="47" resource-id="2" function="Default:0" responsible="true" load="33.3"/>
+        <allocation task-id="69" resource-id="2" function="Default:0" responsible="true" load="100.0"/>
+        <allocation task-id="73" resource-id="2" function="Default:0" responsible="false" load="33.3"/>
+    </allocations>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+</project>
