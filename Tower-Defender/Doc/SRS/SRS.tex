@@ -68,14 +68,14 @@ Functional requirements are those requirements that provide the fundamental reas
 
 \subsection{System Features}
 \begin{itemize}
-    \item The game shall provide mouse click function for players to play the game.
-    \item The game shall start with providing three types of dragon (fire, water, and poison) and sufficient resource (money) for users to put at least one dragon on the map to defend the first wave of enemy.
-    \item The dragons shall have type attributes and each attacking form should have a specific effect on enemy.
-    \item The users should earn resources after killing each enemy. The resource amount earned is based on the wave.
-    \item When users earn enough resources, they have either use them to upgrade dragons or buy new dragons.
-    \item The game shall have enemy waves that increase in movement speed and defense after each wave.
-    \item If all the lives of our home base are taken by enemies, the game shall display the “game over” message.
-    \item The game shall enable the start and pause button for the ease of users to set up dragons in between waves.
+    \item The game shall provide mouse click function for players to play the game. % not a requirement, what do clicks DO
+    \item The game shall start with providing three types of dragon (fire, water, and poison) and sufficient resource (money) for users to put at least one dragon on the map to defend the first wave of enemy. % utilize symbolic parameters
+    \item The dragons shall have type attributes and each attacking form should have a specific effect on enemy. % what are the effects, damage level of attack?
+    \item The users should earn resources after killing each enemy. The resource amount earned is based on the wave. % how to determine resources gained? formula?
+    \item When users earn enough resources, they have either use them to upgrade dragons or buy new dragons. % use case, not a requirement
+    \item The game shall have enemy waves that increase in movement speed and defense after each wave. % what does increase in defense mean?! More health, less health per attach by player?!
+    \item If all the lives of our home base are taken by enemies, the game shall display the “game over” message. % do not use 'our', you are not a player
+    \item The game shall enable the start and pause button for the ease of users to set up dragons in between waves. % split these req's into description and rationale
 \end{itemize}
 
 \newpage
@@ -113,55 +113,55 @@ Functional requirements are those requirements that provide the fundamental reas
 \section{Non-Functional Requirements}
 \subsection{Look and Feel Requirements}
 \subsubsection{Appearance Requirements}
-The layout of the game will induce the feel of Middle Earth. The background may vary between stages and all will revolve around the theme. The dragons will be different in colors according to their types. The program will be sized to fit properly with the size of the window.
+The layout of the game will induce the feel of Middle Earth. The background may vary between stages and all will revolve around the theme. The dragons will be different in colors according to their types. The program will be sized to fit properly with the size of the window. % not too bad, make sure to include fit criteria
 \subsubsection{Style Requirement}
 The game should bring an adventurous and mystical feel to the user. The gameplay will provide the user with a more intense feeling of concentration rather than laid back.
 
 \subsection{Usability and Humanity Requirements}
 \subsubsection{Ease of Use Requirements}
-The game will be easily picked up by players of all ages.
+The game will be easily picked up by players of all ages. % even 6 months old?
 \subsubsection{Personalisation and internationalisation requirements}
-Not applicable
+Not applicable $% change into a sentence
 \subsubsection{Accessibility Requirements}
-The game will be compatible with most operating systems.
+The game will be compatible with most operating systems. % which ones, be SPECIFIC
 
 \subsection{Performance Requirements}
 \subsubsection{Speed and latency requirements}
-The game will be highly responsive, responding to the user input immediately.
+The game will be highly responsive, responding to the user input immediately. % how fast is immediately?
 \subsubsection{Safety-Critical Requirements}
-The game will not compromise the user device.
+The game will not compromise the user device. % compromise in what way?
 \subsubsection{Reliability and Availability Requirements}
-The game will be available for use anywhere and anytime. It does not need internet connection and will be able to run smoothly as long as the user’s device system is not heavily loaded.
+The game will be available for use anywhere and anytime. It does not need internet connection and will be able to run smoothly as long as the user’s device system is not heavily loaded. % express in terms of percent uptime, however 100% is nearly impossible
 \subsubsection{Scalability or Extensibility Requirements}
-The code will allow for scalability and extensibility.
+The code will allow for scalability and extensibility. % how, and when is this satisfied?
 
 \subsection{Operational and Environmental Requirements}
 \subsubsection{Expected Physical Environment}
 The game will be available for use anywhere and anytime. It does not need internet connection and will be able to run smoothly as long as the user’s device system is not heavily loaded.
 \subsubsection{Requirements for Interfacing with Adjacent Systems}
-Not applicable.
+Not applicable.% change into a sentence
 \subsubsection{Release Requirements}
-The game will be updated yearly, according to the feedback, the changing taste and the preferences of the users.
+The game will be updated yearly.
 
 \subsection{Maintainability and Support Requirements}
 \subsubsection{ Maintenance Requirements}
-The team will make sure that the game will have minimum maintenance needs.
+The team will make sure that the game will have minimum maintenance needs. % not a requirement
 \subsubsection{Supportability Requirements}
-As the game is compatible with most operating systems, most people with a running PC or laptop should be capable of running the game on their machines.
+As the game is compatible with most operating systems, most people with a running PC or laptop should be capable of running the game on their machines. % give me some minimum requirements!!!!
 \subsubsection{Adaptability Requirements}
-The game shall be universally accessible by users.
+The game shall be universally accessible by users. % universally...? all languages?
 
 \subsection{Security Requirements}
 \subsubsection{Access Requirements}
-The game will be accessible to those who are willing to play and have access to the necessary infrastructure. 
+The game will be accessible to those who are willing to play and have access to the necessary infrastructure. % what infra!!!
 \subsubsection{Integrity Requirements}
 The game will not alter its own source code and will not accept invalid user input.
 \subsubsection{Privacy Requirements}
-The game will not be able to access data outside of the game and hence will not infringe user’s privacy.
+The game will not be able to access data outside of the game and hence will not infringe user’s privacy. % think more in terms of keeping user details private
 \subsubsection{Audit Requirements}
-Not applicable.
+Not applicable.% change into a sentence
 \subsubsection{Immunity Requirements}
-Not applicable.
+Not applicable.% change into a sentence
 
 \subsection{Cultural Requirements}
 The game will be available only in English. The game will not be offensive in any ways to any religious or ethnic groups.
