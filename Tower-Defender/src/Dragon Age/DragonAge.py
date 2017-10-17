@@ -11,16 +11,17 @@ def init(data):
     pygame.display.set_caption("Dragon Age")
     data.size = width, height = 800, 620
     data.screen = pygame.display.set_mode(data.size)
-    #set all mode
+    #set all initial data
     listInit(data)
     databaseInit(data)
     modeInit(data)
     playerInit(data)
     enemyInit(data)
 
+#set dragon data from database.py
 def databaseInit(data):
     data.database = setDragonData()
-    data.dragonSize = 25
+    data.dragonSize = 30
     createPath(data)
     data.boardBounds = 0, 700, 0, 520
     
@@ -45,11 +46,17 @@ def enemyInit(data):
     setWave(data)
 
 def listInit(data):
+    #3 types of dragons for my party when starting the game
+    data.party = []
+    #dragons to be appended to enemies
     data.waveEnemies = []
+    #enemy dragons for current wave
     data.enemies = []
 
 def createPath(data):
-    corners = [(50,50),(100,50),(100,520)]
+    corners = [(0,80),(185,80),(185,165),(293,165),(293,80),(420,80),
+               (420,265),(300,265),(300,450),(420,450),(420,365),
+               (535,365),(535,450),(700,450)]
     data.checkPoints = []
     #adds all x, y positions into new list
     for i in range(1, len(corners)):
@@ -89,6 +96,8 @@ class Dragon(object):
         self.element = tup[1]
         self.baseAttack = tup[2]
         self.baseHp = tup[3]
+        self.upgrade = tup[4]
+        self.attackGrowth = 10
         self.bounds = None
         self.button = None
         self.setSize()
@@ -97,6 +106,44 @@ class Dragon(object):
 
     def setSize(self):
         self.size = data.dragonSize
+
+class myParty(Dragon):
+    def __init__(self,dragon,data,level=1,x=None,y=None):
+        #super
+        Dragon.__init__(self,dragon,data)
+        self.x = x
+        self.y = y
+        self.setRange()
+        #when to shoot next bullet
+        self.maxCounter = 8
+        self.counter = self.maxCounter
+        self.target = None
+        self.bullets = []
+        self.onBoard = False
+        self.radius = False
+        self.level = level
+        self.numOfUpgrade = 0
+        self.attack = self.baseAttack + self.attakGrowth
+
+    def setRange(self):
+        if self.upgrade == 0:
+            self.range = 50
+        if self.upgrade == 1:
+            self.range = 80
+        if self.upgrade == 2:
+            self.range = 120
+
+    #using the right triangle theory to calculate if the enemy is in range
+    def isInRangeEquation(self,x,y):
+        return (x-self.x)**2 + (y-self.y)**2 < self.range**2
+
+    def isInRange(self,bounds):
+        x0,x1,y0,y1 = bounds
+        if (self.isInRangeEquation(x0,y0) or self.isInRangeEquation(x0,y1) or
+            self.isInRangeEquation(x1,y0) or self.isInRangeEquation(x1,y1)):
+            return True
+        else:
+            return False
 
 class Enemy(Dragon):
     def __init__(self, dragon, data, x=-1, y=-1):
