@@ -135,6 +135,7 @@ class myParty(Dragon):
         self.radius = False
         self.level = level
         self.numOfUpgrade = 0
+        self.attack = self.baseAttack
 
     def setRange(self):
         if self.upgrade == 0:
@@ -196,7 +197,118 @@ class Enemy(Dragon):
     def drawEnemy(self,canvas):
         data.screen.blit(self.img, (self.x - self.size, self.y - self.size))
 
+
+class Bullet(object):
+    def __init__(self,x,y,target,element):
+        self.targetX,self.targetY=target
+        self.x = x
+        self.y = y
+        self.bounds = x-5,y-5,x+5,y+5
+        self.remove = False#if hits something
+        self.getDirection()
+        self.speed = 5#speed of bullet
+        self.setImage(element)
+
+    def setImage(self,element):#bullet img set based on element of pokemon
+        self.img = pygame.image.load("%s.png" % element)
+
+    def getDirection(self):
+    #find direction of bullet in radians with given target
+        dx = self.targetX-self.x
+        dy = self.targetY-self.y
+        rads = math.atan2(dy,dx)
+        rads %= 2*math.pi
+        self.dir = rads# in radians
+
+    def shotEnemy(self,enemy):
+        #whether the bullet intersects with an enemy bound
+        (ax0, ay0, ax1, ay1) = self.bounds
+        (bx0, by0, bx1, by1) = enemy.bounds
+        return ((ax1 > bx0) and (bx1 > ax0) and (ay1 > by0) and (by1 > ay0))
+
+    def moveBullet(self):
+        #move bullet according to direction
+        self.x += int(round(math.cos(self.dir)*self.speed))
+        self.y += int(round(math.sin(self.dir)*self.speed))
+        self.bounds = self.x-5,self.y-5,self.x+5,self.y+5
+
+    def drawBullet(self,canvas):#draws bullet on canvas
+        canvas.blit(self.img,(self.x,self.y))
 #-------------------------TimerFired functions----------------------------
+
+def moveAllBullets(data):#moves all bullets toward set direction
+    for tower in data.party:
+        for bullet in tower.bullets:
+            bullet.moveBullet()
+            width,height = data.size
+            #if goes out of bounds, remove bullets
+            x0,x1,y0,y1 =data.boardBounds
+            if (bullet.x>x1 or bullet.x<0 or bullet.y>y1 
+                or bullet.y<0):
+                bullet.remove = True
+            
+def removeBullets(data):
+    #check whether bullets are removed for every frame and replace bullet list
+    for tower in data.party:
+        if tower.onBoard and tower.bullets!=[]:
+            temp = []
+            for bullet in tower.bullets:
+                if bullet.remove == False:
+                    temp.append(bullet)
+            tower.bullets = temp
+
+def setTarget(data):
+    #sets target for each tower 
+    if data.enemies!= []:
+        for tower in data.party:
+            if tower.onBoard:
+                enemyPoke = tower.target
+                #set target, either when doesnt exist or changing targets
+                if (tower.target==None or not tower.isInRange((enemyPoke.x,
+                    enemyPoke.y,enemyPoke.x+10,enemyPoke.y+10))or
+                    tower.target.exit):
+                    for enemy in data.enemies:#loops through all enemeis
+                        if enemy.exit == False:#make sure enemy hasn't died yet
+                            bounds = enemy.x,enemy.y,enemy.x+10,enemy.y+10
+                            if tower.isInRange(bounds):
+                                #sets first enemy found as target and breaks
+                                tower.target = enemy
+                                break
+                #sets target as None if target goes out of range or target dies
+                if tower.target != None and (tower.target.exit or not 
+                    tower.isInRange((tower.target.x,tower.target.y,
+                    tower.target.x+10,tower.target.y+10))):
+                    tower.target = None
+
+def shootEnemies(data):#check whether each bullet has shot an enemy
+    for tower in data.party:
+        if tower.onBoard and tower.bullets!=[]:
+            for bullet in tower.bullets:
+                for enemy in data.enemies:
+                    if enemy.exit == False:
+                        if bullet.shotEnemy(enemy):
+                            enemy.hp-=setDamage(data,tower.attack,
+                                tower.element,enemy.element)
+                            bullet.remove =True
+                        if enemy.hp<=0:#kills an enemy, gains exp and money
+                            enemy.exit = True
+                            data.coins+=555
+
+#set damage of bullet according to stats of pokemon as well as type of bullet
+def setDamage(data,attack,attackType,enemyType):
+    return attack
+
+def setBullets(data):#set bullets for towers if tower has a target 
+    if data.enemies!= []:
+        for tower in data.party:
+            if tower.onBoard and tower.target!= None:
+                if tower.counter>= tower.maxCounter:
+                    target = tower.target.x,tower.target.y
+                    tower.bullets.append(Bullet(tower.x,tower.y,
+                        target,tower.element))
+                    tower.counter =0#counter for time between new bullet
+                else:   tower.counter+=1
+
 
 def setWave(data):
     if data.wave%2 == 0:
@@ -229,6 +341,11 @@ def timerFired(data):
     elif data.intro == True:
         hover(data)
         moveAllEnemies(data)
+        setTarget(data)
+        setBullets(data)
+        moveAllBullets(data)
+        shootEnemies(data)
+        removeBullets(data)
         
 #--------------------------Draw-------------------------------------------
 def drawIntro():
@@ -260,7 +377,7 @@ def drawTowers(data):#draw all towers on board
 
 def drawParty():
     startY =60
-    startX = 650
+    startX = 690
     width = 100
     height = 25
     font = pygame.font.Font("pokemon_pixel_font.ttf",20)
@@ -274,12 +391,19 @@ def drawParty():
         data.screen.blit(name,(startX+5,startY+5))
         startY+=25
 
+def drawAllBullets(data):#draws all bullets on board
+    for tower in data.party:
+        if tower.onBoard and tower.bullets!=[]:
+            for bullet in tower.bullets:
+                bullet.drawBullet(data.screen)
+
 
 def drawAll(data):
     drawEnemies(data)
     drawPlay(data)
     drawTowers(data)
     drawParty()
+    drawAllBullets(data)
 
 
     
