@@ -159,6 +159,9 @@ class myParty(Dragon):
     def drawTower(self,canvas):#draw dragon once set on board
         data.screen.blit(self.img,(self.x-self.size,self.y-self.size))
 
+    def drawRadius(self,canvas):#draws radius sof pokemon
+        pygame.draw.circle(canvas,(255,255,255),(self.x,self.y),self.range,3)
+
 class Enemy(Dragon):
     def __init__(self, dragon, data, x=-1, y=-1):
         Dragon.__init__(self, dragon, data)
@@ -257,7 +260,7 @@ def drawTowers(data):#draw all towers on board
 
 def drawParty():
     startY =60
-    startX = 700
+    startX = 650
     width = 100
     height = 25
     font = pygame.font.Font("pokemon_pixel_font.ttf",20)
@@ -267,7 +270,7 @@ def drawParty():
         dragon.button = startX,startY,width,height
         if data.hover == dragon or data.selected == dragon:
             pygame.draw.rect(data.screen,(255,0,0),(dragon.button),1)
-        name = font.render(name,True,(0,0,0))
+        name = font.render(name,True,(255,255,255))
         data.screen.blit(name,(startX+5,startY+5))
         startY+=25
 
