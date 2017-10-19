@@ -1,6 +1,5 @@
 import sys, pygame, random, string, math
 from database import setDragonData
-from hover import *
 
 class Struct(object):pass
 data = Struct()
