@@ -3,20 +3,20 @@ import gameData
 from dragon import Dragon
 
 def setDragons():
-    fireDragon =MyParty(1,gameData.dragonDatabase)
-    waterDragon = MyParty(2,gameData.dragonDatabase)
-    iceDragon = MyParty(3,gameData.dragonDatabase)
+    fireDragon =DragonTower(1,gameData.dragonDatabase)
+    waterDragon = DragonTower(2,gameData.dragonDatabase)
+    iceDragon = DragonTower(3,gameData.dragonDatabase)
     gameData.party.append(fireDragon)
     gameData.party.append(waterDragon)
     gameData.party.append(iceDragon)
 
-class MyParty(Dragon):
+class DragonTower(Dragon):
     def __init__(self,dragon,dragonDatabase,level=1,x=None,y=None):
         #super
         Dragon.__init__(self,dragon,dragonDatabase)
         self.x = x
         self.y = y
-        self.setRange()
+        self.range = dragonDatabase[dragon][5]
         #when to shoot next bullet
         self.maxCounter = 8
         self.counter = self.maxCounter
@@ -27,14 +27,6 @@ class MyParty(Dragon):
         self.level = level
         self.numOfUpgrade = 0
         self.attack = self.baseAttack
-
-    def setRange(self):
-        if self.upgrade == 0:
-            self.range = 50
-        if self.upgrade == 1:
-            self.range = 80
-        if self.upgrade == 2:
-            self.range = 120
 
     #using the right triangle theory to calculate if the enemy is in range
     def isInRangeEquation(self,x,y):
