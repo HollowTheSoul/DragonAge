@@ -1,6 +1,6 @@
 import pygame
 from bullet import Bullet
-from path import createPath, inPlay, onBoard, inMenuBounds, inParty
+from path import inPlay, onBoard, inMenuBounds, inParty
 import gameData
 
 #-------------------------TimerFired functions----------------------------
@@ -30,10 +30,10 @@ def setTarget():
     if gameData.enemies!= []:
         for tower in gameData.party:
             if tower.onBoard:
-                enemyPoke = tower.target
+                enemyDragon = tower.target
                 #set target, either when doesnt exist or changing targets
-                if (tower.target==None or not tower.isInRange((enemyPoke.x,
-                    enemyPoke.y,enemyPoke.x+10,enemyPoke.y+10))or
+                if (tower.target==None or not tower.isInRange((enemyDragon.x,
+                    enemyDragon.y,enemyDragon.x+10,enemyDragon.y+10))or
                     tower.target.exit):
                     for enemy in gameData.enemies:#loops through all enemeis
                         if enemy.exit == False:#make sure enemy hasn't died yet
