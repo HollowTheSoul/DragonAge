@@ -2,6 +2,14 @@ import pygame
 import gameData
 from dragon import Dragon
 
+def setDragons():
+    fireDragon =MyParty(1,gameData.dragonDatabase)
+    waterDragon = MyParty(2,gameData.dragonDatabase)
+    iceDragon = MyParty(3,gameData.dragonDatabase)
+    gameData.party.append(fireDragon)
+    gameData.party.append(waterDragon)
+    gameData.party.append(iceDragon)
+
 class MyParty(Dragon):
     def __init__(self,dragon,dragonDatabase,level=1,x=None,y=None):
         #super
@@ -45,3 +53,5 @@ class MyParty(Dragon):
 
     def drawRadius(self,canvas):#draws radius sof pokemon
         pygame.draw.circle(canvas,(255,255,255),(self.x,self.y),self.range,3)
+
+

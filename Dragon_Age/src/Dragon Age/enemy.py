@@ -2,6 +2,14 @@ import pygame, random
 from dragon import Dragon
 import gameData
 
+def setWave():
+    if gameData.wave%2 == 0:
+        gameData.enemySpeed += 1
+    if gameData.wave%4 == 0:
+        gameData.enemyNum += 2
+
+    gameData.waveEnemies = [Enemy(4,gameData.dragonDatabase) for i in range(gameData.enemyNum)]
+
 class Enemy(Dragon):
     def __init__(self, dragon, dragonDatabase, x=-1, y=-1):
         Dragon.__init__(self, dragon, dragonDatabase)
@@ -35,3 +43,4 @@ class Enemy(Dragon):
 
     def drawEnemy(self,canvas):
         gameData.screen.blit(self.img, (self.x - self.size, self.y - self.size))
+

@@ -1,16 +1,14 @@
 import sys, pygame, random, string, math
-from database import setDragonData
 from path import createPath
-from enemy import Enemy
+from enemy import Enemy, setWave
 from dragon import Dragon
-from myParty import MyParty
+from myParty import MyParty, setDragons
 from bullet import Bullet
 import gameData
 
 class Struct(object):pass
 
 data = Struct()
-dragonDatabase = setDragonData()
 
 #--------------------------Init--------------------------------------------
 def init(data):
@@ -20,20 +18,16 @@ def init(data):
     listInit(data)
     databaseInit(data)
     playerInit(data)
-    enemyInit(data, dragonDatabase)
+    enemyInit()
 
 def listInit(data):
-    #3 types of dragons for my party when starting the game
-    data.party = []
-    #dragons to be appended to enemies
-    data.waveEnemies = []
     #enemy dragons for current wave
     data.enemies = []
 
 #set dragon data from database.py
 def databaseInit(data):
     createPath()
-    setDragons(dragonDatabase)
+    setDragons()
     data.boardBounds = 0, 700, 0, 520
 
 def playerInit(data):
@@ -41,21 +35,12 @@ def playerInit(data):
     data.selected = None
     data.coins = 100
 
-def enemyInit(data, dragonDatabase):
-    setWave(data, dragonDatabase)
+def enemyInit():
+    setWave()
 
-def setDragons(dragonDatabase):
-    fireDragon =MyParty(1,dragonDatabase)
-    waterDragon = MyParty(2,dragonDatabase)
-    iceDragon = MyParty(3,dragonDatabase)
-    data.party.append(fireDragon)
-    data.party.append(waterDragon)
-    data.party.append(iceDragon)
-    print(data.party)
 #-------------------------TimerFired functions----------------------------
-
 def moveAllBullets(data):#moves all bullets toward set direction
-    for tower in data.party:
+    for tower in gameData.party:
         for bullet in tower.bullets:
             bullet.moveBullet()
             width,height = gameData.WINDOW_SIZE
@@ -67,7 +52,7 @@ def moveAllBullets(data):#moves all bullets toward set direction
             
 def removeBullets(data):
     #check whether bullets are removed for every frame and replace bullet list
-    for tower in data.party:
+    for tower in gameData.party:
         if tower.onBoard and tower.bullets!=[]:
             temp = []
             for bullet in tower.bullets:
@@ -78,7 +63,7 @@ def removeBullets(data):
 def setTarget(data):
     #sets target for each tower 
     if data.enemies!= []:
-        for tower in data.party:
+        for tower in gameData.party:
             if tower.onBoard:
                 enemyPoke = tower.target
                 #set target, either when doesnt exist or changing targets
@@ -99,7 +84,7 @@ def setTarget(data):
                     tower.target = None
 
 def shootEnemies(data):#check whether each bullet has shot an enemy
-    for tower in data.party:
+    for tower in gameData.party:
         if tower.onBoard and tower.bullets!=[]:
             for bullet in tower.bullets:
                 for enemy in data.enemies:
@@ -118,7 +103,7 @@ def setDamage(data,attack,attackType,enemyType):
 
 def setBullets(data):#set bullets for towers if tower has a target 
     if data.enemies!= []:
-        for tower in data.party:
+        for tower in gameData.party:
             if tower.onBoard and tower.target!= None:
                 if tower.counter>= tower.maxCounter:
                     target = tower.target.x,tower.target.y
@@ -127,19 +112,10 @@ def setBullets(data):#set bullets for towers if tower has a target
                     tower.counter =0#counter for time between new bullet
                 else:   tower.counter+=1
 
-
-def setWave(data, dragonDatabase):
-    if gameData.wave%2 == 0:
-        gameData.enemySpeed += 1
-    if gameData.wave%4 == 0:
-        gameData.enemyNum += 2
-
-    data.waveEnemies = [Enemy(4,dragonDatabase) for i in range(gameData.enemyNum)]
-
 def moveAllEnemies(data):
-    if data.waveEnemies != []:
+    if gameData.waveEnemies != []:
         if gameData.enemyCount == gameData.enemyMaxCount:
-            newEnemy = data.waveEnemies.pop(0)
+            newEnemy = gameData.waveEnemies.pop(0)
             data.enemies.append(newEnemy)
             gameData.enemyCount = 0
         else:
@@ -190,7 +166,7 @@ def drawPlay(data):
     gameData.screen.blit(img, (x0, y0))
 
 def drawTowers(data):#draw all towers on board
-    for dragon in data.party:
+    for dragon in gameData.party:
         if dragon.onBoard == True:
             dragon.drawTower(gameData.screen)
 
@@ -200,8 +176,8 @@ def drawParty():
     width = 100
     height = 25
     font = pygame.font.Font("pokemon_pixel_font.ttf",20)
-    for i in range(len(data.party)):
-        dragon = data.party[i]#display name of each pokemon
+    for i in range(len(gameData.party)):
+        dragon = gameData.party[i]#display name of each pokemon
         name = dragon.dragon
         dragon.button = startX,startY,width,height
         if data.hover == dragon or data.selected == dragon:
@@ -211,7 +187,7 @@ def drawParty():
         startY+=25
 
 def drawAllBullets(data):#draws all bullets on board
-    for tower in data.party:
+    for tower in gameData.party:
         if tower.onBoard and tower.bullets!=[]:
             for bullet in tower.bullets:
                 bullet.drawBullet(gameData.screen)
@@ -242,7 +218,7 @@ def inMenuBounds(x,y):#if clicks in menu button
 
 
 def inParty(x,y):
-    for dragon in data.party:
+    for dragon in gameData.party:
         x0,y0,width,height = dragon.button
         x1,y1 = x0+width, y0+height
         if x>x0 and x<x1 and y>y0 and y<y1:
