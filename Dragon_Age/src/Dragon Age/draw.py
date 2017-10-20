@@ -21,7 +21,7 @@ def drawPlay():
     gameData.screen.blit(img, (x0, y0))
 
 def drawTowers():#draw all towers on board
-    for dragon in gameData.party:
+    for dragon in gameData.dragonParty:
         if dragon.onBoard == True:
             dragon.drawTower(gameData.screen)
 
@@ -31,22 +31,22 @@ def drawParty():
     width = 100
     height = 25
     font = pygame.font.Font("pokemon_pixel_font.ttf",20)
-    for i in range(len(gameData.party)):
-        dragon = gameData.party[i]#display name of each pokemon
+    for i in range(len(gameData.dragonParty)):
+        dragon = gameData.dragonParty[i]#display name of each pokemon
         name = dragon.dragon
         dragon.button = startX,startY,width,height
         if gameData.playerHover == dragon or gameData.playerSelected == dragon:
-            pygame.draw.rect(gameData.screen,(255,0,0),(dragon.button),1)
+            # pygame.draw.rect(gameData.screen,(255,0,0),(dragon.button),1)
+            dragon.drawRadius(gameData.screen)
         name = font.render(name,True,(255,255,255))
         gameData.screen.blit(name,(startX+5,startY+5))
         startY+=25
 
 def drawAllBullets():#draws all bullets on board
-    for tower in gameData.party:
+    for tower in gameData.dragonParty:
         if tower.onBoard and tower.bullets!=[]:
             for bullet in tower.bullets:
                 bullet.drawBullet(gameData.screen)
-
 
 def drawAll():
     drawEnemies()

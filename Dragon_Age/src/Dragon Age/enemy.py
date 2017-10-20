@@ -8,7 +8,7 @@ def setWave():
     if gameData.wave%4 == 0:
         gameData.enemyNum += 2
 
-    gameData.waveEnemies = [Enemy(4,gameData.dragonDatabase) for i in range(gameData.enemyNum)]
+    gameData.waveEnemies = [Enemy(10,gameData.dragonDatabase) for i in range(gameData.enemyNum)]
 
 class Enemy(Dragon):
     def __init__(self, dragon, dragonDatabase, x=-1, y=-1):

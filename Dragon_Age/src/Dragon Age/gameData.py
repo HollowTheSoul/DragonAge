@@ -20,11 +20,12 @@ life = 10
 #--------------------------player data--------------------------------
 playerHover = None
 playerSelected = None
-playerCoins = 100
+playerCoins = 500
+playerShowStatus = None
 
 #--------------------------dragon data--------------------------------
 dragonDatabase = setDragonData() #get data from database
-party = []
+dragonParty = []
 dragonSize = 30
 
 #--------------------------enemy data---------------------------------
