@@ -1,6 +1,8 @@
 import sys, pygame, random, string, math
 from database import setDragonData
 from path import createPath
+from enemy import Enemy
+from dragon import Dragon
 import gameData
 
 class Struct(object):pass
@@ -9,13 +11,12 @@ class Struct(object):pass
 
 data = Struct()
 dragonDatabase = setDragonData()
-dragonSize = 30
+
 
 #--------------------------Init--------------------------------------------
 def init(data):
     pygame.init()
     pygame.display.set_caption("Dragon Age")
-    data.screen = pygame.display.set_mode(gameData.WINDOW_SIZE)
     #set all initial data
     listInit(data)
     databaseInit(data)
@@ -52,26 +53,7 @@ def setDragons(dragonDatabase):
     data.party.append(waterDragon)
     data.party.append(iceDragon)
     print(data.party)
-#------------------------Classes-------------------------------------------
-
-class Dragon(object):
-    def __init__(self, dragon, dragonDatabase):
-        tup = dragonDatabase[dragon]
-        self.dragon = tup[0]
-        self.element = tup[1]
-        self.baseAttack = tup[2]
-        self.baseHp = tup[3]
-        self.upgrade = tup[4]
-        self.attackGrowth = 10
-        self.bounds = None
-        self.button = None
-        self.setSize()
-        image = pygame.image.load("%s.png" % self.dragon)
-        self.img = pygame.transform.scale(image, (30,30))
-
-    def setSize(self):
-        self.size = dragonSize
-
+#------------------------Classes------------------------------------------
 class MyParty(Dragon):
     def __init__(self,dragon,dragonDatabase,level=1,x=None,y=None):
         #super
@@ -111,45 +93,10 @@ class MyParty(Dragon):
             return False    
     
     def drawTower(self,canvas):#draw dragon once set on board
-        data.screen.blit(self.img,(self.x-self.size,self.y-self.size))
+        gameData.screen.blit(self.img,(self.x-self.size,self.y-self.size))
 
     def drawRadius(self,canvas):#draws radius sof pokemon
         pygame.draw.circle(canvas,(255,255,255),(self.x,self.y),self.range,3)
-
-
-class Enemy(Dragon):
-    def __init__(self, dragon, dragonDatabase, x=-1, y=-1):
-        Dragon.__init__(self, dragon, dragonDatabase)
-        self.x = x
-        self.y = y
-        self.exit = False
-        self.loc = 0 #index of data checkpoints
-        self.img = pygame.transform.flip(self.img, True, False)
-        self.setLevel()
-        self.hp = self.setHP()
-        self.maxHP = self.hp
-
-    def setHP(self):
-        growthHp = self.level*5
-        return self.baseHp + growthHp
-
-    def setLevel(self):
-        avg = gameData.wave*3
-        num = random.randint(-2,2)
-        self.level = avg + num
-
-    def moveEnemy(self): #move enemy along the path
-        try:
-            self.loc += gameData.enemySpeed
-            self.x, self.y = gameData.checkPoints[self.loc]
-            self.bounds = (self.x - self.size, self.y - self.size,
-                           self.x + self.size, self.y + self.size)
-        except: #reached end
-            self.exit = True #disappears
-            self.bounds = None
-
-    def drawEnemy(self,canvas):
-        data.screen.blit(self.img, (self.x - self.size, self.y - self.size))
 
 class Bullet(object):
     def __init__(self,x,y,target,element):
@@ -304,30 +251,30 @@ def timerFired(data):
 #--------------------------Draw-------------------------------------------
 def drawIntro():
     img = pygame.image.load("Intro.png")
-    data.screen.fill((255,255,255))
+    gameData.screen.fill((255,255,255))
     img = pygame.transform.scale(img, (500,250))
-    data.screen.blit(img, (0,0))
+    gameData.screen.blit(img, (0,0))
 
 def loadBackground():
     img = pygame.image.load("background.png")
-    data.screen.blit(img, (0,0))
+    gameData.screen.blit(img, (0,0))
 
 def drawEnemies(data):
     for enemy in data.enemies:
         if enemy.exit == False:
-            enemy.drawEnemy(data.screen)
+            enemy.drawEnemy(gameData.screen)
 
 def drawPlay(data):
     x0,y0 = 50, 400
     width, height = 70, 70
     img = pygame.image.load("play.png")
     img = pygame.transform.scale(img, (50,50))
-    data.screen.blit(img, (x0, y0))
+    gameData.screen.blit(img, (x0, y0))
 
 def drawTowers(data):#draw all towers on board
     for dragon in data.party:
         if dragon.onBoard == True:
-            dragon.drawTower(data.screen)
+            dragon.drawTower(gameData.screen)
 
 def drawParty():
     startY =60
@@ -340,16 +287,16 @@ def drawParty():
         name = dragon.dragon
         dragon.button = startX,startY,width,height
         if data.hover == dragon or data.selected == dragon:
-            pygame.draw.rect(data.screen,(255,0,0),(dragon.button),1)
+            pygame.draw.rect(gameData.screen,(255,0,0),(dragon.button),1)
         name = font.render(name,True,(255,255,255))
-        data.screen.blit(name,(startX+5,startY+5))
+        gameData.screen.blit(name,(startX+5,startY+5))
         startY+=25
 
 def drawAllBullets(data):#draws all bullets on board
     for tower in data.party:
         if tower.onBoard and tower.bullets!=[]:
             for bullet in tower.bullets:
-                bullet.drawBullet(data.screen)
+                bullet.drawBullet(gameData.screen)
 
 
 def drawAll(data):
@@ -368,8 +315,8 @@ def inPlay(x,y):
     return x < x1 and x > x0 and y > y0 and y < y1
 
 def onBoard(data,x,y):
-    ax0,ay0,ax1,ay1 = (x-dragonSize,y-dragonSize,
-        x+dragonSize,y+dragonSize)
+    ax0,ay0,ax1,ay1 = (x-gameData.dragonSize,y-gameData.dragonSize,
+        x+gameData.dragonSize,y+gameData.dragonSize)
     bx0,bx1,by0,by1 = data.boardBounds
     return ((ax1 > bx0) and (bx1 > ax0) and (ay1 > by0) and (by1 > ay0))
 
@@ -421,7 +368,7 @@ def buildTowerHover(x,y,data):
 #draw rect of size of pokemon when building if legal
     data.selected.x, data.selected.y= x,y
     if onBoard(data,x,y):
-        pygame.draw.rect(data.screen,(255,255,255),(x-data.selected.size,
+        pygame.draw.rect(gameData.screen,(255,255,255),(x-data.selected.size,
             y-data.selected.size,data.selected.size*2,data.selected.size*2),
             3)
 
