@@ -1,9 +1,7 @@
 import sys, pygame, random, string, math
 from database import setDragonData
-from hover import *
-
+import gameData
 class Struct(object):pass
-
 
 #------------------------GLOBAL VARIABLES----------------------------------
 
@@ -11,25 +9,14 @@ data = Struct()
 dragonDatabase = setDragonData()
 dragonSize = 30
 
-WINDOW_SIZE = width, height = 800, 620
-
-#game mode
-isIntro = True  
-isGameOver = False
-
-#game statistics
-wave = 1
-life = 10
-
 #--------------------------Init--------------------------------------------
 def init(data):
     pygame.init()
     pygame.display.set_caption("Dragon Age")
-    data.screen = pygame.display.set_mode(WINDOW_SIZE)
+    data.screen = pygame.display.set_mode(gameData.WINDOW_SIZE)
     #set all initial data
     listInit(data)
     databaseInit(data)
-    modeInit(data)
     playerInit(data)
     enemyInit(data, dragonDatabase)
 
@@ -46,10 +33,6 @@ def databaseInit(data):
     createPath()
     setDragons(dragonDatabase)
     data.boardBounds = 0, 700, 0, 520
-    
-def modeInit(data):
-
-    data.paused = True
 
 def playerInit(data):
     data.hover = None
@@ -66,9 +49,9 @@ def enemyInit(data, dragonDatabase):
     setWave(data, dragonDatabase)
 
 def setDragons(dragonDatabase):
-    fireDragon =myParty(1,dragonDatabase)
-    waterDragon = myParty(2,dragonDatabase)
-    iceDragon = myParty(3,dragonDatabase)
+    fireDragon =MyParty(1,dragonDatabase)
+    waterDragon = MyParty(2,dragonDatabase)
+    iceDragon = MyParty(3,dragonDatabase)
     data.party.append(fireDragon)
     data.party.append(waterDragon)
     data.party.append(iceDragon)
@@ -127,7 +110,7 @@ class Dragon(object):
     def setSize(self):
         self.size = dragonSize
 
-class myParty(Dragon):
+class MyParty(Dragon):
     def __init__(self,dragon,dragonDatabase,level=1,x=None,y=None):
         #super
         Dragon.__init__(self,dragon,dragonDatabase)
@@ -188,7 +171,7 @@ class Enemy(Dragon):
         return self.baseHp + growthHp
 
     def setLevel(self):
-        avg = wave*3
+        avg = gameData.wave*3
         num = random.randint(-2,2)
         self.level = avg + num
 
@@ -248,7 +231,7 @@ def moveAllBullets(data):#moves all bullets toward set direction
     for tower in data.party:
         for bullet in tower.bullets:
             bullet.moveBullet()
-            width,height = WINDOW_SIZE
+            width,height = gameData.WINDOW_SIZE
             #if goes out of bounds, remove bullets
             x0,x1,y0,y1 =data.boardBounds
             if (bullet.x>x1 or bullet.x<0 or bullet.y>y1 
@@ -319,9 +302,9 @@ def setBullets(data):#set bullets for towers if tower has a target
 
 
 def setWave(data, dragonDatabase):
-    if wave%2 == 0:
+    if gameData.wave%2 == 0:
         data.speed += 1
-    if wave%4 == 0:
+    if gameData.wave%4 == 0:
         data.num += 2
 
     data.waveEnemies = [Enemy(4,dragonDatabase) for i in range(data.num)]
@@ -338,15 +321,16 @@ def moveAllEnemies(data):
         if enemy.exit == False:
             enemy.moveEnemy()
             if enemy.exit:
-                life -= 1
-                if life == 0:
-                    isGameOver = True
+                gameData.life -= 1
+                print(gameData.life)
+                if gameData.life == 0:
+                    gameData.isGameOver = True
 
 
 def timerFired(data):
-    if isGameOver:
+    if gameData.isGameOver:
         gameoverHover(data)
-    elif isIntro == True:
+    elif gameData.isIntro == True:
         hover(data)
         moveAllEnemies(data)
         setTarget(data)
@@ -444,7 +428,7 @@ def inParty(x,y):
 
 def mousePress(x,y,data):
     if inPlay(x,y):
-        data.paused = False
+        gameData.isPaused = False
     if inParty(x,y):
         curDragon = inParty(x,y)#current dragon
         if curDragon.onBoard == False:#only in party not on board yet
@@ -462,7 +446,7 @@ def mousePress(x,y,data):
 
 def mouse(data):
     x, y = pygame.mouse.get_pos()
-    if isIntro:
+    if gameData.isIntro:
         mousePress(x,y,data)
 
 # =--------------------------Hover-----------------------------
@@ -482,7 +466,7 @@ def buildTowerHover(x,y,data):
 def game():
     init(data)
     while True:
-        if isIntro == True and isGameOver == False:
+        if gameData.isIntro == True and gameData.isGameOver == False:
             loadBackground()
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
