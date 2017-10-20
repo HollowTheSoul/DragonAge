@@ -12,10 +12,15 @@ isPaused = True
 
 #--------------------------game path data-----------------------------
 checkPoints = []
-
+boardBounds = 0, 700, 0, 520
 #--------------------------game statistics----------------------------
 wave = 1
 life = 10
+
+#--------------------------player data--------------------------------
+playerHover = None
+playerSelected = None
+playerCoins = 100
 
 #--------------------------dragon data--------------------------------
 dragonDatabase = setDragonData() #get data from database
@@ -25,6 +30,8 @@ dragonSize = 30
 #--------------------------enemy data---------------------------------
 #dragons to be appended to enemies
 waveEnemies = []
+#enemy dragons for current wave
+enemies = []
 
 enemySpeed = 4
 enemyCount = 30

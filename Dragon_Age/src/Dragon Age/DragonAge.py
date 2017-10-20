@@ -1,56 +1,40 @@
 import sys, pygame, random, string, math
-from path import createPath
+from path import createPath, inPlay, onBoard, inMenuBounds, inParty
 from enemy import Enemy, setWave
 from dragon import Dragon
 from myParty import MyParty, setDragons
 from bullet import Bullet
 import gameData
 
-class Struct(object):pass
-
-data = Struct()
-
 #--------------------------Init--------------------------------------------
-def init(data):
+def init():
     pygame.init()
     pygame.display.set_caption("Dragon Age")
     #set all initial data
-    listInit(data)
-    databaseInit(data)
-    playerInit(data)
+    databaseInit()
     enemyInit()
 
-def listInit(data):
-    #enemy dragons for current wave
-    data.enemies = []
-
 #set dragon data from database.py
-def databaseInit(data):
+def databaseInit():
     createPath()
     setDragons()
-    data.boardBounds = 0, 700, 0, 520
-
-def playerInit(data):
-    data.hover = None
-    data.selected = None
-    data.coins = 100
 
 def enemyInit():
     setWave()
 
 #-------------------------TimerFired functions----------------------------
-def moveAllBullets(data):#moves all bullets toward set direction
+def moveAllBullets():#moves all bullets toward set direction
     for tower in gameData.party:
         for bullet in tower.bullets:
             bullet.moveBullet()
             width,height = gameData.WINDOW_SIZE
             #if goes out of bounds, remove bullets
-            x0,x1,y0,y1 =data.boardBounds
+            x0,x1,y0,y1 =gameData.boardBounds
             if (bullet.x>x1 or bullet.x<0 or bullet.y>y1 
                 or bullet.y<0):
                 bullet.remove = True
             
-def removeBullets(data):
+def removeBullets():
     #check whether bullets are removed for every frame and replace bullet list
     for tower in gameData.party:
         if tower.onBoard and tower.bullets!=[]:
@@ -60,9 +44,9 @@ def removeBullets(data):
                     temp.append(bullet)
             tower.bullets = temp
 
-def setTarget(data):
+def setTarget():
     #sets target for each tower 
-    if data.enemies!= []:
+    if gameData.enemies!= []:
         for tower in gameData.party:
             if tower.onBoard:
                 enemyPoke = tower.target
@@ -70,7 +54,7 @@ def setTarget(data):
                 if (tower.target==None or not tower.isInRange((enemyPoke.x,
                     enemyPoke.y,enemyPoke.x+10,enemyPoke.y+10))or
                     tower.target.exit):
-                    for enemy in data.enemies:#loops through all enemeis
+                    for enemy in gameData.enemies:#loops through all enemeis
                         if enemy.exit == False:#make sure enemy hasn't died yet
                             bounds = enemy.x,enemy.y,enemy.x+10,enemy.y+10
                             if tower.isInRange(bounds):
@@ -83,26 +67,25 @@ def setTarget(data):
                     tower.target.x+10,tower.target.y+10))):
                     tower.target = None
 
-def shootEnemies(data):#check whether each bullet has shot an enemy
+def shootEnemies():#check whether each bullet has shot an enemy
     for tower in gameData.party:
         if tower.onBoard and tower.bullets!=[]:
             for bullet in tower.bullets:
-                for enemy in data.enemies:
+                for enemy in gameData.enemies:
                     if enemy.exit == False:
                         if bullet.shotEnemy(enemy):
-                            enemy.hp-=setDamage(data,tower.attack,
-                                tower.element,enemy.element)
+                            enemy.hp-=setDamage(tower.attack)
                             bullet.remove =True
                         if enemy.hp<=0:#kills an enemy, gains exp and money
                             enemy.exit = True
-                            data.coins+=555
+                            gameData.playerCoins+=555
 
 #set damage of bullet according to stats of pokemon as well as type of bullet
-def setDamage(data,attack,attackType,enemyType):
+def setDamage(attack):
     return attack
 
-def setBullets(data):#set bullets for towers if tower has a target 
-    if data.enemies!= []:
+def setBullets():#set bullets for towers if tower has a target 
+    if gameData.enemies!= []:
         for tower in gameData.party:
             if tower.onBoard and tower.target!= None:
                 if tower.counter>= tower.maxCounter:
@@ -112,15 +95,15 @@ def setBullets(data):#set bullets for towers if tower has a target
                     tower.counter =0#counter for time between new bullet
                 else:   tower.counter+=1
 
-def moveAllEnemies(data):
+def moveAllEnemies():
     if gameData.waveEnemies != []:
         if gameData.enemyCount == gameData.enemyMaxCount:
             newEnemy = gameData.waveEnemies.pop(0)
-            data.enemies.append(newEnemy)
+            gameData.enemies.append(newEnemy)
             gameData.enemyCount = 0
         else:
             gameData.enemyCount += 1 #counter for time between adding each enemy on board
-    for enemy in data.enemies:
+    for enemy in gameData.enemies:
         if enemy.exit == False:
             enemy.moveEnemy()
             if enemy.exit:
@@ -130,17 +113,31 @@ def moveAllEnemies(data):
                     gameData.isGameOver = True
 
 
-def timerFired(data):
+#HOVER
+def hover():#general hover fucntion wrap
+    x,y = pygame.mouse.get_pos()
+    if gameData.playerSelected!= None:#put tower on board
+        buildTowerHover(x,y)
+
+def buildTowerHover(x,y):
+#draw rect of size of pokemon when building if legal
+    gameData.playerSelected.x, gameData.playerSelected.y= x,y
+    if onBoard(x,y):
+        pygame.draw.rect(gameData.screen,(255,255,255),(x-gameData.playerSelected.size,
+            y-gameData.playerSelected.size,gameData.playerSelected.size*2,gameData.playerSelected.size*2),
+            3)
+
+def timerFired():
     if gameData.isGameOver:
-        gameoverHover(data)
+        gameoverHover()
     elif gameData.isIntro == True:
-        hover(data)
-        moveAllEnemies(data)
-        setTarget(data)
-        setBullets(data)
-        moveAllBullets(data)
-        shootEnemies(data)
-        removeBullets(data)
+        hover()
+        moveAllEnemies()
+        setTarget()
+        setBullets()
+        moveAllBullets()
+        shootEnemies()
+        removeBullets()
         
 #--------------------------Draw-------------------------------------------
 def drawIntro():
@@ -153,19 +150,19 @@ def loadBackground():
     img = pygame.image.load("img/background.png")
     gameData.screen.blit(img, (0,0))
 
-def drawEnemies(data):
-    for enemy in data.enemies:
+def drawEnemies():
+    for enemy in gameData.enemies:
         if enemy.exit == False:
             enemy.drawEnemy(gameData.screen)
 
-def drawPlay(data):
+def drawPlay():
     x0,y0 = 50, 400
     width, height = 70, 70
     img = pygame.image.load("img/play.png")
     img = pygame.transform.scale(img, (50,50))
     gameData.screen.blit(img, (x0, y0))
 
-def drawTowers(data):#draw all towers on board
+def drawTowers():#draw all towers on board
     for dragon in gameData.party:
         if dragon.onBoard == True:
             dragon.drawTower(gameData.screen)
@@ -180,100 +177,62 @@ def drawParty():
         dragon = gameData.party[i]#display name of each pokemon
         name = dragon.dragon
         dragon.button = startX,startY,width,height
-        if data.hover == dragon or data.selected == dragon:
+        if gameData.playerHover == dragon or gameData.playerSelected == dragon:
             pygame.draw.rect(gameData.screen,(255,0,0),(dragon.button),1)
         name = font.render(name,True,(255,255,255))
         gameData.screen.blit(name,(startX+5,startY+5))
         startY+=25
 
-def drawAllBullets(data):#draws all bullets on board
+def drawAllBullets():#draws all bullets on board
     for tower in gameData.party:
         if tower.onBoard and tower.bullets!=[]:
             for bullet in tower.bullets:
                 bullet.drawBullet(gameData.screen)
 
 
-def drawAll(data):
-    drawEnemies(data)
-    drawPlay(data)
-    drawTowers(data)
+def drawAll():
+    drawEnemies()
+    drawPlay()
+    drawTowers()
     drawParty()
-    drawAllBullets(data)
-    
-#=-------------------------Button bounds--------------------------------------
-
-def inPlay(x,y):
-    x0,y0,x1,y1 = 45,395,105,455
-    return x < x1 and x > x0 and y > y0 and y < y1
-
-def onBoard(data,x,y):
-    ax0,ay0,ax1,ay1 = (x-gameData.dragonSize,y-gameData.dragonSize,
-        x+gameData.dragonSize,y+gameData.dragonSize)
-    bx0,bx1,by0,by1 = data.boardBounds
-    return ((ax1 > bx0) and (bx1 > ax0) and (ay1 > by0) and (by1 > ay0))
-
-def inMenuBounds(x,y):#if clicks in menu button
-    x0,x1,y0,y1 =700,800,520,620
-    return x<x1 and x>x0 and y>y0 and y<y1
-
-
-def inParty(x,y):
-    for dragon in gameData.party:
-        x0,y0,width,height = dragon.button
-        x1,y1 = x0+width, y0+height
-        if x>x0 and x<x1 and y>y0 and y<y1:
-            return dragon
-    return False
-
+    drawAllBullets()
+ 
 #=-------------------------MousePress--------------------------------------
 
-def mousePress(x,y,data):
+def mousePress(x,y):
     if inPlay(x,y):
         gameData.isPaused = False
     if inParty(x,y):
         curDragon = inParty(x,y)#current dragon
         if curDragon.onBoard == False:#only in party not on board yet
-            data.selected = curDragon#pick up pokemon
-            data.selected.x,data.selected.y = x,y
+            gameData.playerSelected = curDragon#pick up pokemon
+            gameData.playerSelected.x,gameData.playerSelected.y = x,y
         #already on board, show status
         else: 
             data.status = curDragon
-    elif data.selected!=None:
+    elif gameData.playerSelected!=None:
         #picked up to pokemon to put on board
-        if onBoard(data,x,y):
-            data.selected.x,data.selected.y = x,y
-            data.selected.bounds = x-10,y-10,x+10,y+10
-            data.selected.onBoard,data.selected =True,None
+        if onBoard(x,y):
+            gameData.playerSelected.x,gameData.playerSelected.y = x,y
+            gameData.playerSelected.bounds = x-10,y-10,x+10,y+10
+            gameData.playerSelected.onBoard,gameData.playerSelected =True,None
 
-def mouse(data):
+def mouse():
     x, y = pygame.mouse.get_pos()
     if gameData.isIntro:
-        mousePress(x,y,data)
+        mousePress(x,y)
 
-# =--------------------------Hover-----------------------------
-def hover(data):#general hover fucntion wrap
-    x,y = pygame.mouse.get_pos()
-    if data.selected!= None:#put tower on board
-        buildTowerHover(x,y,data)
-
-def buildTowerHover(x,y,data):
-#draw rect of size of pokemon when building if legal
-    data.selected.x, data.selected.y= x,y
-    if onBoard(data,x,y):
-        pygame.draw.rect(gameData.screen,(255,255,255),(x-data.selected.size,
-            y-data.selected.size,data.selected.size*2,data.selected.size*2),
-            3)
 
 def game():
-    init(data)
+    init()
     while True:
         if gameData.isIntro == True and gameData.isGameOver == False:
             loadBackground()
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
-            if event.type == pygame.MOUSEBUTTONDOWN: mouse(data)
+            if event.type == pygame.MOUSEBUTTONDOWN: mouse()
 
-        drawAll(data)
-        timerFired(data)
+        drawAll()
+        timerFired()
         pygame.display.flip()
 game()
