@@ -1,11 +1,11 @@
 import pygame
 from bullet import Bullet
-from path import inPlay, onBoard, inMenuBounds, inParty
+from path import inPlay, onBoard, inParty
 import gameData
 
 #-------------------------TimerFired functions----------------------------
 def moveAllBullets():#moves all bullets toward set direction
-    for tower in gameData.party:
+    for tower in gameData.dragonParty:
         for bullet in tower.bullets:
             bullet.moveBullet()
             width,height = gameData.WINDOW_SIZE
@@ -17,7 +17,7 @@ def moveAllBullets():#moves all bullets toward set direction
             
 def removeBullets():
     #check whether bullets are removed for every frame and replace bullet list
-    for tower in gameData.party:
+    for tower in gameData.dragonParty:
         if tower.onBoard and tower.bullets!=[]:
             temp = []
             for bullet in tower.bullets:
@@ -28,7 +28,7 @@ def removeBullets():
 def setTarget():
     #sets target for each tower 
     if gameData.enemies!= []:
-        for tower in gameData.party:
+        for tower in gameData.dragonParty:
             if tower.onBoard:
                 enemyDragon = tower.target
                 #set target, either when doesnt exist or changing targets
@@ -49,7 +49,7 @@ def setTarget():
                     tower.target = None
 
 def shootEnemies():#check whether each bullet has shot an enemy
-    for tower in gameData.party:
+    for tower in gameData.dragonParty:
         if tower.onBoard and tower.bullets!=[]:
             for bullet in tower.bullets:
                 for enemy in gameData.enemies:
@@ -67,7 +67,7 @@ def setDamage(attack):
 
 def setBullets():#set bullets for towers if tower has a target 
     if gameData.enemies!= []:
-        for tower in gameData.party:
+        for tower in gameData.dragonParty:
             if tower.onBoard and tower.target!= None:
                 if tower.counter>= tower.maxCounter:
                     target = tower.target.x,tower.target.y
@@ -98,7 +98,7 @@ def moveAllEnemies():
 def hover():#general hover fucntion wrap
     x,y = pygame.mouse.get_pos()
     if gameData.playerSelected!= None:#put tower on board
-        buildTowerHover(x,y)
+        buildTowerHover(x,y) 
 
 def buildTowerHover(x,y):
 #draw rect of size of pokemon when building if legal
