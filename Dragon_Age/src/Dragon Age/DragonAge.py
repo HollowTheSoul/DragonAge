@@ -3,15 +3,13 @@ from database import setDragonData
 from path import createPath
 from enemy import Enemy
 from dragon import Dragon
+from myParty import MyParty
 import gameData
 
 class Struct(object):pass
 
-#------------------------GLOBAL VARIABLES----------------------------------
-
 data = Struct()
 dragonDatabase = setDragonData()
-
 
 #--------------------------Init--------------------------------------------
 def init(data):
@@ -54,50 +52,6 @@ def setDragons(dragonDatabase):
     data.party.append(iceDragon)
     print(data.party)
 #------------------------Classes------------------------------------------
-class MyParty(Dragon):
-    def __init__(self,dragon,dragonDatabase,level=1,x=None,y=None):
-        #super
-        Dragon.__init__(self,dragon,dragonDatabase)
-        self.x = x
-        self.y = y
-        self.setRange()
-        #when to shoot next bullet
-        self.maxCounter = 8
-        self.counter = self.maxCounter
-        self.target = None
-        self.bullets = []
-        self.onBoard = False
-        self.radius = False
-        self.level = level
-        self.numOfUpgrade = 0
-        self.attack = self.baseAttack
-
-    def setRange(self):
-        if self.upgrade == 0:
-            self.range = 50
-        if self.upgrade == 1:
-            self.range = 80
-        if self.upgrade == 2:
-            self.range = 120
-
-    #using the right triangle theory to calculate if the enemy is in range
-    def isInRangeEquation(self,x,y):
-        return (x-self.x)**2 + (y-self.y)**2 < self.range**2
-
-    def isInRange(self,bounds):
-        x0,x1,y0,y1 = bounds
-        if (self.isInRangeEquation(x0,y0) or self.isInRangeEquation(x0,y1) or
-            self.isInRangeEquation(x1,y0) or self.isInRangeEquation(x1,y1)):
-            return True
-        else:
-            return False    
-    
-    def drawTower(self,canvas):#draw dragon once set on board
-        gameData.screen.blit(self.img,(self.x-self.size,self.y-self.size))
-
-    def drawRadius(self,canvas):#draws radius sof pokemon
-        pygame.draw.circle(canvas,(255,255,255),(self.x,self.y),self.range,3)
-
 class Bullet(object):
     def __init__(self,x,y,target,element):
         self.targetX,self.targetY=target
@@ -110,7 +64,7 @@ class Bullet(object):
         self.setImage(element)
 
     def setImage(self,element):#bullet img set based on element of pokemon
-        self.img = pygame.image.load("%s.png" % element)
+        self.img = pygame.image.load("img/%s.png" % element)
 
     def getDirection(self):
     #find direction of bullet in radians with given target
@@ -250,13 +204,13 @@ def timerFired(data):
         
 #--------------------------Draw-------------------------------------------
 def drawIntro():
-    img = pygame.image.load("Intro.png")
+    img = pygame.image.load("img/Intro.png")
     gameData.screen.fill((255,255,255))
     img = pygame.transform.scale(img, (500,250))
     gameData.screen.blit(img, (0,0))
 
 def loadBackground():
-    img = pygame.image.load("background.png")
+    img = pygame.image.load("img/background.png")
     gameData.screen.blit(img, (0,0))
 
 def drawEnemies(data):
@@ -267,7 +221,7 @@ def drawEnemies(data):
 def drawPlay(data):
     x0,y0 = 50, 400
     width, height = 70, 70
-    img = pygame.image.load("play.png")
+    img = pygame.image.load("img/play.png")
     img = pygame.transform.scale(img, (50,50))
     gameData.screen.blit(img, (x0, y0))
 
@@ -305,8 +259,6 @@ def drawAll(data):
     drawTowers(data)
     drawParty()
     drawAllBullets(data)
-
-
     
 #=-------------------------Button bounds--------------------------------------
 
