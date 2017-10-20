@@ -1,7 +1,7 @@
 import sys, pygame, random, string, math
 from enemy import Enemy, setWave
 from dragon import Dragon
-from myParty import MyParty, setDragons
+from dragonTower import DragonTower, setDragons
 from path import createPath, inPlay, onBoard, inMenuBounds, inParty
 from draw import drawAll
 from timerFired import timerFired

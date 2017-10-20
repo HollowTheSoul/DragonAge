@@ -1,15 +1,11 @@
 import pygame
 import gameData
-        
+
 #--------------------------Draw-------------------------------------------
 def drawIntro():
     img = pygame.image.load("img/Intro.png")
     gameData.screen.fill((255,255,255))
     img = pygame.transform.scale(img, (500,250))
-    gameData.screen.blit(img, (0,0))
-
-def loadBackground():
-    img = pygame.image.load("img/background.png")
     gameData.screen.blit(img, (0,0))
 
 def drawEnemies():
