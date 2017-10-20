@@ -1,6 +1,8 @@
 import sys, pygame, random, string, math
 from database import setDragonData
+from path import createPath
 import gameData
+
 class Struct(object):pass
 
 #------------------------GLOBAL VARIABLES----------------------------------
@@ -40,12 +42,6 @@ def playerInit(data):
     data.coins = 100
 
 def enemyInit(data, dragonDatabase):
-    data.speed = 4
-    #counter for frames before placing a new enemy
-    data.count = 30
-    data.maxCount = 30
-    #number of enemies per wave
-    data.num = 7
     setWave(data, dragonDatabase)
 
 def setDragons(dragonDatabase):
@@ -56,40 +52,6 @@ def setDragons(dragonDatabase):
     data.party.append(waterDragon)
     data.party.append(iceDragon)
     print(data.party)
-
-def createPath():
-    corners = [(0,80),(185,80),(185,165),(293,165),(293,80),(420,80),
-               (420,265),(300,265),(300,450),(420,450),(420,365),
-               (535,365),(535,450),(700,450)]
-    data.checkPoints = []
-    #adds all x, y positions into new list
-    for i in range(1, len(corners)):
-        x0,y0 = corners[i-1]
-        x1,y1 = corners[i]
-        #check if horizontal or veritcal
-        if x1 - x0 == 0:
-            verticalPath(data,x0,y0,x1,y1)
-        else:
-            horizontalPath(data,x0,y0,x1,y1)
-
-def verticalPath(data,x0,y0,x1,y1):
-    #distance between 2 corners
-    dis = y1 - y0
-    for i in range(abs(dis)):
-        if dis < 0:
-            data.checkPoints.append((x0,y0-i))
-        else:
-            data.checkPoints.append((x0,y0+i))
-
-def horizontalPath(data,x0,y0,x1,y1):
-    #distance between 2 corners
-    dis = x1 - x0
-    for i in range(abs(dis)):
-        if dis < 0:
-            data.checkPoints.append((x0-i,y0))
-        else:
-            data.checkPoints.append((x0+i,y0))
-
 #------------------------Classes-------------------------------------------
 
 class Dragon(object):
@@ -154,6 +116,7 @@ class MyParty(Dragon):
     def drawRadius(self,canvas):#draws radius sof pokemon
         pygame.draw.circle(canvas,(255,255,255),(self.x,self.y),self.range,3)
 
+
 class Enemy(Dragon):
     def __init__(self, dragon, dragonDatabase, x=-1, y=-1):
         Dragon.__init__(self, dragon, dragonDatabase)
@@ -177,8 +140,8 @@ class Enemy(Dragon):
 
     def moveEnemy(self): #move enemy along the path
         try:
-            self.loc += data.speed
-            self.x, self.y = data.checkPoints[self.loc]
+            self.loc += gameData.enemySpeed
+            self.x, self.y = gameData.checkPoints[self.loc]
             self.bounds = (self.x - self.size, self.y - self.size,
                            self.x + self.size, self.y + self.size)
         except: #reached end
@@ -187,7 +150,6 @@ class Enemy(Dragon):
 
     def drawEnemy(self,canvas):
         data.screen.blit(self.img, (self.x - self.size, self.y - self.size))
-
 
 class Bullet(object):
     def __init__(self,x,y,target,element):
@@ -303,20 +265,20 @@ def setBullets(data):#set bullets for towers if tower has a target
 
 def setWave(data, dragonDatabase):
     if gameData.wave%2 == 0:
-        data.speed += 1
+        gameData.enemySpeed += 1
     if gameData.wave%4 == 0:
-        data.num += 2
+        gameData.enemyNum += 2
 
-    data.waveEnemies = [Enemy(4,dragonDatabase) for i in range(data.num)]
+    data.waveEnemies = [Enemy(4,dragonDatabase) for i in range(gameData.enemyNum)]
 
 def moveAllEnemies(data):
     if data.waveEnemies != []:
-        if data.count == data.maxCount:
+        if gameData.enemyCount == gameData.enemyMaxCount:
             newEnemy = data.waveEnemies.pop(0)
             data.enemies.append(newEnemy)
-            data.count = 0
+            gameData.enemyCount = 0
         else:
-            data.count += 1 #counter for time between adding each enemy on board
+            gameData.enemyCount += 1 #counter for time between adding each enemy on board
     for enemy in data.enemies:
         if enemy.exit == False:
             enemy.moveEnemy()
