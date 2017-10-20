@@ -3,50 +3,35 @@ from database import setDragonData
 from hover import *
 
 class Struct(object):pass
+
+
+#------------------------GLOBAL VARIABLES----------------------------------
+
 data = Struct()
+dragonDatabase = setDragonData()
+dragonSize = 30
+
+WINDOW_SIZE = width, height = 800, 620
+
+#game mode
+isIntro = True  
+isGameOver = False
+
+#game statistics
+wave = 1
+life = 10
 
 #--------------------------Init--------------------------------------------
 def init(data):
     pygame.init()
     pygame.display.set_caption("Dragon Age")
-    data.size = width, height = 800, 620
-    data.screen = pygame.display.set_mode(data.size)
+    data.screen = pygame.display.set_mode(WINDOW_SIZE)
     #set all initial data
     listInit(data)
     databaseInit(data)
     modeInit(data)
     playerInit(data)
-    enemyInit(data)
-    
-
-#set dragon data from database.py
-def databaseInit(data):
-    data.database = setDragonData()
-    data.dragonSize = 30
-    createPath(data)
-    setDragons(data)
-    data.boardBounds = 0, 700, 0, 520
-    
-def modeInit(data):
-    data.intro = True
-    data.gameOver = False
-    data.paused = True
-
-def playerInit(data):
-    data.lives = 10
-    data.wave = 1
-    data.hover = None
-    data.selected = None
-    data.coins = 100
-
-def enemyInit(data):
-    data.speed = 4
-    #counter for frames before placing a new enemy
-    data.count = 30
-    data.maxCount = 30
-    #number of enemies per wave
-    data.num = 7
-    setWave(data)
+    enemyInit(data, dragonDatabase)
 
 def listInit(data):
     #3 types of dragons for my party when starting the game
@@ -56,16 +41,40 @@ def listInit(data):
     #enemy dragons for current wave
     data.enemies = []
 
-def setDragons(data):
-    fireDragon =myParty(1,data)
-    waterDragon = myParty(2,data)
-    iceDragon = myParty(3,data)
+#set dragon data from database.py
+def databaseInit(data):
+    createPath()
+    setDragons(dragonDatabase)
+    data.boardBounds = 0, 700, 0, 520
+    
+def modeInit(data):
+
+    data.paused = True
+
+def playerInit(data):
+    data.hover = None
+    data.selected = None
+    data.coins = 100
+
+def enemyInit(data, dragonDatabase):
+    data.speed = 4
+    #counter for frames before placing a new enemy
+    data.count = 30
+    data.maxCount = 30
+    #number of enemies per wave
+    data.num = 7
+    setWave(data, dragonDatabase)
+
+def setDragons(dragonDatabase):
+    fireDragon =myParty(1,dragonDatabase)
+    waterDragon = myParty(2,dragonDatabase)
+    iceDragon = myParty(3,dragonDatabase)
     data.party.append(fireDragon)
     data.party.append(waterDragon)
     data.party.append(iceDragon)
     print(data.party)
 
-def createPath(data):
+def createPath():
     corners = [(0,80),(185,80),(185,165),(293,165),(293,80),(420,80),
                (420,265),(300,265),(300,450),(420,450),(420,365),
                (535,365),(535,450),(700,450)]
@@ -101,9 +110,8 @@ def horizontalPath(data,x0,y0,x1,y1):
 #------------------------Classes-------------------------------------------
 
 class Dragon(object):
-    def __init__(self, dragon, data):
-        tup = data.database[dragon]
-        self.id = dragon
+    def __init__(self, dragon, dragonDatabase):
+        tup = dragonDatabase[dragon]
         self.dragon = tup[0]
         self.element = tup[1]
         self.baseAttack = tup[2]
@@ -117,12 +125,12 @@ class Dragon(object):
         self.img = pygame.transform.scale(image, (30,30))
 
     def setSize(self):
-        self.size = data.dragonSize
+        self.size = dragonSize
 
 class myParty(Dragon):
-    def __init__(self,dragon,data,level=1,x=None,y=None):
+    def __init__(self,dragon,dragonDatabase,level=1,x=None,y=None):
         #super
-        Dragon.__init__(self,dragon,data)
+        Dragon.__init__(self,dragon,dragonDatabase)
         self.x = x
         self.y = y
         self.setRange()
@@ -164,14 +172,14 @@ class myParty(Dragon):
         pygame.draw.circle(canvas,(255,255,255),(self.x,self.y),self.range,3)
 
 class Enemy(Dragon):
-    def __init__(self, dragon, data, x=-1, y=-1):
-        Dragon.__init__(self, dragon, data)
+    def __init__(self, dragon, dragonDatabase, x=-1, y=-1):
+        Dragon.__init__(self, dragon, dragonDatabase)
         self.x = x
         self.y = y
         self.exit = False
         self.loc = 0 #index of data checkpoints
         self.img = pygame.transform.flip(self.img, True, False)
-        self.setLevel(data)
+        self.setLevel()
         self.hp = self.setHP()
         self.maxHP = self.hp
 
@@ -179,8 +187,8 @@ class Enemy(Dragon):
         growthHp = self.level*5
         return self.baseHp + growthHp
 
-    def setLevel(self,data):
-        avg = data.wave*3
+    def setLevel(self):
+        avg = wave*3
         num = random.randint(-2,2)
         self.level = avg + num
 
@@ -240,7 +248,7 @@ def moveAllBullets(data):#moves all bullets toward set direction
     for tower in data.party:
         for bullet in tower.bullets:
             bullet.moveBullet()
-            width,height = data.size
+            width,height = WINDOW_SIZE
             #if goes out of bounds, remove bullets
             x0,x1,y0,y1 =data.boardBounds
             if (bullet.x>x1 or bullet.x<0 or bullet.y>y1 
@@ -310,13 +318,13 @@ def setBullets(data):#set bullets for towers if tower has a target
                 else:   tower.counter+=1
 
 
-def setWave(data):
-    if data.wave%2 == 0:
+def setWave(data, dragonDatabase):
+    if wave%2 == 0:
         data.speed += 1
-    if data.wave%4 == 0:
+    if wave%4 == 0:
         data.num += 2
 
-    data.waveEnemies = [Enemy(4,data) for i in range(data.num)]
+    data.waveEnemies = [Enemy(4,dragonDatabase) for i in range(data.num)]
 
 def moveAllEnemies(data):
     if data.waveEnemies != []:
@@ -330,15 +338,15 @@ def moveAllEnemies(data):
         if enemy.exit == False:
             enemy.moveEnemy()
             if enemy.exit:
-                data.lives -= 1
-                if data.lives == 0:
-                    data.gameOver = True
+                life -= 1
+                if life == 0:
+                    isGameOver = True
 
 
 def timerFired(data):
-    if data.gameOver:
+    if isGameOver:
         gameoverHover(data)
-    elif data.intro == True:
+    elif isIntro == True:
         hover(data)
         moveAllEnemies(data)
         setTarget(data)
@@ -414,8 +422,8 @@ def inPlay(x,y):
     return x < x1 and x > x0 and y > y0 and y < y1
 
 def onBoard(data,x,y):
-    ax0,ay0,ax1,ay1 = (x-data.dragonSize,y-data.dragonSize,
-        x+data.dragonSize,y+data.dragonSize)
+    ax0,ay0,ax1,ay1 = (x-dragonSize,y-dragonSize,
+        x+dragonSize,y+dragonSize)
     bx0,bx1,by0,by1 = data.boardBounds
     return ((ax1 > bx0) and (bx1 > ax0) and (ay1 > by0) and (by1 > ay0))
 
@@ -454,7 +462,7 @@ def mousePress(x,y,data):
 
 def mouse(data):
     x, y = pygame.mouse.get_pos()
-    if data.intro:
+    if isIntro:
         mousePress(x,y,data)
 
 # =--------------------------Hover-----------------------------
@@ -474,7 +482,7 @@ def buildTowerHover(x,y,data):
 def game():
     init(data)
     while True:
-        if data.intro == True and data.gameOver == False:
+        if isIntro == True and isGameOver == False:
             loadBackground()
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
