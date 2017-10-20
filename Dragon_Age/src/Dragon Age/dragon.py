@@ -13,7 +13,7 @@ class Dragon(object):
         self.bounds = None
         self.button = None
         self.setSize()
-        image = pygame.image.load("%s.png" % self.dragon)
+        image = pygame.image.load("img/%s.png" % self.dragon)
         self.img = pygame.transform.scale(image, (30,30))
 
     def setSize(self):
