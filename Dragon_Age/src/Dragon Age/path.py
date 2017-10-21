@@ -12,17 +12,16 @@ def onBoard(x,y):
     bx0,bx1,by0,by1 = gameData.boardBounds
     return ((ax1 > bx0) and (bx1 > ax0) and (ay1 > by0) and (by1 > ay0))
 
-def inMenuBounds(x,y):#if clicks in menu button
-    x0,x1,y0,y1 =700,800,520,620
+def evolveBound(x,y):#if clicks in evolve button
+    x0,y0,x1,y1 = 500,400,800,620
     return x<x1 and x>x0 and y>y0 and y<y1
 
-
 def inParty(x,y):
-    for dragon in gameData.party:
-        x0,y0,width,height = dragon.button
+    for dragonTower in gameData.dragonParty:
+        x0,y0,width,height = dragonTower.button
         x1,y1 = x0+width, y0+height
         if x>x0 and x<x1 and y>y0 and y<y1:
-            return dragon
+            return dragonTower
     return False
 
 

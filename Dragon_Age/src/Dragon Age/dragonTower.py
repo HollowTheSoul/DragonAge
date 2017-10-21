@@ -4,11 +4,11 @@ from dragon import Dragon
 
 def setDragons():
     fireDragon =DragonTower(1,gameData.dragonDatabase)
-    waterDragon = DragonTower(2,gameData.dragonDatabase)
-    iceDragon = DragonTower(3,gameData.dragonDatabase)
-    gameData.party.append(fireDragon)
-    gameData.party.append(waterDragon)
-    gameData.party.append(iceDragon)
+    waterDragon = DragonTower(4,gameData.dragonDatabase)
+    iceDragon = DragonTower(7,gameData.dragonDatabase)
+    gameData.dragonParty.append(fireDragon)
+    gameData.dragonParty.append(waterDragon)
+    gameData.dragonParty.append(iceDragon)
 
 class DragonTower(Dragon):
     def __init__(self,dragon,dragonDatabase,level=1,x=None,y=None):
@@ -25,7 +25,6 @@ class DragonTower(Dragon):
         self.onBoard = False
         self.radius = False
         self.level = level
-        self.numOfUpgrade = 0
         self.attack = self.baseAttack
 
     #using the right triangle theory to calculate if the enemy is in range
@@ -44,6 +43,36 @@ class DragonTower(Dragon):
         gameData.screen.blit(self.img,(self.x-self.size,self.y-self.size))
 
     def drawRadius(self,canvas):#draws radius sof pokemon
-        pygame.draw.circle(canvas,(255,255,255),(self.x,self.y),self.range,3)
+        pygame.draw.circle(canvas,(255,255,255),(self.x,self.y),self.range,2)
+
+    
+    def canEvolve(self):#whether pokemon has met conditions to evolve
+        if self.upgrade < 3:
+            if self.upgrade == 1: #upgrade to level 2 requires 50 money
+                if gameData.playerCoins>=50:
+                    return True
+            if self.upgrade == 2: #upgrade to level 3 requires 100 money
+                if gameData.playerCoins>=100:
+                    return True
+
+        
+    def evolve(self):#set data for evolution
+        if self.canEvolve():
+            nextUpgrade = gameData.dragonDatabase[self.index+1]
+            print "in canEvolve"
+            self.dragon = nextUpgrade[0]
+            print self.dragon
+            self.element = nextUpgrade[1]
+            self.baseAttack = nextUpgrade[2]
+            self.baseHp = nextUpgrade[3]
+            self.upgrade = nextUpgrade[4]
+            self.attackGrowth = 10
+            self.bounds = None
+            self.button = None
+            self.index += 1
+            self.setSize()
+            image = pygame.image.load("img/%s.png" % self.dragon)
+            self.img = pygame.transform.scale(image, (30,30))
+            self.onBoard = True
 
 
