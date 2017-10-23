@@ -71,7 +71,7 @@ This is about creating the defending unit and their attributes like bullet and e
                 <notes><![CDATA[This is when every member put their pieces together into a working game demo.]]></notes>
             </task>
         </task>
-        <task id="24" name="Test Plan" color="#8cb6ce" meeting="false" start="2017-10-20" duration="10" complete="0" expand="true"/>
+        <task id="24" name="Test Plan" color="#8cb6ce" meeting="false" start="2017-10-20" duration="6" complete="0" expand="true"/>
     </tasks>
     <resources>
         <resource id="0" name="Stanley" function="Default:0" contacts="" phone=""/>
