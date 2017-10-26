@@ -10,7 +10,12 @@ def setDragons():
     gameData.dragonParty.append(waterDragon)
     gameData.dragonParty.append(iceDragon)
 
+## @brief Dragon Tower Class
+# This class represents the tower that the users will be building. 
+# It attackes enemies within range and can be upgraded.
 class DragonTower(Dragon):
+
+     ## The constructor
     def __init__(self,dragon,dragonDatabase,level=1,x=None,y=None):
         #super
         Dragon.__init__(self,dragon,dragonDatabase)
@@ -27,9 +32,15 @@ class DragonTower(Dragon):
         self.level = level
         self.attack = self.baseAttack
 
-    #using the right triangle theory to calculate if the enemy is in range
+    ## @brief isInRangeEquation calculates whether or not enemy is in range
+    #  @param self This is the self
+    #  @param x The x coord in int
+    #  @param y The y coord in int
+    #  using the right triangle theory to calculate if the enemy is in range
+    #  @return inRange (True if the enemy is in range and false otherwise)
     def isInRangeEquation(self,x,y):
-        return (x-self.x)**2 + (y-self.y)**2 < self.range**2
+        bool inRange = ((x-self.x)**2 + (y-self.y)**2 < self.range**2)
+        return inRange
 
     def isInRange(self,bounds):
         x0,x1,y0,y1 = bounds
