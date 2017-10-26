@@ -2,7 +2,7 @@ import sys, pygame, random, string, math
 from enemy import Enemy, setWave
 from dragon import Dragon
 from dragonTower import DragonTower, setDragons
-from path import createPath, inPlay, onBoard, inMenuBounds, inParty
+from path import createPath, inPlay, onBoard, inParty, evolveBound
 from draw import drawAll
 from timerFired import timerFired
 import gameData
@@ -29,22 +29,35 @@ def mouse():
         mousePress(x,y)
 
 def mousePress(x,y):
+    check = evolveBound(x,y)
+    print check
+    
     if inPlay(x,y):
         gameData.isPaused = False
-    if inParty(x,y):
+
+    elif inParty(x,y):
         curDragon = inParty(x,y)#current dragon
         if curDragon.onBoard == False:#only in party not on board yet
             gameData.playerSelected = curDragon#pick up pokemon
             gameData.playerSelected.x,gameData.playerSelected.y = x,y
         #already on board, show status
         else: 
-            data.status = curDragon
+            gameData.playerShowStatus = curDragon
+            print "hello"
+            print gameData.playerShowStatus
+
     elif gameData.playerSelected!=None:
         #picked up to pokemon to put on board
         if onBoard(x,y):
             gameData.playerSelected.x,gameData.playerSelected.y = x,y
             gameData.playerSelected.bounds = x-10,y-10,x+10,y+10
             gameData.playerSelected.onBoard,gameData.playerSelected =True,None
+    
+    elif gameData.playerShowStatus!= None and evolveBound(x,y):
+        print "evolve"
+        (gameData.playerShowStatus).evolve()
+    
+    
 
 def loadBackground():
     img = pygame.image.load("img/background.png")
