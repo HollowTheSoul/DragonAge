@@ -4,6 +4,7 @@
         <field id="tpd3" name="Name" width="211" order="0"/>
         <field id="tpd4" name="Begin date" width="87" order="1"/>
         <field id="tpd5" name="End date" width="86" order="2"/>
+        <timeline><![CDATA[85]]></timeline>
         <option id="color.recent"><![CDATA[#ff9999 #00ff33 #ff3333 #6666ff #ff99ff #66ff66]]></option>
     </view>
     <view id="resource-table">
@@ -72,6 +73,11 @@ This is about creating the defending unit and their attributes like bullet and e
             </task>
         </task>
         <task id="24" name="Test Plan" color="#8cb6ce" meeting="false" start="2017-10-20" duration="6" complete="0" expand="true"/>
+        <task id="74" name="Design &amp; Doc Rev0" color="#8cb6ce" meeting="false" start="2017-10-27" duration="11" complete="0" expand="true"/>
+        <task id="77" name="Rev0 Demo" color="#8cb6ce" meeting="false" start="2017-11-06" duration="6" complete="0" expand="true"/>
+        <task id="85" name="Final Demo (Rev1)" color="#8cb6ce" meeting="false" start="2017-11-15" duration="9" complete="0" expand="true"/>
+        <task id="90" name="Peer eval" meeting="false" start="2017-11-27" duration="1" complete="0" expand="true"/>
+        <task id="91" name="Final Documentation" meeting="false" start="2017-11-27" duration="8" complete="0" expand="true"/>
     </tasks>
     <resources>
         <resource id="0" name="Stanley" function="Default:0" contacts="" phone=""/>
