@@ -3,12 +3,14 @@ from dragon import Dragon
 import gameData
 
 def setWave():
+    enemyParty = [10,11,12,13]
     if gameData.wave%2 == 0:
         gameData.enemySpeed += 1
     if gameData.wave%4 == 0:
         gameData.enemyNum += 2
 
-    gameData.waveEnemies = [Enemy(10,gameData.dragonDatabase) for i in range(gameData.enemyNum)]
+    gameData.waveEnemies = [Enemy(enemyParty[random.randint(0,len(enemyParty))-1],
+                                  gameData.dragonDatabase) for i in range(gameData.enemyNum)]
 
 class Enemy(Dragon):
     def __init__(self, dragon, dragonDatabase, x=-1, y=-1):
