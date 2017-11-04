@@ -1,6 +1,7 @@
 import pygame
 from bullet import Bullet
 from path import inPlay, onBoard, inParty
+from enemy import setWave
 import gameData
 
 #-------------------------TimerFired functions----------------------------
@@ -108,6 +109,23 @@ def buildTowerHover(x,y):
             y-gameData.playerSelected.size,gameData.playerSelected.size*2,gameData.playerSelected.size*2),
             3)
 
+#check whether the round is over
+def roundOver():
+    for enemy in gameData.enemies:
+        if enemy.exit == False:
+            return False
+    return True
+
+#check whether all bullets are removed from board
+def allBulletsRemoved():
+    for tower in gameData.dragonParty:
+        if tower.onBoard and tower.bullets != []:
+            for bullet in tower.bullets:
+                if bullet.remove == False:
+                    return False
+    return True
+
+#initiate all the timer fired functions
 def timerFired():
     if gameData.isGameOver:
         gameoverHover()
@@ -119,3 +137,8 @@ def timerFired():
         moveAllBullets()
         shootEnemies()
         removeBullets()
+        #after a wave is cleared, check conditions and add the next wave
+        if (gameData.enemies != [] and roundOver() and allBulletsRemoved()):
+            gameData.enemies = []
+            gameData.wave += 1
+            setWave()
