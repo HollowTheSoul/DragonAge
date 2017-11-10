@@ -8,9 +8,9 @@ class Bullet(object):
         self.x = x
         self.y = y
         self.bounds = x-5,y-5,x+5,y+5
-        self.remove = False#if hits something
+        self.remove = False #if hits something
         self.getDirection()
-        self.speed = 5#speed of bullet
+        self.speed = 5 #speed of bullet
         self.setImage(element)
 
     def setImage(self,element):#bullet img set based on element of pokemon
@@ -22,7 +22,7 @@ class Bullet(object):
         dy = self.targetY-self.y
         rads = math.atan2(dy,dx)
         rads %= 2*math.pi
-        self.dir = rads# in radians
+        self.dir = rads # in radians
 
     def shotEnemy(self,enemy):
         #whether the bullet intersects with an enemy bound
