@@ -26,8 +26,7 @@ def runGame():
 
 def mousePress(x,y):
     check = evolveBound(x,y)
-    print check
-    
+
     if inPlay(x,y):
         gameData.isPaused = False
 
@@ -39,7 +38,6 @@ def mousePress(x,y):
         #already on board, show status
         else: 
             gameData.playerShowStatus = curDragon
-            print "hello"
             print gameData.playerShowStatus
 
     elif gameData.playerSelected!=None:
@@ -50,7 +48,6 @@ def mousePress(x,y):
             gameData.playerSelected.onBoard,gameData.playerSelected =True,None
     
     elif gameData.playerShowStatus!= None and evolveBound(x,y):
-        print "evolve"
         (gameData.playerShowStatus).evolve()
     
 
