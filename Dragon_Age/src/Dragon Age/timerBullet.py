@@ -59,6 +59,12 @@ def shootEnemies():#check whether each bullet has shot an enemy
                                     enemy.speed = enemy.speed - 2
                                     enemy.isFrozen = True
                                     enemy.isFrozenCount = 0
+                            
+                            elif bullet.element == "poison":
+                                if enemy.isPoison == False:
+                                    enemy.speed = enemy.speed - 1
+                                    enemy.isPoison = True
+                                    enemy.isPoisonCount = 0
                                 
                             enemy.hp-=setDamage(tower.attack)
                             bullet.remove =True
@@ -79,7 +85,7 @@ def setBullets():#set bullets for towers if tower has a target
                     target = tower.target.x,tower.target.y
                     tower.bullets.append(Bullet(tower.x,tower.y,
                         target,tower.element))
-                    tower.counter =0#counter for time between new bullet
+                    tower.counter = 0 #counter for time between new bullet
                 else:   tower.counter+=1
 
 #check whether all bullets are removed from board

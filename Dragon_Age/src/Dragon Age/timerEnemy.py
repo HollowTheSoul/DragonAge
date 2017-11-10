@@ -18,6 +18,12 @@ def moveAllEnemies():
                     enemy.speed = gameData.enemySpeed
                     enemy.isFrozen = False
                     enemy.isFrozenCount = 0
+            if enemy.isPoison:
+                enemy.isPoisonCount += 5
+                if enemy.isPoisonCount > 50:
+                    enemy.speed = gameData.enemySpeed
+                    enemy.isPoison = False
+                    enemy.isPoisonCount = 0
             if enemy.exit:
                 gameData.life -= 1
                 print(gameData.life)

@@ -33,6 +33,18 @@ class Enemy(Dragon):
         self.frozenImg = pygame.transform.flip(self.frozenImg, True, False)
 
 
+        self.isPoison = False
+        self.isPoisonCount = 0
+
+        poisonImage = pygame.image.load("img/p%s.png" % self.dragon)
+        self.poisonImg = pygame.transform.scale(poisonImage, (40,40))
+        self.poisonImg = pygame.transform.flip(self.poisonImg, True, False)
+
+        frozenPoisonImage = pygame.image.load("img/fp%s.png" % self.dragon)
+        self.frozenPoisonImg = pygame.transform.scale(frozenPoisonImage, (40,40))
+        self.frozenPoisonImg = pygame.transform.flip(self.frozenPoisonImg, True, False)
+
+
     def setHP(self):
         growthHp = self.level*5
         return self.baseHp + growthHp
@@ -54,7 +66,11 @@ class Enemy(Dragon):
             self.bounds = None
 
     def drawEnemy(self,canvas):
-        if self.isFrozen:
+        if self.isFrozen and self.isPoison:
+            gameData.screen.blit(self.frozenPoisonImg, (self.x - self.size, self.y - self.size))
+        elif self.isPoison:
+            gameData.screen.blit(self.poisonImg, (self.x - self.size, self.y - self.size))
+        elif self.isFrozen:
             gameData.screen.blit(self.frozenImg, (self.x - self.size, self.y - self.size))
         else:
             gameData.screen.blit(self.img, (self.x - self.size, self.y - self.size))
