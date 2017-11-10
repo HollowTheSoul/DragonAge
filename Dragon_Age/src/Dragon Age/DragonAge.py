@@ -1,6 +1,6 @@
 import sys, pygame
 from path import inPlay, onBoard, inParty, evolveBound
-from stage import gameInit, runGame
+from gameManager import gameInit, runGame
 import gameData
 
 #--------------------------Init--------------------------------------------
