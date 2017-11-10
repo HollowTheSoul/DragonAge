@@ -17,12 +17,21 @@ class Enemy(Dragon):
         Dragon.__init__(self, dragon, dragonDatabase)
         self.x = x
         self.y = y
+        self.speed = gameData.enemySpeed
         self.exit = False
         self.loc = 0 #index of data checkpoints
         self.img = pygame.transform.flip(self.img, True, False)
+        
         self.setLevel()
         self.hp = self.setHP()
         self.maxHP = self.hp
+        self.isFrozen = False
+        self.isFrozenCount = 0
+
+        frozenImage = pygame.image.load("img/f%s.png" % self.dragon)
+        self.frozenImg = pygame.transform.scale(frozenImage, (40,40))
+        self.frozenImg = pygame.transform.flip(self.frozenImg, True, False)
+
 
     def setHP(self):
         growthHp = self.level*5
@@ -35,14 +44,18 @@ class Enemy(Dragon):
 
     def moveEnemy(self): #move enemy along the path
         try:
-            self.loc += gameData.enemySpeed
+            self.loc += self.speed
             self.x, self.y = gameData.checkPoints[self.loc]
             self.bounds = (self.x - self.size, self.y - self.size,
                            self.x + self.size, self.y + self.size)
+                        
         except: #reached end
             self.exit = True #disappears
             self.bounds = None
 
     def drawEnemy(self,canvas):
-        gameData.screen.blit(self.img, (self.x - self.size, self.y - self.size))
+        if self.isFrozen:
+            gameData.screen.blit(self.frozenImg, (self.x - self.size, self.y - self.size))
+        else:
+            gameData.screen.blit(self.img, (self.x - self.size, self.y - self.size))
 

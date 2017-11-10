@@ -70,9 +70,7 @@ class DragonTower(Dragon):
     def evolve(self):#set data for evolution
         if self.canEvolve():
             nextUpgrade = gameData.dragonDatabase[self.index+1]
-            print "in canEvolve"
             self.dragon = nextUpgrade[0]
-            print self.dragon
             self.element = nextUpgrade[1]
             self.baseAttack = nextUpgrade[2]
             self.baseHp = nextUpgrade[3]
