@@ -9,7 +9,7 @@ def hover():#general hover fucntion wrap
         buildTowerHover(x,y) 
 
 def buildTowerHover(x,y):
-#draw rect of size of pokemon when building if legal
+#draw rect of size of dragon when building if legal
     gameData.playerSelected.x, gameData.playerSelected.y= x,y
     if onBoard(x,y):
         pygame.draw.rect(gameData.screen,(255,255,255),(x-gameData.playerSelected.size,
