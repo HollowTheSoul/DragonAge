@@ -1,27 +1,14 @@
-import sys, pygame, random, string, math
-from enemy import Enemy, setWave
-from dragon import Dragon
-from dragonTower import DragonTower, setDragons
-from path import createPath, inPlay, onBoard, inParty, evolveBound
-from draw import drawAll
-from timerFired import timerFired
+import sys, pygame
+from path import inPlay, onBoard, inParty, evolveBound
+from stage import gameInit, runGame
 import gameData
 
 #--------------------------Init--------------------------------------------
 def init():
     pygame.init()
     pygame.display.set_caption("Dragon Age")
-    #set all initial data
-    databaseInit()
-    enemyInit()
+    gameInit()
 
-#set dragon data from database.py
-def databaseInit():
-    createPath()
-    setDragons()
-
-def enemyInit():
-    setWave() 
 #=-------------------------MousePress--------------------------------------
 def mouse():
     x, y = pygame.mouse.get_pos()
@@ -72,7 +59,6 @@ def game():
             if event.type == pygame.QUIT: sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN: mouse()
 
-        drawAll()
-        timerFired()
+        runGame()
         pygame.display.flip()
 game()
