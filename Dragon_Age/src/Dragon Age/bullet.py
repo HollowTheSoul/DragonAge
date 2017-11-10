@@ -10,8 +10,9 @@ class Bullet(object):
         self.bounds = x-5,y-5,x+5,y+5
         self.remove = False #if hits something
         self.getDirection()
-        self.speed = 5 #speed of bullet
+        self.speed = 10 #speed of bullet
         self.setImage(element)
+        self.element = element
 
     def setImage(self,element):#bullet img set based on element of pokemon
         self.img = pygame.image.load("img/%s.png" % element)
