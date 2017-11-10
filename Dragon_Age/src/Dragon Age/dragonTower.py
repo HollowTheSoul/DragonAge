@@ -22,8 +22,6 @@ class DragonTower(Dragon):
         self.x = x
         self.y = y
         self.range = dragonDatabase[dragon][5]
-        #when to shoot next bullet
-        self.maxCounter = 8
         self.counter = self.maxCounter
         self.target = None
         self.bullets = []
