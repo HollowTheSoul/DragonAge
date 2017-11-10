@@ -39,7 +39,7 @@ class DragonTower(Dragon):
     #  using the right triangle theory to calculate if the enemy is in range
     #  @return inRange (True if the enemy is in range and false otherwise)
     def isInRangeEquation(self,x,y):
-        bool inRange = ((x-self.x)**2 + (y-self.y)**2 < self.range**2)
+        inRange = ((x-self.x)**2 + (y-self.y)**2 < self.range**2)
         return inRange
 
     def isInRange(self,bounds):
