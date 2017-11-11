@@ -47,6 +47,11 @@ def setTarget():
                     tower.target.x+10,tower.target.y+10))):
                     tower.target = None
 
+def setDamage(attack):
+    return attack
+
+
+
 def shootEnemies():#check whether each bullet has shot an enemy
     for tower in gameData.dragonParty:
         if tower.onBoard and tower.bullets!=[]:
@@ -66,16 +71,12 @@ def shootEnemies():#check whether each bullet has shot an enemy
                                     enemy.isPoison = True
                                     enemy.isPoisonCount = 0
                                 
-                            enemy.hp-=setDamage(tower.attack)
+                            enemy.hp-=tower.attack #damage the enemy
                             bullet.remove =True
                         
                         if enemy.hp<=0:#kills an enemy, gains exp and money
                             enemy.exit = True
                             gameData.playerCoins+=50
-                            
-#set damage of bullet according to stats of pokemon as well as type of bullet
-def setDamage(attack):
-    return attack
 
 def setBullets():#set bullets for towers if tower has a target 
     if gameData.enemies!= []:
