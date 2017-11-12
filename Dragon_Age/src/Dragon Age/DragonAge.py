@@ -18,8 +18,13 @@ def loadBackground():
     img = pygame.image.load("img/background.png")
     gameData.screen.blit(img, (0,0))
 
+def loadBGM():
+    pygame.mixer.music.load('Future - Mask Off.mp3')
+    pygame.mixer.music.play(-1) #play a song infinitely
+
 def game():
     init()
+    loadBGM()
     while True:
         if gameData.isIntro == True and gameData.isGameOver == False:
             loadBackground()
