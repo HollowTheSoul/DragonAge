@@ -44,6 +44,7 @@ class DragonTower(Dragon):
         if (self.isInRangeEquation(x0,y0) or self.isInRangeEquation(x0,y1) or
             self.isInRangeEquation(x1,y0) or self.isInRangeEquation(x1,y1)):
             return True
+
         else:
             return False    
     
@@ -59,9 +60,11 @@ class DragonTower(Dragon):
             if self.upgrade == 1: #upgrade to level 2 requires 50 money
                 if gameData.playerCoins>=50:
                     return True
+                    gameData.playerCoins -= 50;
             if self.upgrade == 2: #upgrade to level 3 requires 100 money
                 if gameData.playerCoins>=100:
                     return True
+                    gameData.playerCoins -= 100;
 
         
     def evolve(self):#set data for evolution
@@ -84,5 +87,4 @@ class DragonTower(Dragon):
                 self.img = pygame.transform.scale(image, (90,90))
             
             self.onBoard = True
-
 

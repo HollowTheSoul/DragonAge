@@ -12,6 +12,7 @@ def setWave():
     gameData.waveEnemies = [Enemy(enemyParty[random.randint(0,len(enemyParty))-1],
                                   gameData.dragonDatabase) for i in range(gameData.enemyNum)]
 
+
 class Enemy(Dragon):
     def __init__(self, dragon, dragonDatabase, x=-1, y=-1):
         Dragon.__init__(self, dragon, dragonDatabase)
@@ -74,4 +75,6 @@ class Enemy(Dragon):
             gameData.screen.blit(self.frozenImg, (self.x - self.size, self.y - self.size))
         else:
             gameData.screen.blit(self.img, (self.x - self.size, self.y - self.size))
+
+
 

@@ -1,6 +1,7 @@
 import pygame
 import gameData
 
+
 #--------------------------Draw-------------------------------------------
 def drawIntro():
     img = pygame.image.load("img/Intro.png")
@@ -53,6 +54,7 @@ def drawParty():
         name = font.render(name,True,(255,255,255))
         gameData.screen.blit(name,(startX+5,startY+5))
         startY+=25
+        
 
 
 def drawAllBullets():#draws all bullets on board
