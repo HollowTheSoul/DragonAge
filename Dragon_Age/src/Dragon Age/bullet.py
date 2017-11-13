@@ -3,19 +3,27 @@ import math
 import gameData
 
 class Bullet(object):
-    def __init__(self,x,y,target,element):
+    def __init__(self,x,y,target,element,upgrade):
         self.targetX,self.targetY=target
         self.x = x
         self.y = y
         self.bounds = x-5,y-5,x+5,y+5
         self.remove = False #if hits something
         self.getDirection()
-        self.speed = 10 #speed of bullet
+        self.speed = 20 #speed of bullet
+        self.upgrade = upgrade
         self.setImage(element)
         self.element = element
+        
 
-    def setImage(self,element):#bullet img set based on element of pokemon
-        self.img = pygame.image.load("img/%s.png" % element)
+    def setImage(self,element):#bullet img set based on element of tower
+        image = pygame.image.load("img/%s.png" % element)
+        if self.upgrade == 1:
+            self.img = pygame.transform.scale(image, (15,15))
+        elif self.upgrade == 2:
+            self.img = pygame.transform.scale(image, (30,15))
+        elif self.upgrade == 3:
+            self.img = pygame.transform.scale(image, (45,30))
 
     def getDirection(self):
     #find direction of bullet in radians with given target

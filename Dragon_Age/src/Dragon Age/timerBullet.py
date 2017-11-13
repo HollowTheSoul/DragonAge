@@ -54,7 +54,7 @@ def shootEnemies():#check whether each bullet has shot an enemy
                 for enemy in gameData.enemies:
                     if enemy.exit == False:
                         if bullet.shotEnemy(enemy):
-                            if bullet.element == "water":
+                            if bullet.element == "ice":
                                 if enemy.isFrozen == False:
                                     enemy.speed = enemy.speed - 2
                                     enemy.isFrozen = True
@@ -84,7 +84,7 @@ def setBullets():#set bullets for towers if tower has a target
                 if tower.counter>= tower.maxCounter:
                     target = tower.target.x,tower.target.y
                     tower.bullets.append(Bullet(tower.x,tower.y,
-                        target,tower.element))
+                        target,tower.element,tower.upgrade))
                     tower.counter = 0 #counter for time between new bullet
                 else:   tower.counter+=1
 

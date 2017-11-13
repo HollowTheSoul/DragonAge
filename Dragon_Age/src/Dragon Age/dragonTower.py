@@ -4,11 +4,11 @@ from dragon import Dragon
 
 def setDragons():
     fireDragon =DragonTower(1,gameData.dragonDatabase)
-    waterDragon = DragonTower(4,gameData.dragonDatabase)
-    iceDragon = DragonTower(7,gameData.dragonDatabase)
+    iceDragon = DragonTower(4,gameData.dragonDatabase)
+    poisonDragon = DragonTower(7,gameData.dragonDatabase)
     gameData.dragonParty.append(fireDragon)
-    gameData.dragonParty.append(waterDragon)
     gameData.dragonParty.append(iceDragon)
+    gameData.dragonParty.append(poisonDragon)
 
 ## @brief Dragon Tower Class
 # This class represents the tower that the users will be building. 
@@ -27,7 +27,6 @@ class DragonTower(Dragon):
         self.bullets = []
         self.onBoard = False
         self.radius = False
-        self.level = level
         self.attack = self.baseAttack
 
     ## @brief isInRangeEquation calculates whether or not enemy is in range
@@ -56,7 +55,7 @@ class DragonTower(Dragon):
         pygame.draw.circle(canvas,(255,255,255),(self.x,self.y),self.range,2)
 
     
-    def canEvolve(self):#whether pokemon has met conditions to evolve
+    def canEvolve(self):#whether tower can be upgraded
         if self.upgrade < 3:
             if self.upgrade == 1: #upgrade to level 2 requires 50 money
                 if gameData.playerCoins>=50:
@@ -82,6 +81,10 @@ class DragonTower(Dragon):
             self.index += 1
             self.setSize()
             image = pygame.image.load("img/%s.png" % self.dragon)
-            self.img = pygame.transform.scale(image, (30,30))
+            if self.upgrade == 2:
+                self.img = pygame.transform.scale(image, (60,60))
+            elif self.upgrade == 3:
+                self.img = pygame.transform.scale(image, (90,90))
+            
             self.onBoard = True
 
