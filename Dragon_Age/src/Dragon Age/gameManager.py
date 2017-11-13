@@ -1,7 +1,7 @@
 import pygame
 from dragonTower import setDragons
 from enemy import setWave
-from path import createPath, inPlay, onBoard, inParty, evolveBound
+from path import createPath, inPlay, onBoard, inParty, upgradeBound
 from draw import drawAll
 from timerFired import timerFired
 import gameData
@@ -25,7 +25,7 @@ def runGame():
 
 
 def mousePress(x,y):
-    check = evolveBound(x,y)
+    check = upgradeBound(x,y)
 
     if inPlay(x,y):
         gameData.isPaused = False
@@ -47,8 +47,8 @@ def mousePress(x,y):
             gameData.playerSelected.bounds = x-10,y-10,x+10,y+10
             gameData.playerSelected.onBoard,gameData.playerSelected =True,None
     
-    elif gameData.playerShowStatus!= None and evolveBound(x,y):
-        (gameData.playerShowStatus).evolve()
+    elif gameData.playerShowStatus!= None and upgradeBound(x,y):
+        (gameData.playerShowStatus).upgrade()
     
 
 
