@@ -12,7 +12,7 @@ def init():
 def mouse():
     x, y = pygame.mouse.get_pos()
     if gameData.isIntro:
-        mousePress(x,y)
+        mousePress(x,y)    
 
 def loadBackground():
     img = pygame.image.load("img/background.png")
@@ -34,11 +34,11 @@ def game():
             loadBackground()
         elif gameData.isGameOver == True:
             loadGameOverPage()
-        
+     
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN: mouse()
-        
+            
         runGame()
         pygame.display.flip()
 game()

@@ -1,6 +1,6 @@
 import pygame
 from timerBullet import moveAllBullets, removeBullets, setTarget, shootEnemies, setDamage, setBullets, allBulletsRemoved
-from timerHover import hover, buildTowerHover
+from timerHover import hover, buildTowerHover, gameoverHover
 from timerEnemy import moveAllEnemies, roundOver
 from enemy import setWave
 import gameData

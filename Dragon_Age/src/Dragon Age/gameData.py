@@ -28,12 +28,12 @@ dragonDatabase = setDragonData() #get data from database
 dragonParty = []
 dragonSize = 30
 
+
 #--------------------------enemy data---------------------------------
 #dragons to be appended to enemies
 waveEnemies = []
 #enemy dragons for current wave
 enemies = []
-
 enemySpeed = 4
 enemyCount = 30
 enemyMaxCount = 30

@@ -3,7 +3,6 @@ import gameData
 from path import inPlay, onBoard, inParty
 from timerEnemy import removeAllEnemies
 
-
 #HOVER
 def hover():#general hover fucntion wrap
     x,y = pygame.mouse.get_pos()
@@ -20,3 +19,4 @@ def buildTowerHover(x,y):
 def gameoverHover():
     if gameData.life == 0:
         removeAllEnemies()
+        
