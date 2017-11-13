@@ -25,7 +25,7 @@ def drawTowers():#draw all towers on board
     for dragon in gameData.dragonParty:
         if dragon.onBoard == True:
             dragon.drawTower(gameData.screen)
-
+            
 def drawParty():
     startY =60
     startX = 690
@@ -55,8 +55,6 @@ def drawParty():
         gameData.screen.blit(name,(startX+5,startY+5))
         startY+=25
         
-
-    
 def drawAllBullets():#draws all bullets on board
     for tower in gameData.dragonParty:
         if tower.onBoard and tower.bullets!=[]:
