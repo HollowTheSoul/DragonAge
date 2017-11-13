@@ -54,24 +54,28 @@ def shootEnemies():#check whether each bullet has shot an enemy
                 for enemy in gameData.enemies:
                     if enemy.exit == False:
                         if bullet.shotEnemy(enemy):
-                            if bullet.element == "ice":
-                                if enemy.isFrozen == False:
-                                    enemy.speed = enemy.speed - 2
-                                    enemy.isFrozen = True
-                                    enemy.isFrozenCount = 0
-                            
-                            elif bullet.element == "poison":
-                                if enemy.isPoison == False:
-                                    enemy.speed = enemy.speed - 1
-                                    enemy.isPoison = True
-                                    enemy.isPoisonCount = 0
-                                
+                            bulletEffect(enemy, bullet)
                             enemy.hp-=setDamage(tower.attack)
                             bullet.remove =True
                         
                         if enemy.hp<=0:#kills an enemy, gains exp and money
                             enemy.exit = True
                             gameData.playerCoins+=50
+
+
+def bulletEffect(enemy, bullet):
+    if bullet.element == "ice":
+        if enemy.isFrozen == False:
+            enemy.speed = enemy.speed - 2
+            enemy.isFrozen = True
+            enemy.isFrozenCount = 0
+    
+    elif bullet.element == "poison":
+        if enemy.isPoison == False:
+            enemy.speed = enemy.speed - 1
+            enemy.isPoison = True
+            enemy.isPoisonCount = 0
+    
                             
 #set damage of bullet according to stats of pokemon as well as type of bullet
 def setDamage(attack):
