@@ -12,7 +12,7 @@ def onBoard(x,y):
     bx0,bx1,by0,by1 = gameData.boardBounds
     return ((ax1 > bx0) and (bx1 > ax0) and (ay1 > by0) and (by1 > ay0))
 
-def evolveBound(x,y):#if clicks in evolve button
+def upgradeBound(x,y):#if clicks in upgrade button
     x0,y0,x1,y1 = 500,400,800,620
     return x<x1 and x>x0 and y>y0 and y<y1
 
