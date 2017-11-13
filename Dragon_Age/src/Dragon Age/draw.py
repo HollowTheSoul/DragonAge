@@ -1,6 +1,7 @@
 import pygame
 import gameData
 
+
 #--------------------------Draw-------------------------------------------
 def drawIntro():
     img = pygame.image.load("img/Intro.png")
@@ -31,6 +32,18 @@ def drawParty():
     width = 100
     height = 25
     font = pygame.font.Font("pokemon_pixel_font.ttf",20)
+    store = pygame.image.load("img/store.png")
+    store = pygame.transform.scale(store, (35,35))
+    gameData.screen.blit(store, (680,20))
+    money = font.render(str(gameData.playerCoins),True,(255,255,255))
+    text = "Money:"
+    moneySymbol = font.render(text,True,(255,255,255))
+    gameData.screen.blit(money,(760,35))
+    gameData.screen.blit(moneySymbol,(720,35))
+    level = font.render(("Level: %d" %gameData.wave),True,(255,255,255))
+    gameData.screen.blit(level,(20,20))
+    life = font.render(("Remaining Life: %d" %gameData.life),True,(255,255,255))
+    gameData.screen.blit(life,(560,470))
     for i in range(len(gameData.dragonParty)):
         dragon = gameData.dragonParty[i]#display name of each pokemon
         name = dragon.dragon
@@ -41,6 +54,8 @@ def drawParty():
         name = font.render(name,True,(255,255,255))
         gameData.screen.blit(name,(startX+5,startY+5))
         startY+=25
+
+
 
 def drawAllBullets():#draws all bullets on board
     for tower in gameData.dragonParty:

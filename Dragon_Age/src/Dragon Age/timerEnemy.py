@@ -30,6 +30,12 @@ def moveAllEnemies():
                 if gameData.life == 0:
                     gameData.isGameOver = True
 
+#remove all enemies when game is over
+def removeAllEnemies():
+    if gameData.life == 0:
+        gameData.waveEnemies =[]
+
+
 #check whether the round is over
 def roundOver():
     for enemy in gameData.enemies:

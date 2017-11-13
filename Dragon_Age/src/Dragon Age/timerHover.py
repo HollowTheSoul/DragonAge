@@ -1,6 +1,8 @@
 import pygame
 import gameData
 from path import inPlay, onBoard, inParty
+from timerEnemy import removeAllEnemies
+
 
 #HOVER
 def hover():#general hover fucntion wrap
@@ -15,3 +17,6 @@ def buildTowerHover(x,y):
         pygame.draw.rect(gameData.screen,(255,255,255),(x-gameData.playerSelected.size,
             y-gameData.playerSelected.size,gameData.playerSelected.size*2,gameData.playerSelected.size*2),
             3)
+def gameoverHover():
+    if gameData.life == 0:
+        removeAllEnemies()
