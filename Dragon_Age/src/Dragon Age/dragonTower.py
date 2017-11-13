@@ -80,20 +80,19 @@ class DragonTower(Dragon):
     def canUpgrade(self):#whether tower can be upgraded
         if self.upgrade < 3:
             if self.upgrade == 1: #upgrade to level 2 requires 50 money
-                if gameData.playerCoins>=250:
-                    gameData.playerCoins -= 250;
+                if gameData.playerCoins>=150:
+                    gameData.playerCoins -= 150;
                     return True
                     
             if self.upgrade == 2: #upgrade to level 3 requires 100 money
-                if gameData.playerCoins>=500:
-                    gameData.playerCoins -= 500;
+                if gameData.playerCoins>=300:
+                    gameData.playerCoins -= 300;
                     return True
 
-    ## @brief 
+    ## @brief upgrade Upgrade the tower to the next level
     #  @param self This is the self
-    #  @param 
     #  @return none    
-    def upgrade(self):#set data for evolution
+    def upgradeTower(self):#set data for evolution
         if self.canUpgrade():
             nextUpgrade = gameData.dragonDatabase[self.index+1]
             self.dragon = nextUpgrade[0]

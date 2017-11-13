@@ -48,7 +48,7 @@ def mousePress(x,y):
             gameData.playerSelected.onBoard,gameData.playerSelected =True,None
     
     elif gameData.playerShowStatus!= None and upgradeBound(x,y):
-        (gameData.playerShowStatus).upgrade()
+        (gameData.playerShowStatus).upgradeTower()
     
 
 
