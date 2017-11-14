@@ -2,6 +2,10 @@ import pygame, random
 from dragon import Dragon
 import gameData
 
+##  @brief Set enemy waves
+#   @return none
+#   set enemy waves with 4 types of enemies, set number of enemies per wave
+#   and enemy moving speed depending on waves
 def setWave():
     enemyParty = [10,11,12,13]
     if gameData.wave%2 == 0:
@@ -12,8 +16,17 @@ def setWave():
     gameData.waveEnemies = [Enemy(enemyParty[random.randint(0,len(enemyParty))-1],
                                   gameData.dragonDatabase) for i in range(gameData.enemyNum)]
 
-
+##  @brief Enemy class
+#   This is the enemy class that creates enemy objects in the game
 class Enemy(Dragon):
+
+    ##  @brief the constructor of Enemy class
+    #   @param self this is the self
+    #   @param dragon Dragon class
+    #   @param dragonDatabase List of information about the dragon
+    #   @param x the x coord in int
+    #   @param y the y coord in int
+    #   @return none
     def __init__(self, dragon, dragonDatabase, x=-1, y=-1):
         Dragon.__init__(self, dragon, dragonDatabase)
         self.x = x
@@ -45,17 +58,28 @@ class Enemy(Dragon):
         self.frozenPoisonImg = pygame.transform.scale(frozenPoisonImage, (40,40))
         self.frozenPoisonImg = pygame.transform.flip(self.frozenPoisonImg, True, False)
 
-
+    ##  @brief set HP
+    #   @param self this is the self
+    #   @return self.baseHp+grouthHP return the hp of enemy
+    #   set the hp of enemy depending on baseHP and growthHP
     def setHP(self):
         growthHp = self.level*5
         return self.baseHp + growthHp
 
+    ##  @brief set level
+    #   @param self this is the self
+    #   @return none
+    #   set the level of enemy depending on the wave and a random integer
     def setLevel(self):
         avg = gameData.wave*3
         num = random.randint(-2,2)
         self.level = avg + num
 
-    def moveEnemy(self): #move enemy along the path
+    ##  @brief move enemy
+    #   @param self this is the self
+    #   @return none
+    #   move the enemy along the path, remove enemy when it exit
+    def moveEnemy(self):
         try:
             self.loc += self.speed
             self.x, self.y = gameData.checkPoints[self.loc]
@@ -66,6 +90,10 @@ class Enemy(Dragon):
             self.exit = True #disappears
             self.bounds = None
 
+    ##  @brief draw enemy on map
+    #   @param self this is the self
+    #   @param canvas The game screen
+    #   @return none
     def drawEnemy(self,canvas):
         if self.isFrozen and self.isPoison:
             gameData.screen.blit(self.frozenPoisonImg, (self.x - self.size, self.y - self.size))
