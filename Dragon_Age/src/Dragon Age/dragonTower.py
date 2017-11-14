@@ -2,9 +2,9 @@ import pygame
 import gameData
 from dragon import Dragon
 
-## @brief setDragon
-    #  @return none
-    #  Initiliase the dragons for the game
+## @brief Set Dragon
+#  @return none
+#  Initiliase the dragons for the game
 def setDragons():
     fireDragon =DragonTower(1,gameData.dragonDatabase)
     iceDragon = DragonTower(4,gameData.dragonDatabase)
