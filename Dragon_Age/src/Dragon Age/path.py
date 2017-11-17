@@ -16,12 +16,32 @@ def upgradeBound(x,y):#if clicks in upgrade button
     x0,y0,x1,y1 = 500,400,800,620
     return x<x1 and x>x0 and y>y0 and y<y1
 
+def inTowerBounds(bounds): #make sure tower is not on top of another tower, also know when tower is selected
+    bx0,by0,bx1,by1 = bounds
+    counter = 1
+    for tower in gameData.dragonParty:
+        print(counter)
+        counter += 1
+        ax0,ay0,ax1,ay1 = tower.bounds
+        if ((bx0 > ax0) and (bx1 < ax1) and (by0 > ay0) and (by1 < ay1)):
+            print ("inside a dragon")
+            return tower
+    return False
+
+def canBuild(x,y):
+    ax0,ay0,ax1,ay1 = (x-50,y-50,x+50,y+50)
+    
+    if inTowerBounds((ax0,ay0,ax1,ay1)) == False:
+        return True
+    return False
+
 def inParty(x,y):
-    for dragonTower in gameData.dragonParty:
+    for dragonTower in gameData.dragonType:
+        selectedDragon = dragonTower
         x0,y0,width,height = dragonTower.button
         x1,y1 = x0+width, y0+height
         if x>x0 and x<x1 and y>y0 and y<y1:
-            return dragonTower
+            return selectedDragon
     return False
 
 
