@@ -9,9 +9,9 @@ def setDragons():
     fireDragon =DragonTower(1,gameData.dragonDatabase)
     iceDragon = DragonTower(4,gameData.dragonDatabase)
     poisonDragon = DragonTower(7,gameData.dragonDatabase)
-    gameData.dragonParty.append(fireDragon)
-    gameData.dragonParty.append(iceDragon)
-    gameData.dragonParty.append(poisonDragon)
+    gameData.dragonType.append(fireDragon)
+    gameData.dragonType.append(iceDragon)
+    gameData.dragonType.append(poisonDragon)
 
 ## @brief Dragon Tower Class
 # This class represents the tower that the users will be building. 
@@ -33,8 +33,9 @@ class DragonTower(Dragon):
         self.range = dragonDatabase[dragon][5]
         self.counter = self.maxCounter
         self.target = None
-        self.bullets = []
         self.onBoard = False
+        self.size = 20
+        self.bullets = []
         self.radius = False
         self.attack = self.baseAttack
 
@@ -65,6 +66,7 @@ class DragonTower(Dragon):
     #  @param canvas The game screen
     #  @return none
     def drawTower(self,canvas):#draw dragon once set on board
+        self.bounds = (self.x - 30, self.y - 30, self.x + 30, self.y + 30)
         gameData.screen.blit(self.img,(self.x-self.size,self.y-self.size))
 
     ## @brief drawRadius draws the range radius of the tower
@@ -100,16 +102,18 @@ class DragonTower(Dragon):
             self.baseAttack = nextUpgrade[2]
             self.baseHp = nextUpgrade[3]
             self.upgrade = nextUpgrade[4]
+            self.range = nextUpgrade[5]
             self.attackGrowth = 10
-            self.bounds = None
             self.button = None
             self.index += 1
-            self.setSize()
+            
             image = pygame.image.load("img/%s.png" % self.dragon)
             if self.upgrade == 2:
                 self.img = pygame.transform.scale(image, (60,60))
+                self.setSize(30)
             elif self.upgrade == 3:
                 self.img = pygame.transform.scale(image, (90,90))
+                self.setSize(45)
             
             self.onBoard = True
 
