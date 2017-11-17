@@ -13,11 +13,11 @@ class Dragon(object):
         self.attackGrowth = 10
         self.bounds = None
         self.button = None
-        self.setSize()
+        self.size = gameData.dragonSize
         self.index = dragon
         image = pygame.image.load("img/%s.png" % self.dragon)
         self.img = pygame.transform.scale(image, (40,40))
 
-    def setSize(self):
-        self.size = gameData.dragonSize
+    def setSize(self, size):
+        self.size = size
 
