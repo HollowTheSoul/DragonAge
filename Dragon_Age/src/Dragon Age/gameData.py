@@ -5,14 +5,16 @@ from database import setDragonData
 WINDOW_SIZE = width, height = 800, 620
 screen = pygame.display.set_mode(WINDOW_SIZE)
 
+
 #--------------------------game mode----------------------------------
 isIntro = True  
 isGameOver = False
-isPaused = True
+isPaused = False
 
 #--------------------------game path data-----------------------------
 checkPoints = []
 boardBounds = 0, 700, 0, 520
+
 #--------------------------game statistics----------------------------
 wave = 1
 life = 10
@@ -20,12 +22,13 @@ life = 10
 #--------------------------player data--------------------------------
 playerHover = None
 playerSelected = None
-playerCoins = 500
+playerCoins = 1500
 playerShowStatus = None
 
 #--------------------------dragon data--------------------------------
 dragonDatabase = setDragonData() #get data from database
-dragonParty = []
+dragonType = [] #3 types of dragons for other modules to refer to 
+dragonParty = [] #the current party of dragons on board
 dragonSize = 30
 
 
