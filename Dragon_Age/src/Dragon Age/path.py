@@ -45,7 +45,7 @@ def inParty(x,y):
     return False
 
 
-def createPath():
+def createPath(): #path for walking enemy
     corners = [(0,80),(185,80),(185,165),(293,165),(293,80),(420,80),
                (420,265),(300,265),(300,450),(420,450),(420,365),
                (535,365),(535,450),(700,450)]
@@ -58,6 +58,18 @@ def createPath():
             verticalPath(gameData.checkPoints,x0,y0,x1,y1)
         else:
             horizontalPath(gameData.checkPoints,x0,y0,x1,y1)
+            
+def createPath2(): #path for flying dragon enemy
+    corners = [(0,170),(100,170),(100,300),(170,300),(170,480),
+               (700,480)]
+    for i in range(1, len(corners)):
+        x0,y0 = corners[i-1]
+        x1,y1 = corners[i]
+        #check if horizontal or veritcal
+        if x1 - x0 == 0:
+            verticalPath(gameData.checkPoints2,x0,y0,x1,y1)
+        else:
+            horizontalPath(gameData.checkPoints2,x0,y0,x1,y1)
 
 def verticalPath(checkPoints,x0,y0,x1,y1):
     #distance between 2 corners
