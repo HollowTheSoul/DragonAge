@@ -12,9 +12,10 @@ def setDragonData():
     dragon[7] = ("PoisonDragon", "poison", 5, 20, 1, 75, 8)
     dragon[8] = ("PoisonDragon2", "poison", 7, 20, 2, 125, 6)
     dragon[9] = ("PoisonDragon3", "poison", 12, 20, 3, 150, 5)
-    
+
     dragon[10] = ("EnemyDragon", "normal", 1, 20, 1, 0, 0)
     dragon[11] = ("EnemyDragon2", "normal", 1, 25, 1, 0, 0)
     dragon[12] = ("EnemyDragon3", "normal", 1, 20, 1, 0, 0)
     dragon[13] = ("EnemyDragon4", "normal", 1, 25, 1, 0, 0)
+    dragon[14] = ("FlyingDragon", "normal", 1, 30, 1, 0, 0)
     return dragon

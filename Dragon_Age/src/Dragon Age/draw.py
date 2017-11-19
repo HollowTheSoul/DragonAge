@@ -13,6 +13,9 @@ def drawEnemies():
     for enemy in gameData.enemies:
         if enemy.exit == False:
             enemy.drawEnemy(gameData.screen)
+    for enemy in gameData.enemies2:
+        if enemy.exit == False:
+            enemy.drawEnemy(gameData.screen)
 
 def drawPlay():
     x0,y0 = 50, 400

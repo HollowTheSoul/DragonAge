@@ -12,7 +12,8 @@ isGameOver = False
 isPaused = False
 
 #--------------------------game path data-----------------------------
-checkPoints = []
+checkPoints = [] #walking enemy
+checkPoints2 = [] #flying enemy
 boardBounds = 0, 700, 0, 520
 
 #--------------------------game statistics----------------------------
@@ -34,10 +35,16 @@ dragonSize = 30
 
 #--------------------------enemy data---------------------------------
 #dragons to be appended to enemies
-waveEnemies = []
+waveEnemies = [] #walking
+waveEnemies2 = [] #flying
 #enemy dragons for current wave
 enemies = []
+enemies2 = []
 enemySpeed = 4
+enemySpeed2 = 3
 enemyCount = 30
+enemyCount2 = 30
 enemyMaxCount = 30
-enemyNum = 7 #number of enemies per wave
+enemyMaxCount2 = 30
+enemyNum = 7 #number of enemies per wave for walking enemy
+enemyNum2 = 1 #number of enemies per wave for flying enemy
