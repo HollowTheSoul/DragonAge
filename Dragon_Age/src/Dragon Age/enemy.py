@@ -4,7 +4,7 @@ import gameData
 
 ##  @brief Set enemy waves
 #   @return none
-#   set enemy waves with 4 types of enemies, set number of enemies per wave
+#   set walking and fliying enemy waves with types of enemies, set number of enemies per wave
 #   and enemy moving speed depending on waves
 def setWave():
     enemyParty = [10,11,12,13]  #walking enemy
@@ -36,8 +36,8 @@ class Enemy(Dragon):
         Dragon.__init__(self, dragon, dragonDatabase)
         self.x = x
         self.y = y
-        self.speed = gameData.enemySpeed
-        self.speed2 = gameData.enemySpeed2
+        self.speed = gameData.enemySpeed #walking
+        self.speed2 = gameData.enemySpeed2 #flying
         self.exit = False
         self.loc = 0 #index of data checkpoints
         self.img = pygame.transform.flip(self.img, True, False)
