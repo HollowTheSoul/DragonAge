@@ -43,6 +43,7 @@ def loadBGM():
 #   The function that load intro, background, gameover and runs the game
 #   @return none
 def game():
+    #intro before init
     init()
     while True:
         if gameData.isIntro == True and gameData.isGameOver == False:
