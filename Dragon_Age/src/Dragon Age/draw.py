@@ -3,11 +3,6 @@ import gameData
 
 
 #--------------------------Draw-------------------------------------------
-def drawIntro():
-    img = pygame.image.load("img/Intro.png")
-    gameData.screen.fill((255,255,255))
-    img = pygame.transform.scale(img, (500,250))
-    gameData.screen.blit(img, (0,0))
 
 def drawEnemies():
     for enemy in gameData.enemies:
@@ -96,7 +91,6 @@ def drawAllBullets():#draws all bullets on board
 
 def drawAll():
     drawEnemies()
-    drawPlay()
     drawTowers()
     drawParty()
     drawAllBullets()

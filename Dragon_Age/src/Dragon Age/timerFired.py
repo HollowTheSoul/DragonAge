@@ -10,7 +10,7 @@ import gameData
 def timerFired():
     if gameData.isGameOver:
         gameoverHover()
-    elif gameData.isIntro == True:
+    elif gameData.isInGame:
         hover()
         moveAllEnemies()
         moveAllEnemies2()

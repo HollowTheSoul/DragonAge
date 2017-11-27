@@ -7,7 +7,8 @@ screen = pygame.display.set_mode(WINDOW_SIZE)
 
 
 #--------------------------game mode----------------------------------
-isIntro = True  
+isIntro = True
+isInGame = False
 isGameOver = False
 isPaused = False
 
