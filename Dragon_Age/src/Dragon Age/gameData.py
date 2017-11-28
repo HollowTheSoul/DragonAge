@@ -7,7 +7,8 @@ screen = pygame.display.set_mode(WINDOW_SIZE)
 
 
 #--------------------------game mode----------------------------------
-isIntro = True  
+isIntro = True
+isInGame = False
 isGameOver = False
 isPaused = False
 
@@ -40,8 +41,8 @@ waveEnemies2 = [] #flying
 #enemy dragons for current wave
 enemies = []
 enemies2 = []
-enemySpeed = 4
-enemySpeed2 = 3
+enemySpeed = 3
+enemySpeed2 = 4
 enemyCount = 30
 enemyCount2 = 30
 enemyMaxCount = 30
