@@ -40,7 +40,7 @@ def loadBGM():
     pygame.mixer.music.play()
 
 def loadIntro():
-    img = pygame.image.load("img/intro.jpg")
+    img = pygame.image.load("img/intro.png")
     img = pygame.transform.scale(img, (800,620))
     gameData.screen.blit(img, (0,0))
     startButtonImg = pygame.image.load("img/startButton.png")
