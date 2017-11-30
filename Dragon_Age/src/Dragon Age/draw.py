@@ -31,13 +31,17 @@ def drawStatus(): #draw the status of the tower selected
     if gameData.playerShowStatus!= None:
         dragon = gameData.playerShowStatus
         dragon.drawRadius(gameData.screen)
+        upgrade = pygame.image.load("img/upgrade.png")
+        upgrade = pygame.transform.scale(upgrade, (50,50))
+        gameData.screen.blit(upgrade, (705,340))
 
+        
         name = font.render(dragon.dragon,True,color)
-        gameData.screen.blit(name,(690,350))
+        gameData.screen.blit(name,(690,490))
         level = font.render(("Level: %d" %dragon.upgrade),True,color)
-        gameData.screen.blit(level,(690,380))
+        gameData.screen.blit(level,(690,520))
         attack = font.render(("Attack: %d"%dragon.baseAttack),True,color)
-        gameData.screen.blit(attack,(690,410))
+        gameData.screen.blit(attack,(690,550))
 
 
 def drawGameStats(): #draw the money collected so far

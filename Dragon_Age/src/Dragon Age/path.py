@@ -21,7 +21,7 @@ def onBoard(x,y):
 #   the mouse is in button bound
 #   @return a boolean of whether the mouse is in button bound
 def upgradeBound(x,y):
-    x0,y0,x1,y1 = 500,400,800,620
+    x0,y0,x1,y1 = 700,340,760,400
     return x<x1 and x>x0 and y>y0 and y<y1
 
 ##  @brief the inTowerBounds
