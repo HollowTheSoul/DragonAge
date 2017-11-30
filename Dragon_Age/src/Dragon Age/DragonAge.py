@@ -43,18 +43,12 @@ def loadIntro():
     img = pygame.image.load("img/intro.png")
     img = pygame.transform.scale(img, (800,620))
     gameData.screen.blit(img, (0,0))
-    startButtonImg = pygame.image.load("img/startButton.png")
-    startButtonImg = pygame.transform.scale(startButtonImg, (50,50))
-    gameData.screen.blit(startButtonImg,(610,370))
     playButton()
 
 def playButton():
     cur = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    startButton2Img = pygame.image.load("img/startButton2.png")
-    startButton2Img = pygame.transform.scale(startButton2Img, (50,50))
-    if 660>cur[0]>610 and 420>cur[1]>370:
-        gameData.screen.blit(startButton2Img,[610,370])
+    if 600>cur[0]>400 and 440>cur[1]>390:
         if click[0] == 1:
             gameData.isIntro = False
             gameData.isInGame = True
