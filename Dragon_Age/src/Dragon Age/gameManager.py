@@ -20,7 +20,8 @@ def gameInit():
 
 def runGame():
     #draw the game
-    drawAll()
+    if gameData.isIntro != True:
+        drawAll()
 
     #Start time-based modules
     timerFired()
