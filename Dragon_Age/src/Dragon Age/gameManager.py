@@ -1,7 +1,7 @@
 import pygame
 from dragonTower import setDragons
 from enemy import setWave
-from path import createPath, inPlay, onBoard, inParty, upgradeBound, inTowerBounds, canBuild
+from path import createPath, createPath2, inPlay, onBoard, inParty, upgradeBound, inTowerBounds, canBuild
 from draw import drawAll
 from timerFired import timerFired
 import gameData
@@ -10,6 +10,7 @@ import copy
 def gameInit():
     #Create path
     createPath()
+    createPath2()
 
     #Initialise the dragons
     setDragons()

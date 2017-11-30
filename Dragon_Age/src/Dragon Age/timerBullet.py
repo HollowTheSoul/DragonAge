@@ -26,7 +26,7 @@ def removeBullets():
 
 def setTarget():
     #sets target for each tower 
-    if gameData.enemies!= []:
+    if gameData.enemies!= [] and gameData.enemies2 != []:
         for tower in gameData.dragonParty:
             if tower.onBoard:
                 enemyDragon = tower.target
@@ -35,6 +35,13 @@ def setTarget():
                     enemyDragon.y,enemyDragon.x+10,enemyDragon.y+10))or
                     tower.target.exit):
                     for enemy in gameData.enemies:#loops through all enemeis
+                        if enemy.exit == False:#make sure enemy hasn't died yet
+                            bounds = enemy.x,enemy.y,enemy.x+10,enemy.y+10
+                            if tower.isInRange(bounds):
+                                #sets first enemy found as target and breaks
+                                tower.target = enemy
+                                break
+                    for enemy in gameData.enemies2:#loops through all enemeis
                         if enemy.exit == False:#make sure enemy hasn't died yet
                             bounds = enemy.x,enemy.y,enemy.x+10,enemy.y+10
                             if tower.isInRange(bounds):
@@ -51,7 +58,7 @@ def shootEnemies():#check whether each bullet has shot an enemy
     for tower in gameData.dragonParty:
         if tower.onBoard and tower.bullets!=[]:
             for bullet in tower.bullets:
-                for enemy in gameData.enemies:
+                for enemy in gameData.enemies: #walking
                     if enemy.exit == False:
                         if bullet.shotEnemy(enemy):
                             bulletEffect(enemy, bullet)
@@ -61,6 +68,16 @@ def shootEnemies():#check whether each bullet has shot an enemy
                         if enemy.hp<=0:#kills an enemy, gains exp and money
                             enemy.exit = True
                             gameData.playerCoins+=50
+                for enemy in gameData.enemies2: #flying
+                    if enemy.exit == False:
+                        if bullet.shotEnemy(enemy):
+                            bulletEffect(enemy, bullet)
+                            enemy.hp-=setDamage(tower.attack)
+                            bullet.remove =True
+                        
+                        if enemy.hp<=0:#kills an enemy, gains exp and money
+                            enemy.exit = True
+                            gameData.playerCoins+=60
 
 
 def bulletEffect(enemy, bullet):
@@ -82,7 +99,7 @@ def setDamage(attack):
     return attack
 
 def setBullets():#set bullets for towers if tower has a target 
-    if gameData.enemies!= []:
+    if gameData.enemies!= [] and gameData.enemies2!=[]:
         for tower in gameData.dragonParty:
             if tower.onBoard and tower.target!= None:
                 if tower.counter>= tower.maxCounter:

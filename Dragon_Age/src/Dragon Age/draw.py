@@ -3,14 +3,11 @@ import gameData
 
 
 #--------------------------Draw-------------------------------------------
-def drawIntro():
-    img = pygame.image.load("img/Intro.png")
-    gameData.screen.fill((255,255,255))
-    img = pygame.transform.scale(img, (500,250))
-    gameData.screen.blit(img, (0,0))
-
 def drawEnemies():
     for enemy in gameData.enemies:
+        if enemy.exit == False:
+            enemy.drawEnemy(gameData.screen)
+    for enemy in gameData.enemies2:
         if enemy.exit == False:
             enemy.drawEnemy(gameData.screen)
 
@@ -93,10 +90,9 @@ def drawAllBullets():#draws all bullets on board
                 bullet.drawBullet(gameData.screen)
 
 def drawAll():
-    drawEnemies()
-    drawPlay()
     drawTowers()
     drawParty()
     drawAllBullets()
     drawGameStats()
     drawStatus()
+    drawEnemies()
