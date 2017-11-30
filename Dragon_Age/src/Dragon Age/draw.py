@@ -42,16 +42,14 @@ def drawStatus(): #draw the status of the tower selected
 
 def drawGameStats(): #draw the money collected so far
     font = pygame.font.Font("pokemon_pixel_font.ttf",20)
-    store = pygame.image.load("img/store.png")
+    store = pygame.image.load("img/money.png")
     store = pygame.transform.scale(store, (35,35))
-    gameData.screen.blit(store, (680,20))
+    gameData.screen.blit(store, (680,10))
     money = font.render(str(gameData.playerCoins),True,(255,255,255))
-    text = "Money:"
-    moneySymbol = font.render(text,True,(255,255,255))
+    
 
     #draw money
-    gameData.screen.blit(money,(760,35))
-    gameData.screen.blit(moneySymbol,(720,35))
+    gameData.screen.blit(money,(720,20))
 
     #draw level
     level = font.render(("Level: %d" %gameData.wave),True,(255,255,255))
@@ -59,28 +57,26 @@ def drawGameStats(): #draw the money collected so far
 
     #draw life
     life = font.render(("Remaining Life: %d" %gameData.life),True,(255,255,255))
-    gameData.screen.blit(life,(560,470))
+    gameData.screen.blit(life,(550,20))
 
 def drawParty():
     startY = 120
     startX = 690
     width = 100
     height = 25
-    font = pygame.font.Font("pokemon_pixel_font.ttf",20)
     for i in range(len(gameData.dragonType)):
         dragon = gameData.dragonType[i]#display name of each pokemon
         name = dragon.dragon
 
-        dragonImage = pygame.image.load("img/%s.png" % name)
-        dragonImage = pygame.transform.scale(dragonImage, (35,35))
+        dragonImage = pygame.image.load("img/%sIcon.png" % name)
+        dragonImage = pygame.transform.scale(dragonImage, (60,60))
         gameData.screen.blit(dragonImage, (startX+10,startY-30))
 
         dragon.button = startX,startY,width,height
         if gameData.playerHover == dragon or gameData.playerSelected == dragon:
             pygame.draw.rect(gameData.screen,(255,0,0),(dragon.button),1)
-        name = font.render(name,True,(255,255,255))
-        gameData.screen.blit(name,(startX+10,startY+5))
         startY+=80
+
 
 def drawAllBullets():#draws all bullets on board
     for tower in gameData.dragonParty:
