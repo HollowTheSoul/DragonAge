@@ -109,10 +109,10 @@ class DragonTower(Dragon):
             
             image = pygame.image.load("img/%s.png" % self.dragon)
             if self.upgrade == 2:
-                self.img = pygame.transform.scale(image, (60,60))
+                self.img = pygame.transform.scale(image, (80,60))
                 self.setSize(30)
             elif self.upgrade == 3:
-                self.img = pygame.transform.scale(image, (90,90))
+                self.img = pygame.transform.scale(image, (120,90))
                 self.setSize(45)
             
             self.onBoard = True
