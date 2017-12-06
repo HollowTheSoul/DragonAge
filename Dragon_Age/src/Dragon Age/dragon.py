@@ -1,7 +1,13 @@
 import pygame
 import gameData
 
+##  @brief The class to create dragon object
 class Dragon(object):
+    ##  @brief the constructor for Dragon
+    #   @param self the self
+    #   @param dragon the dragon from the database
+    #   @param dragonDatabase the database
+    #   @return none
     def __init__(self, dragon, dragonDatabase):
         tup = dragonDatabase[dragon]
         self.dragon = tup[0]
@@ -18,6 +24,10 @@ class Dragon(object):
         image = pygame.image.load("img/%s.png" % self.dragon)
         self.img = pygame.transform.scale(image, (40,40))
 
+    ##  @brief set the size of dragon
+    #   @param self the self
+    #   @param size the size of dragon
+    #   @return none
     def setSize(self, size):
         self.size = size
 
