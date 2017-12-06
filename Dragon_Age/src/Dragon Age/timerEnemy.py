@@ -74,6 +74,9 @@ def removeAllEnemies():
     if gameData.life == 0:
         gameData.waveEnemies = []
         gameData.waveEnemies2 = []
+        return True
+    else:
+        return False    
         
 ##  @brief check whether the round is over
 #   @return a boolean of whether the round is over
