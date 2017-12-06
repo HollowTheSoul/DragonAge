@@ -39,12 +39,16 @@ def loadBGM():
     pygame.mixer.music.load(nextSong)
     pygame.mixer.music.play()
 
+##  @brief load introduction of the game
+#   @return none
 def loadIntro():
     img = pygame.image.load("img/intro.png")
     img = pygame.transform.scale(img, (800,620))
     gameData.screen.blit(img, (0,0))
     playButton()
 
+##  @brief load play button of the game in intro
+#   @return none
 def playButton():
     cur = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()

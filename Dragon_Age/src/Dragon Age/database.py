@@ -1,3 +1,7 @@
+##  @brief The database of Dragon_Age
+#   @return dragon from the database
+#   This database constains all the dragons for building towers and also
+#   the enemy dragons with different attributes
 def setDragonData():
     dragon = dict()
     #dragon = (name, element, baseAttack, hp, upgrade, range, attack speed)

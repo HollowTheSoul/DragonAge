@@ -2,7 +2,8 @@ import pygame
 import gameData
 
 
-#--------------------------Draw-------------------------------------------
+##  @brief draw enemies to screen
+#   @return none
 def drawEnemies():
     for enemy in gameData.enemies:
         if enemy.exit == False:
@@ -11,6 +12,8 @@ def drawEnemies():
         if enemy.exit == False:
             enemy.drawEnemy(gameData.screen)
 
+##  @brief draw play button
+#   @return none
 def drawPlay():
     x0,y0 = 50, 400
     width, height = 70, 70
@@ -18,13 +21,16 @@ def drawPlay():
     img = pygame.transform.scale(img, (50,50))
     gameData.screen.blit(img, (x0, y0))
 
-def drawTowers():#draw all towers on board
+##  @brief draw all towers on board
+#   @return none
+def drawTowers():
     for dragon in gameData.dragonParty:
         if dragon.onBoard == True:
             dragon.drawTower(gameData.screen)
 
-
-def drawStatus(): #draw the status of the tower selected
+##  @brief draw the status of the tower selected
+#   @return none
+def drawStatus():
     color = 255,255,255
     font = pygame.font.Font("pokemon_pixel_font.ttf",20)
     pygame.draw.rect(gameData.screen,color,(690,720,400,500),2)
@@ -43,8 +49,9 @@ def drawStatus(): #draw the status of the tower selected
         attack = font.render(("Attack: %d"%dragon.baseAttack),True,color)
         gameData.screen.blit(attack,(690,550))
 
-
-def drawGameStats(): #draw the money collected so far
+##  @brief draw the money collected so far
+#   @return none
+def drawGameStats(): 
     font = pygame.font.Font("pokemon_pixel_font.ttf",20)
     store = pygame.image.load("img/money.png")
     store = pygame.transform.scale(store, (35,35))
@@ -63,6 +70,8 @@ def drawGameStats(): #draw the money collected so far
     life = font.render(("Remaining Life: %d" %gameData.life),True,(255,255,255))
     gameData.screen.blit(life,(550,20))
 
+##  @brief draw player's dragon party
+#   @return none
 def drawParty():
     startY = 120
     startX = 690
@@ -81,13 +90,16 @@ def drawParty():
             pygame.draw.rect(gameData.screen,(255,0,0),(dragon.button),1)
         startY+=80
 
-
-def drawAllBullets():#draws all bullets on board
+##  @brief draw all bullets on board
+#   @return none
+def drawAllBullets():
     for tower in gameData.dragonParty:
         if tower.onBoard and tower.bullets!=[]:
             for bullet in tower.bullets:
                 bullet.drawBullet(gameData.screen)
 
+##  @brief run all the previous draw functions
+#   @return none
 def drawAll():
     drawTowers()
     drawParty()
