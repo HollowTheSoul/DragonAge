@@ -1,4 +1,6 @@
 import gameData
+import pygame
+from draw import drawMessage
 
 ##  @brief The inPlay function
 #   checks if the mouse is in 'play' button bound
@@ -45,9 +47,37 @@ def inTowerBounds(bounds):
 #   @return a boolean whether the tower can build in correct tower bound
 def canBuild(x,y):
     ax0,ay0,ax1,ay1 = (x-50,y-50,x+50,y+50)
-    
-    if inTowerBounds((ax0,ay0,ax1,ay1)) == False:
-        return True
+    font = pygame.font.Font("pokemon_pixel_font.ttf",30)
+    if onTopTower((ax0,ay0,ax1,ay1)):
+        message = font.render("Cannot build tower on top of another tower.",True,(255,255,255))
+        gameData.playerMessage = True
+        #draw money
+        drawMessage(message)
+        return False
+    elif onRoute((ax0,ay0,ax1,ay1)):
+        message = font.render("Cannot build tower on the terrain.",True,(255,0,0))
+        gameData.playerMessage = True
+        #draw money
+        drawMessage(message)
+        return False
+    return True
+
+def onRoute(bounds):
+    bx0,by0,bx1,by1 = bounds
+    for coord in gameData.route:
+        ax0,ay0,ax1,ay1 = coord
+        if ((ax0<=bx0<=ax1) and (ay0<=by0<=ay1)):
+            print ("inside a dragon")
+            return True
+    return False
+
+def onTopTower(bounds):
+    bx0,by0,bx1,by1 = bounds
+    for coord in gameData.towerCoord:
+        ax0,ay0,ax1,ay1 = coord
+        if ((ax0<=bx0<=ax1) and (ay0<=by0<=ay1)):
+            print ("inside a dragon")
+            return True
     return False
 
 ##  @brief the inParty function
