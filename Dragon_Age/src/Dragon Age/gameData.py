@@ -16,6 +16,10 @@ isPaused = False
 checkPoints = [] #walking enemy
 checkPoints2 = [] #flying enemy
 boardBounds = 0, 700, 0, 520
+towerCoord = [(0,0,0,0)] #tower locations
+route = [(0,0,420,80), (145,80,250,182), (373,88,239,279), (300,249,420,280),
+        (267,283,312,462), (312,413,430,464), (433,338,541,375),
+        (500,377,546,462), (544,426,733,464), (490,0,705,144), (628,0,799,599) ]
 
 #--------------------------game statistics----------------------------
 wave = 1
@@ -26,6 +30,7 @@ playerHover = None
 playerSelected = None
 playerCoins = 1500
 playerShowStatus = None
+playerMessage = False
 
 #--------------------------dragon data--------------------------------
 dragonDatabase = setDragonData() #get data from database

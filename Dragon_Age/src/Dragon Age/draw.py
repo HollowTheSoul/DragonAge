@@ -31,10 +31,12 @@ def drawStatus(): #draw the status of the tower selected
     if gameData.playerShowStatus!= None:
         dragon = gameData.playerShowStatus
         dragon.drawRadius(gameData.screen)
-        upgrade = pygame.image.load("img/upgrade.png")
-        upgrade = pygame.transform.scale(upgrade, (50,50))
-        gameData.screen.blit(upgrade, (705,340))
-
+        if (dragon.cost != "MAX"):
+            upgrade = pygame.image.load("img/upgrade.png")
+            upgrade = pygame.transform.scale(upgrade, (50,50))
+            gameData.screen.blit(upgrade, (705,340))
+            upgradeCost = font.render(str(dragon.cost),True,color)
+            gameData.screen.blit(upgradeCost, (720,390))
         
         name = font.render(dragon.dragon,True,color)
         gameData.screen.blit(name,(690,490))
@@ -44,6 +46,10 @@ def drawStatus(): #draw the status of the tower selected
         gameData.screen.blit(attack,(690,550))
 
 
+def drawMessage (message):
+    if (gameData.playerMessage):
+        gameData.screen.blit(message,(45,550))
+
 def drawGameStats(): #draw the money collected so far
     font = pygame.font.Font("pokemon_pixel_font.ttf",20)
     store = pygame.image.load("img/money.png")
@@ -51,7 +57,6 @@ def drawGameStats(): #draw the money collected so far
     gameData.screen.blit(store, (680,10))
     money = font.render(str(gameData.playerCoins),True,(255,255,255))
     
-
     #draw money
     gameData.screen.blit(money,(720,20))
 
@@ -64,22 +69,23 @@ def drawGameStats(): #draw the money collected so far
     gameData.screen.blit(life,(550,20))
 
 def drawParty():
-    startY = 120
+    startY = 40
     startX = 690
-    width = 100
-    height = 25
+    width = 80
+    height = 100
     for i in range(len(gameData.dragonType)):
         dragon = gameData.dragonType[i]#display name of each pokemon
         name = dragon.dragon
-
-        dragonImage = pygame.image.load("img/%sIcon.png" % name)
-        dragonImage = pygame.transform.scale(dragonImage, (60,60))
-        gameData.screen.blit(dragonImage, (startX+10,startY-30))
 
         dragon.button = startX,startY,width,height
         if gameData.playerHover == dragon or gameData.playerSelected == dragon:
             pygame.draw.rect(gameData.screen,(255,0,0),(dragon.button),1)
         startY+=80
+        
+        dragonImage = pygame.image.load("img/%sIcon.png" % name)
+        dragonImage = pygame.transform.scale(dragonImage, (60,60))
+        gameData.screen.blit(dragonImage, (startX+10,startY-30))
+
 
 
 def drawAllBullets():#draws all bullets on board
@@ -95,3 +101,4 @@ def drawAll():
     drawGameStats()
     drawStatus()
     drawEnemies()
+
