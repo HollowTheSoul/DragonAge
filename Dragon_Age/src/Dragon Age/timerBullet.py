@@ -45,6 +45,7 @@ def setTarget():
                             if tower.isInRange(bounds):
                                 #sets first enemy found as target and breaks
                                 tower.target = enemy
+                                print "testing: walking enemy in range"
                                 break
                     for enemy in gameData.enemies2:#loops through all enemeis
                         if enemy.exit == False:#make sure enemy hasn't died yet
@@ -52,6 +53,7 @@ def setTarget():
                             if tower.isInRange(bounds):
                                 #sets first enemy found as target and breaks
                                 tower.target = enemy
+                                print "testing: flying enemy in range"
                                 break
                 #sets target as None if target goes out of range or target dies
                 if tower.target != None and (tower.target.exit or not 
@@ -59,7 +61,8 @@ def setTarget():
                     tower.target.x+10,tower.target.y+10))):
                     tower.target = None
 
-##  @brief check whether each bullet has shot an enemy and set corresbonding variables
+##  @brief check whether each bullet has shot an enemy and set
+#   corresbonding variables
 #   @return none
 def shootEnemies():
     for tower in gameData.dragonParty:
@@ -74,6 +77,7 @@ def shootEnemies():
                         
                         if enemy.hp<=0:#kills an enemy, gains exp and money
                             enemy.exit = True
+                            print "testing: walking enemy killed"
                             gameData.playerCoins+=50
                 for enemy in gameData.enemies2: #flying
                     if enemy.exit == False:
@@ -84,6 +88,7 @@ def shootEnemies():
                         
                         if enemy.hp<=0:#kills an enemy, gains exp and money
                             enemy.exit = True
+                            print "testing: flying enemy killed"
                             gameData.playerCoins+=60
 
 ##  @brief set bullect effect on enemies
