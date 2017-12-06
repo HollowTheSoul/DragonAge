@@ -91,6 +91,7 @@ class DragonTower(Dragon):
                 if gameData.playerCoins>=400:
                     gameData.playerCoins -= 400;
                     return True
+        return False
 
     ## @brief upgrade Upgrade the tower to the next level
     #  @param self This is the self
