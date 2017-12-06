@@ -38,6 +38,7 @@ class DragonTower(Dragon):
         self.bullets = []
         self.radius = False
         self.attack = self.baseAttack
+        self.cost = 250
 
     ## @brief isInRangeEquation calculates whether or not enemy is in range
     #  @param self This is the self
@@ -67,7 +68,7 @@ class DragonTower(Dragon):
     #  @return none
     def drawTower(self,canvas):#draw dragon once set on board
         self.bounds = (self.x - 30, self.y - 30, self.x + 30, self.y + 30)
-        gameData.screen.blit(self.img,(self.x-self.size,self.y-self.size))
+        gameData.screen.blit(self.img,(self.x-self.size,self.y-(self.size*0.75)))
 
     ## @brief drawRadius draws the range radius of the tower
     #  @param self This is the self
@@ -81,14 +82,14 @@ class DragonTower(Dragon):
     #  @return True if the tower can be upgraded
     def canUpgrade(self):#whether tower can be upgraded
         if self.upgrade < 3:
-            if self.upgrade == 1: #upgrade to level 2 requires 50 money
-                if gameData.playerCoins>=150:
-                    gameData.playerCoins -= 150;
+            if self.upgrade == 1: #upgrade to level 2 requires 250 money
+                if gameData.playerCoins>=250:
+                    gameData.playerCoins -= 250;
                     return True
                     
-            if self.upgrade == 2: #upgrade to level 3 requires 100 money
-                if gameData.playerCoins>=300:
-                    gameData.playerCoins -= 300;
+            if self.upgrade == 2: #upgrade to level 3 requires 400 money
+                if gameData.playerCoins>=400:
+                    gameData.playerCoins -= 400;
                     return True
 
     ## @brief upgrade Upgrade the tower to the next level
@@ -103,17 +104,18 @@ class DragonTower(Dragon):
             self.baseHp = nextUpgrade[3]
             self.upgrade = nextUpgrade[4]
             self.range = nextUpgrade[5]
+            self.counter = nextUpgrade[6]
+            self.cost = nextUpgrade[7]
             self.attackGrowth = 10
-            self.button = None
             self.index += 1
             
             image = pygame.image.load("img/%s.png" % self.dragon)
             if self.upgrade == 2:
                 self.img = pygame.transform.scale(image, (80,60))
-                self.setSize(30)
+                self.setSize(40)
             elif self.upgrade == 3:
                 self.img = pygame.transform.scale(image, (120,90))
-                self.setSize(45)
+                self.setSize(60)
             
             self.onBoard = True
 

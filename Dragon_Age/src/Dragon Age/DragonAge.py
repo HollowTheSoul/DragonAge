@@ -39,19 +39,23 @@ def loadBGM():
     pygame.mixer.music.load(nextSong)
     pygame.mixer.music.play()
 
+##  @brief load menu
+#   Allow user to choose between play and quit
+#   @return none
 def loadIntro():
     img = pygame.image.load("img/intro.png")
     img = pygame.transform.scale(img, (800,620))
     gameData.screen.blit(img, (0,0))
-    playButton()
-
-def playButton():
     cur = pygame.mouse.get_pos()
     click = pygame.mouse.get_pressed()
-    if 600>cur[0]>400 and 440>cur[1]>390:
+    if 575>cur[0]>230 and 426>cur[1]>370:
         if click[0] == 1:
             gameData.isIntro = False
             gameData.isInGame = True
+    elif 575>cur[0]>230 and 500>cur[1]>450:
+        if click[0] == 1:
+            pygame.quit()
+            sys.exit()
 
 ##  @brief the game function
 #   The function that load intro, background, gameover and runs the game
