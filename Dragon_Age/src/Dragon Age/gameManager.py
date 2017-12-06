@@ -32,17 +32,19 @@ def mousePress(x,y):
 
     if inPlay(x,y):
         gameData.isPaused = False
+        gameData.drawMessage = False
 
     elif gameData.playerShowStatus!= None and upgradeBound(x,y):
         print("Inside show status")
         (gameData.playerShowStatus).upgradeTower()
+        gameData.drawMessage = False
 
     #Click on party selection,
     elif inParty(x,y):
         curDragon = inParty(x,y)#current dragon
-
+        gameData.drawMessage = False
         #build new tower if the tower is already on board
-        if (gameData.playerCoins >= 150): #only if the player have sufficient money
+        if (gameData.playerCoins >= 180): #only if the player have sufficient money
             selectedDragon = copy.copy(curDragon) #create a copy to be appended later to the party
             gameData.playerSelected = selectedDragon#pick up pokemon
             gameData.playerSelected.x,gameData.playerSelected.y = x,y
@@ -58,10 +60,13 @@ def mousePress(x,y):
     elif gameData.playerSelected==None and inTowerBounds((x,y,x,y)):
         onBoardDragon = inTowerBounds((x,y,x,y))
         gameData.playerShowStatus = onBoardDragon
+        gameData.drawMessage = False
 
     elif gameData.playerSelected!=None and gameData.playerSelected.onBoard==False:
-        #picked up to pokemon to put on board
+        gameData.drawMessage = False
+        #choose dragon to be built on board
         if onBoard(x,y) and canBuild(x,y):
+            gameData.towerCoord.append((x-30,y-45,x+30,y+45))
             gameData.dragonParty.append(gameData.playerSelected)
             gameData.playerCoins -= 150 #deduct money
             gameData.playerSelected.x,gameData.playerSelected.y = x,y
