@@ -4,10 +4,10 @@
 #   the enemy dragons with different attributes
 def setDragonData():
     dragon = dict()
-    #dragon = (name, element, baseAttack, hp, upgrade, range, attack speed)
+    #dragon = (name, element, baseAttack, hp, upgrade, range, attack speed, cost)
     dragon[1] = ("FireDragon", "fire", 10, 20, 1, 50, 5, 180)
-    dragon[2] = ("FireDragon2", "fire", 12, 20, 2, 100, 400)
-    dragon[3] = ("FireDragon3", "fire", 17, 20, 3, 150, "MAX")
+    dragon[2] = ("FireDragon2", "fire", 12, 20, 2, 100, 4, 400)
+    dragon[3] = ("FireDragon3", "fire", 17, 20, 3, 150, 3, "MAX")
 
     dragon[4] = ("IceDragon", "ice", 3, 20, 1, 100, 10)
     dragon[5] = ("IceDragon2", "ice", 5, 20, 2, 150, 9, 400)
