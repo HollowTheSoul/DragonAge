@@ -7,6 +7,9 @@ from timerFired import timerFired
 import gameData
 import copy
 
+
+##  @brief initiate game with calling functions
+#   @return none
 def gameInit():
     #Create path
     createPath()
@@ -18,6 +21,8 @@ def gameInit():
     #Initialise the enemies
     setWave() 
 
+##  @brief run the game
+#   @return none
 def runGame():
     #draw the game
     if gameData.isIntro != True:
@@ -26,7 +31,8 @@ def runGame():
     #Start time-based modules
     timerFired()
 
-
+##  @brief mousePress function to display interactions with mouse press
+#   @return none
 def mousePress(x,y):
     check = upgradeBound(x,y)
 

@@ -5,8 +5,8 @@ from timerEnemy import moveAllEnemies, moveAllEnemies2, roundOver
 from enemy import setWave
 import gameData
 
-#-------------------------TimerFired functions----------------------------
-#initiate all the timer fired functions
+##  @brief initiate all the timer fired functions
+#   @return none
 def timerFired():
     if gameData.isGameOver:
         gameoverHover()

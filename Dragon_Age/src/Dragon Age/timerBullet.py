@@ -3,7 +3,9 @@ from bullet import Bullet
 from path import inPlay, onBoard, inParty
 import gameData
 
-def moveAllBullets():#moves all bullets toward set direction
+##  @brief the function to move all bullets toward set direction
+#   @return none
+def moveAllBullets():
     for tower in gameData.dragonParty:
         for bullet in tower.bullets:
             bullet.moveBullet()
@@ -13,7 +15,9 @@ def moveAllBullets():#moves all bullets toward set direction
             if (bullet.x>x1 or bullet.x<0 or bullet.y>y1 
                 or bullet.y<0):
                 bullet.remove = True
-            
+
+##  @brief the function to remove all bullets
+#   @return none
 def removeBullets():
     #check whether bullets are removed for every frame and replace bullet list
     for tower in gameData.dragonParty:
@@ -24,8 +28,9 @@ def removeBullets():
                     temp.append(bullet)
             tower.bullets = temp
 
+##  @brief set target for each tower
+#   @return none
 def setTarget():
-    #sets target for each tower 
     if gameData.enemies!= [] and gameData.enemies2 != []:
         for tower in gameData.dragonParty:
             if tower.onBoard:
@@ -54,7 +59,9 @@ def setTarget():
                     tower.target.x+10,tower.target.y+10))):
                     tower.target = None
 
-def shootEnemies():#check whether each bullet has shot an enemy
+##  @brief check whether each bullet has shot an enemy and set corresbonding variables
+#   @return none
+def shootEnemies():
     for tower in gameData.dragonParty:
         if tower.onBoard and tower.bullets!=[]:
             for bullet in tower.bullets:
@@ -79,7 +86,10 @@ def shootEnemies():#check whether each bullet has shot an enemy
                             enemy.exit = True
                             gameData.playerCoins+=60
 
-
+##  @brief set bullect effect on enemies
+#   @param enemy the enemy object
+#   @param bullet the bullet object
+#   @return none
 def bulletEffect(enemy, bullet):
     if bullet.element == "ice":
         if enemy.isFrozen == False:
@@ -94,11 +104,15 @@ def bulletEffect(enemy, bullet):
             enemy.isPoisonCount = 0
     
                             
-#set damage of bullet according to stats of pokemon as well as type of bullet
+##  @brief set damage of bullet according to stats of pokemon as well as type of bullet
+#   @param attck the attack damage
+#   @return the attack damage of bullet
 def setDamage(attack):
     return attack
 
-def setBullets():#set bullets for towers if tower has a target 
+##  @brief set bullets for towers if tower has a target
+#   @return none
+def setBullets():
     if gameData.enemies!= [] and gameData.enemies2!=[]:
         for tower in gameData.dragonParty:
             if tower.onBoard and tower.target!= None:
@@ -109,7 +123,8 @@ def setBullets():#set bullets for towers if tower has a target
                     tower.counter = 0 #counter for time between new bullet
                 else:   tower.counter+=1
 
-#check whether all bullets are removed from board
+##  @brief check whether all bullets are removed from board
+#   @return a boolean of whether all bullets are removed
 def allBulletsRemoved():
     for tower in gameData.dragonParty:
         if tower.onBoard and tower.bullets != []:
