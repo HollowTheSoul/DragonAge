@@ -1,0 +1,839 @@
+\documentclass[12,english]{article}
+\usepackage[letterpaper, portrait, margin=1in]{geometry}
+
+\usepackage{amsmath}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{textcomp}
+\usepackage{soul}
+\usepackage{color}
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+\usepackage{hyperref}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+      colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=black,          % color of internal links (change box color with linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+
+
+
+\title{SE 3XA3: Module Interface Specification\\
+        Dragon Age}
+\author{Group 8: Team Eight \\
+                 Stanley Liu (MacID: liuz23) \\    
+                 Toni Miharja (MacID: miharjat)\\
+                 Zhi Zhang (MacID: zhangz1)}
+\date{November 10 2017 }
+\usepackage[showgrame]{geometry}
+\usepackage{titling}
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+\setcounter{secnumdepth}{4}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+ 
+\section{Revision History}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{2.5cm}|p{3cm}|p{3cm}|p{2cm}|}
+    \hline
+    \textbf {Date}  & {Developer} & {Change} & {Revision} \\
+    \hline
+    November 10, 2017 & Zhi & Part 3, 5, 7, 8 & 1.0\\
+    \hline
+    November 10, 2017 & Stanley & Part 2, 4, 6 & 1.1\\
+    \hline
+    November 10, 2017 & Toni & Part 9, 10, 11, 12, 13, 14& 1.2\\
+    \hline
+    \textcolor{red}{Dec 6, 2017} & \textcolor{red}{Zhi} & \textcolor{red}{Improve} & \textcolor{red}{2.0}\\
+    \hline
+    \end{tabular}
+    \caption{Revision History: Module Interface Specification}
+\end{table}
+ 
+\section{Module Hierarchy}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{5.5cm}|p{5cm}|}
+    \hline
+    \textbf {Level 1}  & {Level 2} \\
+    \hline
+    Hardware Hiding Module &  \\
+    \hline
+    Behaviour Hiding Module & Dragon Tower Module\\
+    & Time Bullet Module\\
+    &Time Enemy Module\\
+    &Time Hover Module\\
+    &Time Fired Module\\
+    &Draw Module\\
+    &Game Manager Module\\
+    &Gragon Age Module\\
+    \hline
+    Software Decision Hiding Module&Dragon Module\\
+    & Enemy Module\\
+    & Bullet Module\\
+    & Path Module\\
+    & Game Date Module\\
+    \hline
+    \end{tabular}
+    \caption{Revision History: Module Hierarchy}
+\end{table}
+
+\section{MIS of Dragon Tower Module}
+\subsection{Interface Syntax}
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \hline
+    \textbf {Name}  & {In} & {Out} & {Exceptions} \\
+    \hline
+    setDragons & - & - & -\\
+    \hline
+    isInRangeEquation & - & float & -\\
+    \hline
+    isInRange & - & boolean & -\\
+    \hline
+    drawTower & - & - & -\\
+    \hline
+    drawRadius & - & - & Insufficient building space\\
+    \hline
+    \textcolor{red}{canUpgrade} & - & boolean & No tower is been built\\
+    \hline
+    \textcolor{red}{upgradeTower} & - & - & Highest level reached\\
+    \hline
+    \end{tabular}
+\end{table}
+\newpage
+
+\subsection{Interface Semantics}
+\subsubsection{State Variables}
+Not Applicable
+\subsubsection{Environmental Variables}
+Not Applicable
+\subsubsection{Assumptions}
+Game started. 
+\subsubsection{Access Program Semantics}
+\noindent setDragons():
+\begin{itemize}
+    \item Output : set three types of dragons
+    \item Exceptions: None
+\end{itemize}
+
+\noindent isInRangeEquation(x,y):
+\begin{itemize}
+    \item Input: x, y
+    \item Transition: get inRange value from x, y
+    \item Output: inRange
+\end{itemize}
+
+\noindent isInRange(bounds):
+\begin{itemize}
+    \item Transition: x0, x1, y0, y1 := bounds
+    \item Output: return the boolean value whether or not the enemy is in range of tower
+\end{itemize}
+
+\noindent drawTower(canvas):
+\begin{itemize}
+    \item Exceptions: insufficient building space
+\end{itemize}
+
+\noindent drawRadius(canvas):
+\begin{itemize}
+    \item Output: draw radis of the enemy
+\end{itemize}
+
+\noindent \textcolor{red}{canUpgrade(canvas)}:
+\begin{itemize}
+    \item Output:  whether or not the tower can still evolve
+    \item Exceptions: No tower is been built
+\end{itemize}
+
+\noindent \textcolor{red}{upgradeTower()}:
+\begin{itemize}
+    \item Transition: dragon tower evolve to its next level
+    \item Exception:  Highest level reached
+\end{itemize}
+
+\section{MIS of Timer Bullet Module}
+\subsection{Interface Syntax}
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \hline
+    \textbf {Name}  & {In} & {Out} & {Exceptions} \\
+    \hline
+    moveAllBullets & - & - & Bullet out of bound\\
+    \hline
+    removeBullets & - & - & -\\
+    \hline 
+    setTarget & - & - & -\\
+    \hline
+    shootEnemies & - & - & -\\
+    \hline
+    \textcolor{red}{bulletEffect} & \textcolor{red}{canvas} & \textcolor{red}{-} & \textcolor{red}{-}\\
+    \hline
+    setDamage & float & float & -\\
+    \hline
+    setBullets & - & - & -\\
+    \hline
+    allBulletsRemoved & - & boolean & -\\
+    \hline
+    \end{tabular}
+\end{table}
+\subsection{Interface Semantics}
+\subsubsection{State Variables}
+Not Applicable
+\subsubsection{Environmental Variables}
+Not Applicable
+\subsubsection{Assumptions}
+Assume dragon tower is placed onto board
+\subsubsection{Access Program Semantics}
+
+\noindent moveAllBullets():
+\begin{itemize}
+    \item Transition: move bullets, if bullet goes out of bounds, remove bullets
+    \item Exception: bullet out of bound
+\end{itemize}
+
+\noindent removeBullets():
+\begin{itemize}
+    \item Input: x, y
+    \item Transition: check whether bullets are removed for every frame and replace bullet list
+\end{itemize}
+
+\noindent setTarget():
+\begin{itemize}
+    \item Transition: set target for each tower
+\end{itemize}
+
+\noindent shootEnemies():
+\begin{itemize}
+    \item Transition: check if bullet hits enemy, if hit, set damage done to enemy or if enemy dies, enemy exit board and player get coins
+\end{itemize}
+
+\noindent \textcolor{red}{bulletEffect():}
+\textcolor{red}{\begin{itemize}
+    \item Input: object enemy, bullet
+    \item Transition: reduce enemy speed if hit by bullet
+\end{itemize}}
+
+
+\noindent setDamage():
+\begin{itemize}
+    \item Output: the damage done to enemy
+\end{itemize}
+
+\noindent setBullets():
+\begin{itemize}
+    \item Transition: set bullets for tower if tower has a target
+\end{itemize}
+
+\noindent allBulletRemoved():
+\begin{itemize}
+    \item Transition: check if all bullets are removed from the board
+    \item Output: return the value of bullet.remove
+\end{itemize}
+
+
+\section{MIS of Timer Enemy Module}
+\subsection{Interface Syntax}
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \hline
+    \textbf {Name}  & {In} & {Out} & {Exceptions} \\
+    \hline
+    moveAllEnemies & - & boolean & -\\
+    \hline
+    \textcolor{red}{moveAllEnemies2} & \textcolor{red}{-} & \textcolor{red}{boolean} & \textcolor{red}{-}\\
+    \hline
+    \textcolor{red}{removeAllEnemies} & \textcolor{red}{-} & \textcolor{red}{boolean} & \textcolor{red}{-}\\
+    \hline
+    roundOver & - & - & - \\
+    \hline 
+    \end{tabular}
+\end{table}
+
+\subsection{Interface Semantics}
+\subsubsection{State Variables}
+None
+\subsubsection{Environmental Variables}
+Not Applicable
+\subsubsection{Assumptions}
+Enemy are running on the board. 
+\subsubsection{Access Program Semantics}
+
+\noindent moveAllEnemies():
+\begin{itemize}
+    \item Output : move \textcolor{red}{walking enemies} on the board \st{at different speed}
+    \item Exceptions: None
+\end{itemize}
+
+\noindent \textcolor{red}{moveAllEnemies2()}:
+\textcolor{red}{\begin{itemize}
+    \item Output : move flying enemies on the board 
+    \item Exceptions: None
+\end{itemize}}
+
+\noindent \textcolor{red}{removeAllEnemies()}:
+\textcolor{red}{\begin{itemize}
+    \item Output : remove all enemies from enemy list
+    \item Exceptions: None
+\end{itemize}}
+
+\noindent roundOver(x,y):
+\begin{itemize}
+    \item Output: whether or not the round is over
+    \item Exception: None
+\end{itemize}
+
+\newpage
+\section{MIS of Timer Hover Module}
+\subsection{Interface Syntax}
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \hline
+    \textbf {Name}  & {In} & {Out} & {Exceptions} \\
+    \hline
+    hover & - & - & -\\
+    \hline
+    buildTowerHover& real, real & - & - \\
+    \hline 
+    \textcolor{red}{gameoverHover} & \textcolor{red}{-} & \textcolor{red}{-} & \textcolor{red}{-}\\
+    \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Interface Semantics}
+\subsubsection{State Variables}
+Not Applicable
+\subsubsection{Environmental Variables}
+None
+\subsubsection{Assumptions}
+The game is started. 
+\subsubsection{Access Program Semantics}
+
+\noindent hover():
+\begin{itemize}
+    \item Transition: x,y := pygame.mouse.get\_pos()
+    \item Output: put the tower on board
+\end{itemize}
+
+\noindent buildTowerHover(x,y):
+\begin{itemize}
+    \item Input: x, y cordinates
+    \item Transition: gameData.playerSelected.x, gameData.playerSelected.y= x,y
+    \item Output: draw rectangle of size of dragon when building is legal
+\end{itemize}
+
+\noindent \textcolor{red}{gameoverHover():}
+\textcolor{red}{\begin{itemize}
+    \item Transition: remove all enemies when user's remaining life is 0
+\end{itemize}}
+
+
+
+\section{MIS of Timer Fired Module}
+\subsection{Interface Syntax}
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \hline
+    \textbf {Name}  & {In} & {Out} & {Exceptions} \\
+    \hline
+    timeFired & - & - & -\\
+    \hline 
+    \end{tabular}
+\end{table}
+\subsection{Interface Semantics}
+\subsubsection{State Variables}
+Not Applicable 
+\subsubsection{Environmental Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Program Semantics}
+
+\noindent timeFired():
+\begin{itemize}
+    \item Transition: runs all the time-based modules of the game
+\end{itemize}
+
+\section{MIS of Draw Module}
+\subsection{Interface Syntax}
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \hline
+    \textbf {Name}  & {In} & {Out} & {Exceptions} \\
+    \hline
+    \st{drawIntro} & - & - & -\\
+    \hline 
+    drawEnemies & - & - & -\\
+    \hline 
+    drawPlay & - & - & -\\
+    \hline 
+    drawTowers & - & - & -\\
+    \hline 
+    \textcolor{red}{drawStatus} & \textcolor{red}{-} & \textcolor{red}{-} & \textcolor{red}{-}\\
+    \hline
+    \textcolor{red}{drawMessage} & \textcolor{red}{string} & \textcolor{red}{-} & \textcolor{red}{-}\\
+    \hline
+    \textcolor{red}{drawGameStats} & \textcolor{red}{-} & \textcolor{red}{-} & \textcolor{red}{-}\\
+    \hline
+    drawParty & - & - & -\\
+    \hline 
+    drawAllBullets & - & - & -\\
+    \hline 
+    drawAll & - & - & -\\
+    \hline 
+    \end{tabular}
+\end{table}
+\subsection{Interface Semantics}
+\subsubsection{State Variables}
+Not Applicable 
+\subsubsection{Environmental Variables}
+None
+\subsubsection{Assumptions}
+The game is started. 
+\subsubsection{Access Program Semantics}
+
+\noindent drawIntro():
+\begin{itemize}
+    \item Transition: display the introduction page on the board
+\end{itemize}
+
+\noindent drawEnemies():
+\begin{itemize}
+    \item Transition: display enemies on the board
+\end{itemize}
+
+\noindent drawPlay():
+\begin{itemize}
+    \item Transition: display Play Button
+\end{itemize}
+
+\noindent drawTowers():
+\begin{itemize}
+    \item Transition: draw all towers on board
+\end{itemize}
+
+\noindent \textcolor{red}{drawStatus():}
+\textcolor{red}{\begin{itemize}
+    \item Transition: display the status of a built tower selected by user
+\end{itemize}}
+
+\noindent \textcolor{red}{drawMessage():}
+\textcolor{red}{\begin{itemize}
+    \item Transition: display the message
+\end{itemize}}
+
+\noindent \textcolor{red}{drawGameStats():}
+\textcolor{red}{\begin{itemize}
+    \item Transition: display the money, level, remaining life of the user
+\end{itemize}}
+
+
+\noindent drawParty():
+\begin{itemize}
+    \item Transition: display options of dragon towers for game player 
+\end{itemize}
+
+\noindent drawAllBullets():
+\begin{itemize}
+    \item Transition: draw all bullets on board
+\end{itemize}
+
+\noindent drawAll():
+\begin{itemize}
+    \item Transition: draw all items above on the board
+\end{itemize}
+
+
+\section{MIS of Game Manager Module}
+\subsection{Interface Syntax}
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \hline
+    \textbf {Name}  & {In} & {Out} & {Exceptions} \\
+    \hline
+    gameInit & - & - & -\\
+    \hline 
+    runGame & - & - & -\\
+    \hline 
+    mousePress & int, int & - & -\\
+    \hline 
+    \end{tabular}
+\end{table}
+\subsection{Interface Semantics}
+\subsubsection{State Variables}
+Not Applicable 
+\subsubsection{Environmental Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Program Semantics}
+
+\noindent gameInit():
+\begin{itemize}
+    \item Transition: Initialise the game data
+\end{itemize}
+
+\noindent runGame():
+\begin{itemize}
+    \item Transition: The functions that will be run continuously in the while loop of the main game
+\end{itemize}
+
+\noindent mousePress(x,y):
+\begin{itemize}
+    \item Input: x and y coordinates
+    \item Transition: Handle the mouse control of the game
+\end{itemize}
+
+\section{MIS of Dragon Age Module}
+\subsection{Interface Syntax}
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \hline
+    \textbf {Name}  & {In} & {Out} & {Exceptions} \\
+    \hline
+    init & - & - & -\\
+    \hline 
+    mouse & - & - & -\\
+    \hline 
+    loadBackground & - & - & -\\
+    \hline 
+    \textcolor{red}{loadGameOverPage} & \textcolor{red}{-} & \textcolor{red}{-} & \textcolor{red}{-}\\
+    \hline
+    \textcolor{red}{loadBGM} & \textcolor{red}{-} & \textcolor{red}{-} & \textcolor{red}{-}\\
+    \hline
+    \textcolor{red}{loadIntro} & \textcolor{red}{-} & \textcolor{red}{-} & \textcolor{red}{-}\\
+    \hline
+    game & - & - & -\\
+    \hline 
+    \end{tabular}
+\end{table}
+\subsection{Interface Semantics}
+\subsubsection{State Variables}
+Not Applicable 
+\subsubsection{Environmental Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Program Semantics}
+
+\noindent init():
+\begin{itemize}
+    \item Transition: initialise pygame
+\end{itemize}
+
+\noindent mouse():
+\begin{itemize}
+    \item Transition: handle the mouse control response of the game
+\end{itemize}
+
+\noindent loadBackground():
+\begin{itemize}
+    \item Transition: load the game background
+\end{itemize}
+
+\noindent \textcolor{red}{loadGameOverPage():}
+\textcolor{red}{\begin{itemize}
+    \item Transition: display the gameover message
+\end{itemize}}
+
+\noindent \textcolor{red}{loadBGM():}
+\textcolor{red}{\begin{itemize}
+    \item Transition: play background music of the game
+\end{itemize}}
+
+\noindent \textcolor{red}{loadIntro():}
+\textcolor{red}{\begin{itemize}
+    \item Transition: display the menu which allow user to choose between play and quit
+\end{itemize}}
+
+
+
+\noindent game():
+\begin{itemize}
+    \item Transition: main loop of the game
+\end{itemize}
+
+
+
+\section{MIS of Dragon Module}
+\subsection{Interface Syntax}
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \hline
+    \textbf {Name}  & {In} & {Out} & {Exceptions} \\
+    \hline
+    setSize & - & - & -\\
+    \hline 
+    \end{tabular}
+\end{table}
+\subsection{Interface Semantics}
+\subsubsection{State Variables}
+Not Applicable 
+\subsubsection{Environmental Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Program Semantics}
+
+\noindent setSize():
+\begin{itemize}
+    \item Transition: set the size of the dragon unit on the game board
+\end{itemize}
+
+\section{MIS of Enemy Module}
+\subsection{Interface Syntax}
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \hline
+    \textbf {Name}  & {In} & {Out} & {Exceptions} \\
+    \hline
+    setWave & - & - & -\\
+    \hline
+    setHP & - & float & -\\
+    \hline
+    setLevel & - & - & -\\
+    \hline
+    moveEnemy & - & - & -\\
+    \hline
+    drawEnemy & - & - & -\\
+    \hline
+    \end{tabular}
+\end{table}
+\subsection{Interface Semantics}
+\subsubsection{State Variables}
+Not Applicable 
+\subsubsection{Environmental Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Program Semantics}
+
+\noindent setWave():
+\begin{itemize}
+    \item Transition: spawn new enemy units for the current wave
+\end{itemize}
+
+\noindent setHP():
+\begin{itemize}
+    \item Transition: set the individual hit point (HP) of the enemy
+    \item Output: the hit point (HP)
+\end{itemize}
+
+\noindent setLevel():
+\begin{itemize}
+    \item Transition: set the individual level of the enemy
+\end{itemize}
+
+\noindent moveEnemy():
+\begin{itemize}
+    \item Transition: increase the coordinate of the enemy by the movement speed
+\end{itemize}
+
+\noindent drawEnemy():
+\begin{itemize}
+    \item Transition: draw the enemy on the game board
+\end{itemize}
+
+
+
+\section{MIS of Bullet Module}
+\subsection{Interface Syntax}
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \hline
+    \textbf {Name}  & {In} & {Out} & {Exceptions} \\
+    \hline
+    setImage & - & - & -\\
+    \hline
+    getDirection & - & - & -\\
+    \hline
+    shotEnemy & - & boolean & -\\
+    \hline
+    \textcolor{red}{moveBullet} & - & - & -\\
+    \hline
+    \textcolor{red}{drawBullet} & - & - & -\\
+    \hline
+    \end{tabular}
+\end{table}
+\subsection{Interface Semantics}
+\subsubsection{State Variables}
+Not Applicable 
+\subsubsection{Environmental Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Program Semantics}
+
+\noindent setImage():
+\begin{itemize}
+    \item Transition: Transition: set the image of the bullet itself
+\end{itemize}
+
+\noindent getDirection():
+\begin{itemize}
+    \item Transition: set the direction of the bullet
+\end{itemize}
+
+\noindent shotEnemy():
+\begin{itemize}
+    \item Transition: determine if the enemy is within bound of the game
+    \item Output: return ‘True’ if enemy is within bound of the game and hence can be damaged
+\end{itemize}
+
+\noindent moveBullet():
+\begin{itemize}
+    \item Transition: move the bullet towards the enemy
+\end{itemize}
+
+\noindent drawBullet():
+\begin{itemize}
+    \item Transition: draw the bullet on the screen
+\end{itemize}
+
+\section{MIS of Path Module}
+\subsection{Interface Syntax}
+\subsubsection{Exported Access Programs}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{4cm}|p{2cm}|p{2cm}|p{2cm}|}
+    \hline
+    \textbf {Name}  & {In} & {Out} & {Exceptions} \\
+    \hline
+    inPlay & int, int & boolean & -\\
+    \hline
+    onBoard & int, int & boolean & -\\
+    \hline
+    \textcolor{red}{upgradeBound} & int, int & boolean & -\\
+    \hline
+    \textcolor{red}{inTowerBounds} & \textcolor{red}{-} & \textcolor{red}{boolean} & \textcolor{red}{-}\\
+    \hline
+    \textcolor{red}{canBuild} & \textcolor{red}{int, int} & \textcolor{red}{boolean} & \textcolor{red}{-}\\
+    \hline
+    \textcolor{red}{onRoute} & \textcolor{red}{-} & \textcolor{red}{boolean} & \textcolor{red}{-}\\
+    \hline
+    \textcolor{red}{onTopTower} & \textcolor{red}{-} & \textcolor{red}{boolean} & \textcolor{red}{-}\\
+    \hline
+    inParty & int, int & boolean & -\\
+    \hline
+    createPath & - & - & -\\
+    \hline
+    verticalPath & - & - & -\\
+    \hline
+    horizontalPath & - & - & -\\
+    \hline
+    \end{tabular}
+\end{table}
+\subsection{Interface Semantics}
+\subsubsection{State Variables}
+Not Applicable 
+\subsubsection{Environmental Variables}
+None
+\subsubsection{Assumptions}
+None
+\subsubsection{Access Program Semantics}
+
+\noindent inPlay():
+\begin{itemize}
+    \item Input: the x and y coordinates
+    \item Transition: determine if the object is inside the game screen
+    \item Output: return true if the object is within the game screen
+\end{itemize}
+
+\noindent onBoard():
+\begin{itemize}
+    \item Input: the x and y coordinates
+    \item Transition: determine if the object is inside the game board area
+    \item Output: return true if the object is within the game board area
+\end{itemize}
+
+\noindent \textcolor{red}{upgradeBound():}
+\begin{itemize}
+    \item Input: the x and y coordinates
+    \item Transition: determine if the coordinates is within the upgrade button
+    \item Output: return true if the object is within the evolve button
+\end{itemize}
+
+\noindent \textcolor{red}{inTowerBounds():}
+\textcolor{red}{\begin{itemize}
+    \item Transition: determine if the tower is on top of another tower
+    \item Output: return false if the tower is not on top of another tower
+\end{itemize}}
+
+\noindent \textcolor{red}{canBuild():}
+\textcolor{red}{\begin{itemize}
+    \item Input: the x and y coordinates
+    \item Transition: determines if the tower can be built in correct tower bound
+    \item Output: return true if the tower can build in correct tower bound
+\end{itemize}}
+
+\noindent \textcolor{red}{onRoute():}
+\textcolor{red}{\begin{itemize}
+    \item Transition: determines if the tower is on enemy path
+    \item Output: returns false if the tower is not on enemy path
+\end{itemize}}
+
+\noindent \textcolor{red}{onTopTower():}
+\textcolor{red}{\begin{itemize}
+    \item Transition: determines if the tower in on top of another tower
+    \item Output: returns false if the tower is not on top of another tower
+\end{itemize}}
+
+
+\noindent inParty():
+\begin{itemize}
+    \item Input: the x and y coordinates
+    \item Transition: determine if the object is inside the party menu
+    \item Output: return true if the object is within the party menu
+\end{itemize}
+
+\noindent createPath():
+\begin{itemize}
+    \item Transition: create the corners of the enemy path
+\end{itemize}
+
+\noindent verticalPath():
+\begin{itemize}
+    \item Transition: create the vertical portion of the enemy path
+\end{itemize}
+
+\noindent horizontalPath():
+\begin{itemize}
+    \item Transition: create the horizontal portion of the enemy path
+\end{itemize}
+
+
+
+
+\end{document}
