@@ -1,0 +1,595 @@
+\documentclass[12,english]{article}
+\usepackage[letterpaper, portrait, margin=1in]{geometry}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{soul}
+\usepackage{amsmath}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+      colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=black,          % color of internal links (change box color with linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+
+
+
+\title{SE 3XA3: Test Report\\
+        Dragon Age}
+\author{Group 8: Team Eight \\
+                 Stanley Liu (MacID: liuz23) \\    
+                 Toni Miharja (MacID: miharjat)\\
+                 Zhi Zhang (MacID: zhangz1)}
+\date{December 6 2017 }
+\usepackage[showgrame]{geometry}
+
+\usepackage{titling}
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+
+\section{Revision History}
+\begin{table}[!htbp]
+
+	\begin{tabular}[r]{|l|l|l|l|}
+		\hline		
+		\textbf{Revision} & \textbf{Author} & \textbf{Date} & \textbf{Change}\\ 
+		\hline
+		1 & Stanley Liu & 12/06/17 & Final Copy Rev 1 \\
+		\hline
+		0 & Stanley Liu & 12/05/17 & Final Copy Rev 0 \\
+		\hline
+	\end{tabular}
+		\caption{Revision History for Test Report Document}
+		\label{Table}
+\end{table}
+
+
+\section{List of Tables and Figures}
+Table 1: Revision History\\
+Table 2 - 20: Test cases\\
+Table 21: Trace to Requirements\\
+Table 22: Trace to Modules\\
+
+\section{Functional Qualities Evaluation}
+Description of Tests: The purpose of these tests is to ensure that the user is able to play the game according to the given requirements. These tests will include testing for enemy, dragon tower, bullet and path. \\ \\
+	
+	Test Name: FRE-1 \\
+	
+	Results: Enemy enters the path when game starts \\ \\
+	
+	Test Name: FRE-2 \\
+	
+	Results: Speed and number of enemies increases as the wave increases\\ \\
+	
+	Test Name: FRE-3 \\
+	
+	Results: Tower launches bullet and hit enemy, does damage to enemy \\ \\
+	
+	Test Name: FRE-4 \\
+	
+	Results: Bullet is able to kill enemy is bullet damage is greater than the rest of enemy health \\ \\
+	
+	Test Name: FRD-1\\
+	
+	Results: Dragon tower is upgraded correctly\\ \\
+	
+	Test Name: FRD-2\\
+	
+	Results: The \textit{isInRange} equation is working correctly\\ \\
+	
+	Test Name: FRT-1\\
+	
+	Results: Bullets are all removed when all enemy exit\\ \\
+	
+	Test Name: FRT-2\\
+	
+	Results: Damage is set on enemy correctly\\ \\
+	
+	Test Name: FRT-3\\
+	
+	Results: All enemies are removed and game over when life equals 0\\ \\
+	
+	Test Name: FRP-1\\
+	
+	Results: Game always starts with enemy wave coming in\\ \\
+	
+	Test Name: FRP-2\\
+	
+	Results: \textit{onboard} function is working correctly\\ \\
+	
+	Test Name: FRP-3\\
+	
+	Results: \textit{upgradeBound} function is working correctly\\ \\
+	
+	Test Name: FRP-4\\
+	
+	Results: \textit{onRoute} function is working correctl\\ \\
+
+
+\section{Non-Functional Qualities Evaluation}
+Description of Tests: The purpose of these tests is to ensure the usability and performance of the game. These tests will include testing for usability and performance. \\ \\
+
+	Test Name: NF-U-1 \\
+	
+	Results: Game runs successfully on every operating system \\ \\
+	
+	Test Name: NF-U-2 \\
+	
+	Results: All buttons and button outcome generated correctly\\ \\
+	
+	Test Name: NF-U-3 \\
+	
+	Results: Average rating of team members is 4.3 (greater than 3) \\ \\
+	
+	Test Name: NF-U-4 \\
+	
+	Results: Average rating of team members is 4.0 (greater than 3) \\ \\
+
+    Test Name: NF-P-1 \\
+	
+	Results: The game is loaded into the introduction under 2 seconds \\ \\
+
+	Test Name: NF-P-2 \\
+	
+	Results: The reaction time of all button clicks to achieve function is under 0.5 seconds\\ \\
+
+\section{Changes Due to Testing}
+Interfacing-wise, the Dragon Age team has upgraded the introduction page and changed the map to have a more middle earth feel. Coding-wise, the team has been test running the game at the development process, therefore, very few changes has been made due to testing.
+
+\section{Automated Testing}
+We ran the \textit{pygame unit test suite} in command line to ran 680 test cases for our game. The test cases include image testing, pixel testing, syntax testing and so on. All the test cases passed in 15.754 seconds. In this document, we will represent automated testing by ``ATT''.
+
+\section{System Tests}
+    \subsection{Enemy Testing}
+    These are the tests to test enemy of the game.
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & FRE-1 \\ 
+        		\hline
+        		\textbf{Initial State} & No enemy enters the board\\ 
+        		\hline
+        		\textbf{Input} & User press start button \\ 
+        		\hline 
+        		\textbf{Expected Output} & One wave of enemy enters the path\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for FRE-1}
+        	\label{Table}
+        \end{table}
+        
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & FRE-2 \\ 
+        		\hline
+        		\textbf{Initial State} & A small enemy wave at level 1 moves on board\\ 
+        		\hline
+        		\textbf{Input} & User defeats wave 1 \\ 
+        		\hline 
+        		\textbf{Expected Output} & At next wave, number of enemy increases and enemy speed increases\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for FRE-2}
+        	\label{Table}
+        \end{table}
+        
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & FRE-3 \\ 
+        		\hline
+        		\textbf{Initial State} & Tower is static\\ 
+        		\hline
+        		\textbf{Input} & Enemy walks into launch range of tower\\ 
+        		\hline 
+        		\textbf{Expected Output} & Tower launches bullet and hits enemy, does damage to enemy\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for FRE-3}
+        	\label{Table}
+        \end{table}
+        
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & FRE-4 \\ 
+        		\hline
+        		\textbf{Initial State} & Enemy moves and tower launches bullets\\ 
+        		\hline
+        		\textbf{Input} & Bullet hits enemy and the damage is greater than the rest of the enemy health\\ 
+        		\hline 
+        		\textbf{Expected Output} & Enemy is killed and removed from board\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for FRE-4}
+        	\label{Table}
+        \end{table}
+
+    \subsection{Dragon Tower Testing}
+    These are the tests to test dragon tower of the game.
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & FRD-1 \\ 
+        		\hline
+        		\textbf{Initial State} & Dragon tower is not upgraded\\ 
+        		\hline
+        		\textbf{Input} & User select update button with sufficient gold\\ 
+        		\hline 
+        		\textbf{Expected Output} & Dragon tower is upgraded 1 level\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for FRD-1}
+        	\label{Table}
+        \end{table}
+        
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & FRD-2 \\ 
+        		\hline
+        		\textbf{Initial State} & Dragon tower is build and enemy wave moves in\\ 
+        		\hline
+        		\textbf{Input} & User waits until the enemy comes into tower range\\ 
+        		\hline 
+        		\textbf{Expected Output} & Output if the enemy is in range or not therefore checks \textit{isInRange} equation\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for FRD-2}
+        	\label{Table}
+        \end{table}
+
+    \subsection{TimerFired Testing}
+    These are the tests to test timerFired functions of the game.
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & FRT-1 \\ 
+        		\hline
+        		\textbf{Initial State} & Dragon tower placed and enemy came in\\ 
+        		\hline
+        		\textbf{Input} & Tower shots at enemy\\ 
+        		\hline 
+        		\textbf{Expected Output} & Bullets are removed when all enemy exit\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for FRT-1}
+        	\label{Table}
+        \end{table}
+        
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & FRT-2 \\ 
+        		\hline
+        		\textbf{Initial State} & Bullet shots at enemy\\ 
+        		\hline
+        		\textbf{Input} & Enemy is hit by bullet\\ 
+        		\hline 
+        		\textbf{Expected Output} & Damage is set on enemy\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for FRT-2}
+        	\label{Table}
+        \end{table}
+        
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & FRT-3 \\ 
+        		\hline
+        		\textbf{Initial State} & Game started\\ 
+        		\hline
+        		\textbf{Input} & Game life equals to 0\\ 
+        		\hline 
+        		\textbf{Expected Output} & All enemies are removed and game over\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for FRT-3}
+        	\label{Table}
+        \end{table}
+
+    \subsection{Path Testing}
+    These are the tests to test path of the game.
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & FRP-1 \\ 
+        		\hline
+        		\textbf{Initial State} & Game loaded into introduction page\\ 
+        		\hline
+        		\textbf{Input} & User clicks on start game\\ 
+        		\hline 
+        		\textbf{Expected Output} & Game start with enemy wave coming in\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for FRP-1}
+        	\label{Table}
+        \end{table}
+        
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & FRP-2\\ 
+        		\hline
+        		\textbf{Initial State} & Game started\\ 
+        		\hline
+        		\textbf{Input} & Check if any tower is on board\\ 
+        		\hline 
+        		\textbf{Expected Output} & True if on board, otherwise False\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for FRP-2}
+        	\label{Table}
+        \end{table}
+        
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & FRP-3\\ 
+        		\hline
+        		\textbf{Initial State} & There is enough coins to upgrade a dragon\\ 
+        		\hline
+        		\textbf{Input} & User clicks on dragon on board and try to upgrade\\ 
+        		\hline 
+        		\textbf{Expected Output} & Check if the mouse is in upgrade button bound\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for FRP-3}
+        	\label{Table}
+        \end{table}
+        
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & FRP-4\\ 
+        		\hline
+        		\textbf{Initial State} & Dragon tower placed on board\\ 
+        		\hline
+        		\textbf{Input} & User clicks on the dragon tower on board\\ 
+        		\hline 
+        		\textbf{Expected Output} & Output if the dragon tower is on game route\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for FRP-4}
+        	\label{Table}
+        \end{table}
+
+    \subsection{Non-Functional Test}
+    
+        \subsubsection{Usability}
+        These are the tests to test usability of the game.
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & NF-U-1 \\ 
+        		\hline
+        		\textbf{Initial State} & Game file downloaded onto personal computers\\ 
+        		\hline
+        		\textbf{Input} & Launch the game on personal computers running Windows, Mac OS and Linux\\ 
+        		\hline 
+        		\textbf{Expected Output} & Game runs successfully on every operating system\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for NF-U-1}
+        	\label{Table}
+        \end{table}
+        
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & NF-U-2 \\ 
+        		\hline
+        		\textbf{Initial State} & Game is opened on personal computers\\ 
+        		\hline
+        		\textbf{Input} & User plays the game by mouse clicks\\ 
+        		\hline 
+        		\textbf{Expected Output} & All buttons work correctly, outcome generated correctly\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for NF-U-2}
+        	\label{Table}
+        \end{table}
+        
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & NF-U-3 \\ 
+        		\hline
+        		\textbf{Initial State} & Testing team has tested previous two tests\\ 
+        		\hline
+        		\textbf{Input} & Member in test group are asked to rate the overall satisfaction of our game\\ 
+        		\hline 
+        		\textbf{Expected Output} & The average rating is greater than 3\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for NF-U-3}
+        	\label{Table}
+        \end{table}
+        
+        \begin{table}[h!]
+        	\begin{tabular}[r]{|l|l|}
+        	    \hline
+        		\textbf{Test Name} & NF-U-4 \\ 
+        		\hline
+        		\textbf{Initial State} & Testing team has tested NF-U-1 and NF-U-2\\ 
+        		\hline
+        		\textbf{Input} & Member in test group are asked to rate the overall satisfaction of Pokemon Tower Defense\\ 
+        		\hline 
+        		\textbf{Expected Output} & The average rating is greater than 3\\ 
+        		\hline
+        	\end{tabular}
+        	\caption{Test for NF-U-4}
+        	\label{Table}
+        \end{table}
+
+        \subsubsection{Performance}
+        These are the tests to test performance of the game.
+            \begin{table}[h!]
+            \begin{tabular}[r]{|l|l|}
+            \hline
+            \textbf{Test Name} & NF-P-1 \\ 
+            \hline
+            \textbf{Initial State} & Game is launched\\ 
+            \hline
+            \textbf{Input} & User opens the game\\ 
+            \hline 
+            \textbf{Expected Output} & The game is loaded into the introduction under 2 seconds\\ 
+            \hline
+            \end{tabular}
+            \caption{Test for NF-P-1}
+            \label{Table}
+            \end{table}
+        
+            \begin{table}[h!]
+            	\begin{tabular}[r]{|l|l|}
+            	    \hline
+            		\textbf{Test Name} & NF-P-2 \\ 
+            		\hline
+            		\textbf{Initial State} & Game is loaded into the game screen where user start to play\\ 
+            		\hline
+            		\textbf{Input} & User plays the game by mouse clicking\\ 
+            		\hline 
+            		\textbf{Expected Output} & The reaction time of button click to achieve function should be under 0.5 seconds\\ 
+            		\hline
+            	\end{tabular}
+            	\caption{Test for NF-P-2}
+            	\label{Table}
+            \end{table}
+    \newpage
+
+\section{Trace to Requirements}
+\begin{table}[!htbp]
+			\begin{tabular}{ll}
+				\toprule
+				Test & Requirements \\
+				\midrule
+				\multicolumn{2}{c}{Functional Requirements Testing} \\
+				\midrule
+				FRE-1 & FREW-1 \\
+				FRE-2 & FREWU-1 \\
+				FRE-3 & FR-TDE-1 \\
+				FRE-4 & FR-TDE-2 \\
+				FRD-1 & FR-UDT-2 \\
+				FRD-2 & DT-RNG-1 \\
+				FRT-1 & DT-BR-2 \\
+				FRT-2 & DT-BR-1 \\
+				FRT-3 & FR-GOD-2 \\
+				FRP-1 & FR-SPSS-2 \\
+				FRP-2 & FR-BNDT-3 \\
+				FRP-3 & FR-UDT2 \\
+				FRP-4 & FR-PDT-2 \\
+				\midrule
+				\multicolumn{2}{c}{Non-functional Requirements Testing} \\
+				\midrule
+				NF-U-1 & NFR-UB-1 \\
+				NF-U-2 & NFR-UB-2 \\
+				NF-U-3 & NFR-UB-3 \\
+				NF-U-4 & NFR-UB-4 \\
+				NF-P-1 & NFR-P-1 \\
+				NF-P-2 & NFR-P-2 \\
+				
+				\midrule
+				\multicolumn{2}{c}{Automated Testing} \\
+				\midrule
+				ATT & NFR-UB-1, NFR-UB-2, NFR-P-1, NFR-P-2\\
+				
+				\bottomrule
+			\end{tabular}
+			\caption{Trace Between Tests and Requirements}
+			% Colour for the rulings in tables:
+			\makeatletter
+			\def\rulecolor#1#{\CT@arc{#1}}
+			\def\CT@arc#1#2{%
+				\ifdim\baselineskip=\z@\noalign\fi
+				{\gdef\CT@arc@{\color#1{#2}}}}
+			\let\CT@arc@\relax
+			\rulecolor{black!50}
+			\makeatother
+			\label{Table}
+		\end{table}
+		
+		\FloatBarrier
+		\newpage
+
+\section{Trace to Modules}
+\begin{table}[!htbp]
+	\begin{tabular}{ll}
+		\toprule
+		Test & Modules \\
+				\midrule
+				\multicolumn{2}{c}{Functional Requirements Testing} \\
+				\midrule
+				FRE-1 & M3, M11 \\
+				FRE-2 & M3, M11 \\
+				FRE-3 & M3, M11 \\
+				FRE-4 & M3, M11 \\
+				FRD-1 & M1, M9 \\
+				FRD-2 & M1, M9 \\
+				FRT-1 & M4, M5, M2 \\
+				FRT-2 & M5, M2 \\
+				FRT-3 & M3, M4, M5, M11 \\
+				FRP-1 & M12 \\
+				FRP-2 & M12 \\
+				FRP-3 & M1, M12 \\
+				FRP-4 & M1, M12 \\
+				\midrule
+				\multicolumn{2}{c}{Non-functional Requirements Testing} \\
+				\midrule
+				NF-U-1 & M8 \\
+				NF-U-2 & M8 \\
+				NF-U-3 & M8 \\
+				NF-U-4 & M8 \\
+				NF-P-1 & M8 \\
+				NF-P-2 & M8 \\
+				
+				\midrule
+				\multicolumn{2}{c}{Automated Testing} \\
+				\midrule
+				ATT & M1 - M13\\
+		\bottomrule
+	\end{tabular}
+	\caption{Trace Between Tests and Modules}
+	% Colour for the rulings in tables:
+	\makeatletter
+	\def\rulecolor#1#{\CT@arc{#1}}
+	\def\CT@arc#1#2{%
+		\ifdim\baselineskip=\z@\noalign\fi
+		{\gdef\CT@arc@{\color#1{#2}}}}
+	\let\CT@arc@\relax
+	\rulecolor{black!50}
+	\makeatother
+	\label{Table}
+\end{table}
+
+\FloatBarrier
+
+\section{Code Coverage Metrics}
+The Dragon Age team has managed to produce at least 85 percent of the code coverage through testing. This is based on the number of test cases the team wrote for every module, requirement and specific function. Please refer to the traceability in the upper section.
+
+
+\end{document}
