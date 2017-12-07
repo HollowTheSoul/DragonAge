@@ -1,0 +1,668 @@
+\documentclass[12,english]{article}
+\usepackage[letterpaper, portrait, margin=1in]{geometry}
+
+\usepackage{soul}
+\usepackage{textcomp}
+\usepackage{amsmath}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{textcomp}
+\usepackage{titlesec}
+\setcounter{secnumdepth}{4}
+\usepackage{hyperref}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+      colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=black,          % color of internal links (change box color with linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+
+
+
+\title{SE 3XA3: Test Plan\\
+        Dragon Age}
+\author{Group 8: Team Eight \\
+                 Stanley Liu (MacID: liuz23) \\    
+                 Toni Miharja (MacID: miharjat)\\
+                 Zhi Zhang (MacID: zhangz1)}
+\date{October 27 2017 }
+\usepackage[showgrame]{geometry}
+
+\usepackage{titling}
+\renewcommand\maketitlehooka{\null\mbox{}\vfill}
+\renewcommand\maketitlehookd{\vfill\null}
+\setcounter{secnumdepth}{4}
+
+\titleformat{\paragraph}
+{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}
+
+\begin{document}
+\maketitle
+\newpage
+\tableofcontents
+\newpage
+ 
+\section{Revision History}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{2.5cm}|p{3cm}|p{3cm}|p{2cm}|}
+    \hline
+    \textbf {Date}  & {Developer} & {Change} & {Revision} \\
+    \hline
+    October 22, 2017 & Zhi & Added introduction. & 1.0\\
+    \hline
+    October 23, 2017  & Stanley, Toni &  Introduction, Plan, Testing for POC, Testing for functional requirements & 1.5\\
+    \hline
+    October 24, 2017  & Stanley, Zhi &  User inputs testing, Testing for functional requirements, Testing for non-functional requirements & 1.8\\
+    \hline
+    October 25, 2017  & Stanley, Zhi &  Testing for functional requirements, Testing for non-functional requirements & 2.0\\
+    \hline
+    October 27, 2017  & Stanley, Toni, Zhi & Testing for POC, Unit Testing Plan, Appendix & 2.2\\
+    \hline
+    \end{tabular}
+    \caption{Revision History: Requirements Documentation}
+\end{table}
+ 
+\section{General Information}
+
+\subsection{Purpose}
+The purpose for testing this project is to find defects which may get created by the programmer while developing the software and to gain confidence that the software was implemented correctly with all the desired functions working. 
+
+
+\subsection{Test Objectives}
+The objectives for testing this project is to make sure the full functionality of our game is being met and to fix any defects found during testing process.  Before releasing our software to the users, all our tests must be thoroughly completed and passed to show robustness and readiness of the program.
+
+\newpage
+\subsection{Acronyms, Abbreviations, and Symbols}
+\newline
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{3cm}|p{6cm}|}
+    \hline
+    \textbf {Abbreviation} & {Definition}\\
+    \hline
+    POC & Proof of Concept\\
+    \hline
+    SRS & Software Requirement Specification\\
+    \hline
+    DA & Dragon Age\\
+    \hline
+    \end{tabular}
+    \caption{Table of Abbreviation}
+\end{table}
+
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{3cm}|p{8cm}|}
+    \hline
+    \textbf {Term} & {Definition}\\
+    \hline
+    Static Testing & Testing that does not involve program execution\\
+    \hline
+    Dynamic Testing & Testing that runs the test cases which requires program execution\\
+    \hline
+    Unit Testing & Finds difference between the design model of a unit and its corresponding implementation\\
+    \hline
+    Automated Testing & Testing that runs automatically which does not has to be run by people\\
+    \hline
+    Boundary Testing & Testing that focuses on the boundary values of input parameters\\
+    \hline
+    Structural Testing & Testing that not designed to ensure correct function, but to verify structurally sound\\
+    \hline
+    Functional System Testing & Testing that ensures the software conforms with all requirements\\
+    \hline
+    \end{tabular}
+    \caption{Table of Definitions}
+\end{table}
+
+\subsection{References}
+The game is a redevelopment of an existing project on GitHub named \textcolor{red}{``Pokemon Tower Defense''}. Here is the link to this project: 
+\textcolor{red}{\textit{https://github.com/kristing400/Pokemon-Tower-Defense}}
+
+
+
+\section{Plan}
+\subsection{Software Description}
+\textcolor{red}{``Dragon Age''} is a tower defense game running on personal computer. Basically, the user will send out three types of dragons to locate alongside a designed route to defend the homeland. As the enemy wave increases, the dragons can be upgraded to do more damages.
+
+\subsection{Test Team}
+The individuals responsible for testing are Stanley Liu, Toni Miharja, and Zhi Zhang.
+
+\subsection{Automated Testing Approach}
+As the testing framework is \textcolor{red}{\textit{pytest}}, all the testings done automatically. The main idea to approach testing for the game is to write python files which contain all the functions for testing. Each function represents the testing for a particular function in the game. When running the testing file \textcolor{red}{from command line}, all the testing functions inside should be ran, then the testing result should be displayed including how many tests passed and in totally how many seconds.
+
+\subsection{\textcolor{red}{Dynamic Testing}}
+\textcolor{red}{For dynamic testing, our team plans on to test the game while the game is running. During the running process, printing statements of corresponding tests will be printed onto the python IDLE.}
+
+
+\subsection{Tools Used for Testing}
+The testing framework that will be utilized for the testing is \textcolor{red}{\textit{pytest}}.
+
+\subsection{Testing Schedule}
+\begin{table}[h!]
+    \centering
+    \begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|}
+    \hline
+    \textbf {Team Member} & {Task} & {Date}\\
+    \hline
+    Zhi Zhang & Intro & November 3, 2017\\
+    \hline
+    Stanley Liu & Enemy & November 3, 2017\\
+    \hline
+    Zhi Zhang & Path & November 10, 2017\\
+    \hline
+    Stanley Liu & Draw & November 10, 2017\\
+    \hline
+    Toni Miharja & Dragon Tower & November 10, 2017\\
+    \hline
+    Toni Miharja & Bullet & November 17, 2017\\
+    \hline
+    Toni Miharja & TimerFired & November 17, 2017\\
+    \hline
+    Stanley Liu & DragonAge(include mouse cursor) & November 24, 2017\\
+    \hline
+    Zhi Zhang & Non-functional Requirements & November 24, 2017\\
+    \hline
+    \end{tabular}
+    \caption{Table of Definitions}
+\end{table}
+
+Note: The first eight tasks are python classes with \textcolor{red}{\textit{.py}} extension. Please see \textcolor{red}{``src''} folder in repository for more information about classes of the game. Each team member tests different classes of the game.
+
+\section{System Test Description}
+\subsection{Tests for Functional Requirements}
+\subsubsection{User Input}
+\paragraph{Select Dragon Tower}
+\begin{enumerate}
+  \item FR-SDT-1
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State: No dragon has been selected
+      \item Input:User selects one dragon type
+      \item Output: The dragon is available for being built on the board
+      \item How test will be performed: The function that determines whether or not a dragon is being selected will be called. Following that the user will be able to drag and move the dragon on the board. 
+  \end{itemize}
+\end{enumerate}
+
+\paragraph{Place Dragon Tower}
+\begin{enumerate}
+  \item FR-PDT-1
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State: No dragon has been placed on the board
+      \item Input: User drags the dragon to invalid location coordinates(along the enemy path)
+      \item Output: The program prompts the user saying that the current location is invalid
+      \item How test will be performed: The function that determines whether or not the location coordinate is valid will be called with a predetermined invalid location coordinates as an input. If the output is false, the dragon tower will not be placed on the board. 
+  \end{itemize}
+  \item FR-PDT-2
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State: No dragon has been placed on the board
+      \item Input: User drags the dragon to valid location coordinates(along the enemy path)
+      \item Output: The game placed the dragon on this location when the user releases the mouse
+      \item How test will be performed: The function that determines whether or not the location coordinate is valid will be called with a predetermined invalid location coordinates as an input. If the output is true, the dragon tower will be placed on the board.
+  \end{itemize}
+\end{enumerate}
+
+\paragraph{Upgrade Dragon Tower}
+\begin{enumerate}
+  \item FR-UDT-1
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State: The dragon is not upgraded
+      \item Input: User selects the upgrade button with insufficient coins
+      \item Output: The program prompts the user saying that the coins are insufficient
+      \item How test will be performed: The function that determines whether or not the user has sufficient coins will be called. If the output is false, the dragon will not be upgraded. 
+  \end{itemize}
+  \item FR-UDT-2
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State: The dragon is not upgraded
+      \item Input: User selects the update button with sufficient coins
+      \item Output: The dragon is being upgraded 1 level 
+      \item How test will be performed: The function that determines whether or not the user has sufficient coins will be called. If the output is true, the dragon will be upgraded. 
+  \end{itemize}
+  \item FR-UDT-3
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State: The dragon is at its highest possible level
+      \item Input: User selects the upgrade button
+      \item Output: The program prompts the user saying that the dragon can not being upgraded anymore
+      \item How test will be performed: The function that determines whether or not the dragon is at highest level will be called. If the output is true, the dragon can not be upgraded any more. 
+  \end{itemize}
+\end{enumerate}
+
+\paragraph{Buy New Dragon Tower}
+\begin{enumerate}
+  \item FR-BNDT-1
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State: No new dragon tower has been bought
+      \item Input: User selects the tower type with insufficient coins
+      \item Output: The program prompts the user saying that the coins are not sufficient
+      \item How test will be performed: The function that determines whether or not the user has sufficient coins will be called. If false, the new dragon tower will not be purchased by the user. 
+  \end{itemize}
+  \item FR-BNDT-2
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State:  No new dragon tower has been bought
+      \item Input: User selects the tower type with sufficient coins
+      \item Output: The user gets the new dragon tower
+      \item How test will be performed: The function that determines whether or not the user has sufficient coins will be called. If true, following that the user will be able to place the dragon tower. 
+  \end{itemize}
+  \item FR-BNDT-3
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State: No new dragon tower has been bought
+      \item Input: User selects the tower type with not sufficient space available on the board
+      \item Output: The program prompts the user saying that the the user can not have more dragons since there is no more available space to build on the board. 
+      \item How test will be performed: The function that determines whether or not the user has more space to build a new dragon tower will be called. If false,  the user will not be able to purchases more tower units. 
+  \end{itemize}
+\end{enumerate}
+
+\paragraph{Start/Pause State Selection}
+\begin{enumerate}
+  \item FR-SPSS-1
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State: The game is running
+      \item Input: User presses start/stop button
+      \item Output: All the movements stop(the enemy and the dragon)
+      \item How test will be performed: The function that determines whether or not the user pressed the start/stop button will be called, if true,  the game stops.
+  \end{itemize}
+  \item FR-SPSS-2
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State:  The game is stopped
+      \item Input: User presses start/stop button
+      \item Output: The game continues with moving units
+      \item How test will be performed: The function that determines whether or not the user pressed the start/stop button will be called, if true,  the game continues.
+  \end{itemize}
+\end{enumerate}
+
+\subsubsection{Enemy Attack}
+\paragraph{Enemy Wave}
+\begin{enumerate}
+  \item FR-EW-1
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State: No enemy enters the board
+      \item Input: User presses start/stop button at stop state
+      \item Output: One wave of enemy enters the designed path
+      \item How test will be performed: The function that determines whether or not the user starts the game will be called, if true,  the enemy wave enters the board. 
+  \end{itemize}
+\end{enumerate}
+
+\paragraph{Enemy Wave Upgrade}
+\begin{enumerate}
+  \item FR-EWU-1
+  \begin{itemize}
+      \item Type: Functional, Dynamic
+      \item Initial State: A small enemy wave at level 1 with slow movement
+      \item Input: User is leveled up 
+      \item Output: The number of enemies per wave increases and moves faster each level
+      \item How test will be performed: The function that determines whether or not the user\textcolor{red}{\textquotesingle}s level is upgraded will be called, if true,  the enemy wave upgrade automatically.  
+  \end{itemize}
+\end{enumerate}
+
+\paragraph{Towers Defend Enemies}
+\begin{enumerate}
+  \item FR-TDE-1
+  \begin{itemize}
+      \item Type: Functional, Dynamic
+      \item Initial State: Tower is static 
+      \item Input: Enemy enters the launch range of the tower 
+      \item Output: Tower launches bullets and hits the enemy, each hit does an amount of damage to the enemy\textcolor{red}{\textquotesingle}s health 
+      \item How test will be performed: The functions that determines whether or not the enemy is in launch range of the tower and whether or not the bullets his in the safety range of the enemy will be called, if true, the enemy\textcolor{red}{\textquotesingle}s health should reduce a certain amount.
+  \end{itemize}
+  \item FR-TDE-2
+  \begin{itemize}
+      \item Type: Functional, Dynamic
+      \item Initial State: Enemy moves and the tower launches bullets
+      \item Input: A bullet hit the enemy and the damage of the bullet is greater than the health of the enemy 
+      \item Output: The enemy is killed and removed from the board
+      \item How test will be performed: The function that determines whether or not the enemy is killed will be called, if true, the enemy should be removed from the board. 
+  \end{itemize}
+  \item \textcolor{red}{\st{FR-TDE-3}}
+  \begin{itemize}
+      \item \textcolor{red}{\st{Type: Functional, Dynamic}}
+      \item \textcolor{red}{\st{Initial State: Enemy moves along the path}}
+      \item \textcolor{red}{\st{Input: The tower launches bullet but does not hit the enemy}}
+      \item \textcolor{red}{\st{Output: Enemy keeps moving}}
+      \item \textcolor{red}{\st{How test will be performed: The function that determines whether or not the hit is in the safety range of the enemy will be called, if false, no damage will be done to the enemy.}}
+  \end{itemize}
+\end{enumerate}
+
+\subsubsection{User Resources}
+
+\paragraph{Gain Coins}
+\begin{enumerate}
+  \item FR-GC-1
+  \begin{itemize}
+      \item Type: Functional, Dynamic
+      \item Initial State: The user has certain amount of coins
+      \item Input: An enemy is being killed 
+      \item Output: The user gains certain amount of coins
+      \item How test will be performed: The function that determines whether or not an enemy is killed will be called, if true, the amount of user\textcolor{red}{\textquotesingle}s coins should increase.  
+  \end{itemize}
+  \item FR-GC-2
+  \begin{itemize}
+      \item Type: Functional, Dynamic
+      \item Initial State: User gains certain amount of coins when an enemy is being killed
+      \item Input: The user levels up
+      \item Output: The user gains more coins for each enemy being killed at each higher level 
+      \item How test will be performed: The function that determines whether or not the user is leveled up will be called, if true, the value of the enemy will increase.  
+  \end{itemize}
+\end{enumerate}
+
+\paragraph{Use Coins}
+\begin{enumerate}
+  \item FR-UC-1
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State: The user has certain amount of coins
+      \item Input: The user selects a product with insufficient coins 
+      \item Output: The program prompts the user saying that his/her coins is not enough for purchasing this item
+      \item How test will be performed:  The function that determines whether or not the user has sufficient coins will be called, if false, the purchase is failed.
+  \end{itemize}
+  \item FR-UC-2
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State: The user selects a product with sufficient coins
+      \item Input: The user levels up
+      \item Output: The product is added to the user\textcolor{red}{\textquotesingle}s bag and ready to use
+      \item How test will be performed: The function that determines whether or not the user has sufficient coins will be called, if true, the purchases is successed.   
+  \end{itemize}
+\end{enumerate}
+
+\subsubsection{Game Over Detection}
+\paragraph{The User Exits Game}
+\begin{enumerate}
+  \item FR-GOD-1
+  \begin{itemize}
+      \item Type: Functional, Dynamic, Manual
+      \item Initial State: The user is in the game 
+      \item Input: The user quits the game
+      \item Output: The program ends and exits
+      \item How test will be performed: The function that determines whether or not the user closes the game program will be called, if true, the game exits.
+  \end{itemize}
+\end{enumerate}
+
+\paragraph{The maximum number of enemies enter home base}
+\begin{enumerate}
+  \item FR-GOD-2
+  \begin{itemize}
+      \item Type: Functional, Dynamic
+      \item Initial State:The user is in the game
+      \item Input: Maximum allowed enemy enters home base
+      \item Output: The game ends and displays \textcolor{red}{``Game Over''}
+      \item How test will be performed: The function that determines whether or not the number of enemy enters home base is at maximum will be called, if true, the game stops.
+  \end{itemize}
+\end{enumerate}
+
+\subsection{Tests for Nonfunctional Requirements}
+\subsubsection{Usability}
+\begin{enumerate}
+    \item NFR-UB-1
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: The game file is downloaded onto personal computers
+        \item Input: Launch the game on personal computers that run operating systems Windows, Mac OS and Linux
+        \item Output: The game should be opened and run successfully on operating systems.
+        \item How Test will be performed: Game will be run on three operating systems. The tester will make sure the game opens correctly on different operating systems.
+    \end{itemize}
+\end{enumerate}
+
+\begin{enumerate}
+    \item NFR-UB-2
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: The game is opened on personal computers
+        \item Input: Users play the game, use mouse to click on game buttons(start, menu, dragons, etc.)
+        \item Output: All the buttons works correctly, right outcome generated from clicking the button
+        \item How Test will be performed: Tester will play the game at least 5 times after each update of the game to make sure the mouse cursor and all buttons work correctly.
+    \end{itemize}
+\end{enumerate}
+
+\begin{enumerate}
+    \item NFR-UB-3
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: The testing team has already tested the previous two tests by downloading and playing the game
+        \item Input: Members in testing group are asked to rate the ease of installation, effectiveness of button clicks and overall satisfaction, etc of DA from 1 to 5
+        \item Output: The average rating on all categories is greater than 3
+        \item How Test will be performed: Each member in testing group is provided a questionnaire to complete based on the usability testing with a scale for each question where 1 represents very poor, 2 represents below expectations, 3 represents satisfactory, 4 represents above expectations, and 5 represents excellent. The average rating is calculated. 
+    \end{itemize}
+\end{enumerate}
+
+\begin{enumerate}
+    \item NFR-UB-4
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: The testing team has already tested NFR-UB-1 and NFR-UB-2 on the existing game and has already played the existing game(Pokemon Tower Defense)
+        \item Input: Members in testing group are asked to rate the ease of installation, effectiveness of button clicks and overall satisfaction, etc of existing game from 1 to 5
+        \item Output: The average rating on all categories is greater than 3
+        \item How Test will be performed: Each member in testing group is provided a questionnaire to complete based on the usability testing with a scale for each question where 1 represents very poor, 2 represents below expectations, 3 represents satisfactory, 4 represents above expectations, and 5 represents excellent. The average rating is calculated and should be lower than the average rating of DA implementation.
+    \end{itemize}
+\end{enumerate}
+
+
+\subsubsection{Performance}
+
+\begin{enumerate}
+    \item NFR-P-1
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: Game is launched with default settings
+        \item Input: Users click on the game file and open the game
+        \item Output: The game is launched and loaded into the introduction screen under 2 seconds
+        \item How test will be performed: Members of the testing group or a group of randomly chosen users will be asked to launch the game. The time elapsed from users clicking the game file to the game is loaded into the introduction screen should be less or equal to 2 seconds.
+    \end{itemize}
+\end{enumerate}
+
+\begin{enumerate}
+    \item NFR-P-2
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: The game is launched and loaded to the game screen where users can start to play
+        \item Input: Users click on buttons in game including \textcolor{red}{``menu''}, \textcolor{red}{``Start''}, \textcolor{red}{``Restart''}, etc
+        \item Output: The reaction time of button clicks to achieve each button\textcolor{red}{\textquotesingle}s function should be under 0.5 seconds
+        \item How test will be performed: Members of the testing group or a group of randomly chosen users will be asked to click on all buttons included in the game while playing the game, and make sure the time elapsed from users clicking the button to the function of button is achieved is less or equal to 0.5 seconds.
+    \end{itemize}
+\end{enumerate}
+
+\newpage
+\subsection{Traceability Between Test Cases and Requirements}
+\begin{table}[h!]
+    \begin{tabular}{ |p{2cm}||p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.6cm}|p{0.5cm}| p{1cm}|p{1cm}|p{1cm}|}
+    \hline
+    \multicolumn{12}{|c|}{Test Cases}\\
+    \hline
+    Requirements & FR-EW-1 & FR-EWU-1 & FR-TDE-1 & FR-TDE-2 & FR-TDE-3 & FR-GC-1 & FR-GC-2 & FR-UC-1 & FR-UC-2 & FR-GOD-1 & FR-GOD-2\\
+    \hline
+    4.1.2.1 & x & & & & & & & & & & &
+    \hline
+    4.1.2.2 & & x & & & & & & & & & &
+    \hline
+    4.1.2.3 & & & x & x & x & & & & & & &
+    \hline
+    4.1.3.1 & & & & & & x & x & & & & &
+    \hline
+    4.1.3.2 & & & & & & & & x & x & & &
+    \hline
+    4.1.4.1 & & & & & & & & & & x & &
+    \hline
+    4.1.4.2 & & & & & & & & & & & x &
+    \hline
+    \end{tabular}
+    \caption{Traceability Matrix(1)}
+\end{table}
+
+\begin{table}[h!]
+    \begin{tabular}{ |p{2cm}||p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|p{1cm}|}
+    \hline
+    \multicolumn{7}{|c|}{Test Cases}\\
+    \hline
+    Requirements & NFR-UB-1 & NFR-UB-2 & NFR-UB-3 & NFR-UB-4 & NFR-P-1 & NFR-P-2\\
+    \hline
+    4.2.1 & x & x & x & x & & &
+    \hline
+    4.2.2 & & & & & x & x &
+    \hline
+    \end{tabular}
+    \caption{Traceability Matrix(2)}
+\end{table}
+
+\section{Testing for Proof of Concept}
+Proof of Concept testing is mainly focused on validating and verifying the means by which the team will perform automated testing as well as ensuring that the program that the team created for the Proof of Concept Demonstration is working correctly as expected. 
+
+\subsection{Dragon Tower Test}
+\subsubsection{Tower Build Location}
+
+\begin{enumerate}
+    \item DT-LOC-1
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: Tower has not been built on the board.
+        \item Input: Invalid location coordinates (along the enemy path)
+        \item Output: The program prompts the user saying that the current location is invalid.
+        \item How test will be performed: The function that determines whether or not the location coordinate is valid will be called with a predetermined invalid location coordinates as an input. If the output is false, the user will be prompted with a message stating that the location is invalid.
+    \end{itemize}
+\end{enumerate}
+
+\begin{enumerate}
+    \item DT-LOC-2
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: Tower has not been built on the board.
+        \item Input: Valid location coordinates
+        \item Output: The tower will be built successfully at the location coordinates.
+        \item How test will be performed: The function that determines whether or not the location coordinate is valid will be called with a predetermined valid location coordinates as an input. If the output is true, the tower will be built successfully.
+    \end{itemize}
+\end{enumerate}
+
+\begin{enumerate}
+    \item DT-LOC-3
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: Tower has not been built on the board.
+        \item Input: Invalid location coordinates (on top of another existing tower)
+        \item Output: The program prompts the user saying that the current location is invalid.
+        \item How test will be performed: The function that determines whether or not the location coordinate is valid will be called with a predetermined invalid location coordinates as an input. If the output is false, the user will be prompted with a message stating that the location is invalid.
+    \end{itemize}
+\end{enumerate}
+
+\begin{enumerate}
+    \item DT-LOC-4
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: Tower has not been built on the board.
+        \item Input: Invalid location coordinates (on the menu section, not on the playing field)
+        \item Output: The program prompts the user saying that the current location is invalid.
+        \item How test will be performed: The function that determines whether or not the location coordinate is valid will be called with a predetermined invalid location coordinates as an input. If the output is false, the user will be prompted with a message stating that the location is invalid because they cannot build tower on the menu window.
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Tower Range}
+
+\begin{enumerate}
+    \item DT-RNG-1
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: Tower has been built and is idle.
+        \item Input: Enemy spawns on location coordinate within range of the tower
+        \item Output: The tower will attack and fire bullet at the enemy unit.
+        \item How test will be performed: The function that determines whether or not the enemy is within range is invoked. The function calculates the distance between the tower and the enemy and if the distance is smaller or equal to the range, the function will return true and the tower will fire at the enemy. 
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Tower Upgrade}
+\begin{enumerate}
+    \item DT-UPG-1
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: Tower has been built and there is no sufficient coins to upgrade tower by player
+        \item Input: Tower ID and current coin count of the player
+        \item Output: The tower will not be upgraded to the next level.
+        \item How test will be performed: The function that determines whether or not the player has sufficient coins to upgrade the existing tower on the map is invoked. The function will check and compare the current coins and the coins need to upgrade existing tower, if coins are not enough, return true.
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Bullet Test}
+
+\subsubsection{Bullet Remove}
+\begin{enumerate}
+    \item DT-BR-1
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: Towers are placed, enemy wave is coming into the map
+        \item Input: Bullets are shot from towers at enemies within range
+        \item Output: Bullets should removed at the moment they touch enemies
+        \item How test will be performed: The function that determines whether the bullets are removed when hitting enemies is invoked. The function will check if the bullet list is empty, if it is, return true.
+    \end{itemize}
+\end{enumerate}
+
+\begin{enumerate}
+    \item DT-BR-2
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: Towers are placed, enemy wave is coming into the map
+        \item Input: Bullet does not hit the enemy then exit the map and hence must be removed
+        \item Output: Bullets should removed at the moment they touch enemies
+        \item How test will be performed: The function that determines whether the bullets are removed when they exit the map is invoked. The function check if the position of bullet is in board bound, if not, check if it is removed from bullet list, if it is removed, return true.
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Bullet Damage}
+
+\begin{enumerate}
+    \item DT-BD-1
+    \begin{itemize}
+        \item Type: Structural, Static, Manual
+        \item Initial State: Tower shoot bullets at enemies
+        \item Input: Bullets hit enemies
+        \item Output: The health of enemies are decreased
+        \item How test will be performed: The function that determines whether the health of enemy is decreased is invoked. The function check the enemies health before and after the bullet hits the enemy, if health decreases, return true.
+    \end{itemize}
+\end{enumerate}
+
+\section{Comparison to Existing Implementation}
+There are two tests that compare the existing implementation to the DA. Please refer to:
+\begin{itemize}
+    \item Test NFR-UB-3, and NFR-UB-4 in Test for Non-Functional Requirements - Usability
+\end{itemize}
+
+\section{Unit Testing Plan}
+The \textcolor{red}{\textit{pytest}} framework will be utilized to do unit testing for this project.
+\subsection{Unit Testing for Internal Functions}
+Internal functions will also be tested whenever possible so as to ensure there is no bug that may affect the program. Unit testing for internal functions will be conducted by providing these methods with input values and comparing the generated output with the correct results. Unit tests hence can be created in this case and the team believe that they can be done fairly easily given the logical nature of the internal functions. This project will not need any drivers or stubs to be imported specifically for the testing as the individual classes import the necessary classes. For the purpose of this, our team will be using coverage metrics and determine how much of our code has been covered. We aim for a high code coverage that test all functions adequately by at least 85 percent coverage.
+
+\subsection{Unit Testing for Output Files}
+As for output files, DA does not generate any output file. Hence, unit testing for output files is not necessary at this point.
+
+\section{Appendix}
+\subsection{Symbolic Parameters}
+Symbolic parameters are not used the test cases documentation.
+
+\subsection{Usability Survey Questions}
+Rate the following regarding to the game:
+\newline
+1: poor, 2: below expectations, 3: satisfactory, 4: above expectations, 5: excellent
+\begin{itemize}
+    \item Ease of installation
+    \item Effectiveness of button clicks
+    \item Understandability of text
+    \item Difficulty level
+    \item Game interactivity
+    \item Satisfaction of entertainment
+    \item Overall satisfaction
+\end{itemize}
+
+
+
+ 
+\end{document}
