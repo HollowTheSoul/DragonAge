@@ -64,7 +64,7 @@ The project group has the following goals:
     \item The project should have well-defined assignments for each group member. Every member should participate in team meetings and contribute evenly.
     \item We aim to meet all the requirement for the original game concept and add features for optimization. Although the theme is different, the requirement such as the rules of the game should be achieved.
     \item The software development should be incremental and iterative. GitHub is used as the depository and each member will contribute by merging from their individual branch to master branch.
-    \item The final game needs to be produced to an executable file from python and pygame code.
+    \item The final game needs to be produced to an executable file from \textit{Python} and \textit{\textit{Pygame}} code.
 \end{itemize}
 \newpage
 \section{Functional Requirements}
@@ -75,11 +75,12 @@ Functional requirements are those requirements that provide the fundamental reas
     \item The game shall start with providing 3 types of dragon (fire, \st{water} \textcolor{red}{ice}, and poison) and sufficient resource(money) for users to put at least one dragon on the map to defend the first wave of enemy.
     \item \st{The dragons shall have type attributes and each attacking form should have a specific effect on enemy.} \textcolor{red}{Fire dragon shall do the most damage to the enemy and shall have the fastest attack speed compared to the other two dragons that are at the same level as the fire dragon.}
     \textcolor{red}{\item Ice dragon and poison dragon slows enemy down once hits the enemy. } 
-    \item The users should earn resources after killing each enemy. The resource amount earned \st{is based on the wave} \textcolor{red}{starts at} 
+    \item The users should earn resources after killing each enemy. \st{The resource amount earned is based on the wave} \textcolor{red}{For each walking enemy killed, the user gains 50 resources, and for each flying enemy killed, the user gains 60 resources. } 
     \item When users earn enough resources, they have either use them to upgrade dragons or buy new dragons.
-    \item The game shall have enemy waves that increase in movement speed and defense after each wave.
+    \item The game shall have \textcolor{red}{walking enemy waves that moves along the path, and } increase in movement speed and defense after each wave.
+    \textcolor{red}{\item The game shall have flying enemy waves that move from left of the screen to the right with a moving speed faster than walking enemy waves.}
     \item If all the lives of \st{our} \textcolor{red}{the} home base are taken by enemies, the game shall display the “game over” message.
-    \st{\item The game shall enable the start and pause button for the ease of users to set up dragons in between waves.}
+    \item \st{The game shall enable the start and pause button for the ease of users to set up dragons in between waves.}
     \textcolor{red}{\item The game shall enable the "new game" button for the user to start a new game.}
     \textcolor{red}{\item The game shall enable the "quit" button for the user to end the game.}
 \end{itemize}
